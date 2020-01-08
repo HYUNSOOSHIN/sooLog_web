@@ -620,3 +620,350 @@ pre tt:after {
     font-size: 100%;
   }
 }
+
+
+
+/* 웹 페이지 높이 100% 사용하는 코드 */
+html, body, #___gatsby {
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+}
+
+div[role="group"][tabindex] {
+  height: 100%;
+}
+
+
+/* layout.js */
+#layout {
+  margin: 0 auto;
+  max-width: 1080px;
+  padding: 0 1rem 1.45rem;
+  padding-top: 0;
+}
+
+/* header.js */
+header {
+  margin: 0 auto;
+  max-width: 100%;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+header>div {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+  margin: 0;
+}
+header>div>p {
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+header>div>p>.link {
+  color: black;
+  text-decoration: none;
+}
+header>div>div.avatar {
+  cursor: pointer;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 1.75rem;
+}
+header>div>div.avatar>img {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0;
+  border-radius: 1.75rem;
+}
+header>div>.arrowUp {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  right: 3.25rem;
+  top: 5rem;
+}
+header>div>div.menu {
+  position: absolute;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 11rem;
+  right: 3rem;
+  top: 6.7rem;
+  border: 1px solid #000000;
+}
+header>div>div.menu>a {
+  cursor: pointer;
+  margin: 0;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #000000;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+header>div>div.menu>a:hover {
+  color: rgb(137,85,246);
+}
+header>div>div.menu>div {
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+  margin: 0.2rem 0;
+}
+
+/* pages/myinfo.js */
+#myinfo {
+
+}
+#myinfo>div.info {
+  display: flex;
+  margin-bottom: 2rem;
+}
+#myinfo>div.info>img.profileImg {
+  width: 12rem;
+  height: 12rem;
+  margin: 0;
+  border-radius: 6rem;
+}
+#myinfo>div.info>div {
+  width: 100%;
+  height: 10rem;
+  padding: 2.5rem 0 0 2rem;
+}
+#myinfo>div.info>div>p.id {
+  color: rgb(137,85,246);
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+#myinfo>div.info>div>div.line {
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+  margin: 0.5rem 0;
+}
+#myinfo>div.info>div>p.nickName {
+  font-size: 2.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 0;
+  margin-top: 1rem;
+}
+#myinfo>div.info>div>p.description {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-top: 1.5rem;
+}
+#myinfo>div.content>div.tab {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+#myinfo>div.content>div.tab>p.tabItem {
+  cursor: pointer;
+  display: flex;
+  width: 7rem;
+  justify-content: center;
+  color: black;
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 0.5rem;
+  padding: 0.5rem 0;
+}
+#myinfo>div.content>div.tab>p.activeTabItem {
+  cursor: pointer;
+  display: flex;
+  width: 7rem;
+  justify-content: center;
+  color: rgb(137,85,246);
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 3px solid rgb(137,85,246);
+}
+#myinfo>div.content>div.tabcontent {
+  width: 100%;
+  margin-top: 5rem;
+}
+/* components/myinfo/Post.js */
+#myinfo_post {
+  display: flex;
+}
+#myinfo_post>div.list {
+  width: 20%;
+  height: 100%;
+}
+#myinfo_post>div.list>p {
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+#myinfo_post>div.list>div {
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+  margin: 0.3rem 0;
+}
+#myinfo_post>div.list>ul {
+  list-style: none;
+  margin: 0;
+}
+#myinfo_post>div.list>ul>li.unactive {
+  cursor: pointer;
+  margin: 0;
+  padding: 0.1rem 0;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#myinfo_post>div.list>ul>li.active {
+  cursor: pointer;
+  margin: 0;
+  padding: 0.1rem 0;
+  color: rgb(137,85,246);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#myinfo_post>div.post {
+  width: 80%;
+  height: 100%;
+  padding-left: 2rem;
+}
+#myinfo_post>div.post>div.postItem {
+  width: 100%;
+}
+#myinfo_post>div.post>div.postItem>h1 {
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+#myinfo_post>div.post>div.postItem>p.content {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+#myinfo_post>div.post>div.postItem>p.date {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/* pages/write.js */
+#write {
+  width: 100%;
+  height: 100%;
+}
+#write>div.writeHeader {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  background-color: rgb(53,58,64);
+  padding: 1rem;
+  z-index: 100;
+}
+#write>div.writeHeader>input {
+  background-color: rgb(53,58,64);
+  flex:1;
+  margin: 0 1rem;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeHeader>input::placeholder {
+  color: #fff;
+}
+#write>div.writeHeader>button.upload {
+  display: flex;
+  align-items: center;
+  background-color: inherit;
+  margin-right: 1rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #fff;
+  outline: none;
+  border-radius: 0.2rem;
+  color: #fff;
+  font-size: 0.8rem; 
+  font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeHeader>button.write {
+  background-color: rgb(137,85,246);
+  padding: 0.3rem 0.5rem;
+  border: 1px solid rgb(137,85,246);
+  outline: none;
+  border-radius: 0.2rem;
+  color: #fff;
+  font-size: 0.8rem; 
+  font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeSpace {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-top: 4rem;
+  top: 0;
+  z-index: 90;
+}
+#write>div.writeSpace>div.mdEditor {
+  background-color: rgb(40,50,56);
+  width: 50vw;
+  height: 100%;
+  padding: 1rem;
+}
+#write>div.writeSpace>div.mdEditor>input {
+  background-color: rgb(40,50,56);
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeSpace>div.mdEditor>textarea {
+  background-color: rgb(40,50,56);
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+}
+#write>div.writeSpace>div.mdEditor>input::placeholder {
+  color: #fff;
+}
+#write>div.writeSpace>div.mdEditor>textarea::-webkit-scrollbar{
+  display:none;
+}
+#write>div.writeSpace>div.mdResult {
+  background-color: #ffffff;
+  width: 50vw;
+  height: 100%;
+  padding: 1rem;
+}
+#write>div.writeSpace>div.mdResult>h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dbdbdb;
+}
+#write>div.writeSpace>div.mdResult>pre {
+  background-color: #fff;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}

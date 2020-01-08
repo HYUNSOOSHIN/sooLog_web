@@ -1,42 +1,38 @@
+import React, {useState} from "react"
 import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
+import temp from "../images/temp.png"
 
-Header.defaultProps = {
-  siteTitle: ``,
+const Header = () => {
+  const [menu, setMenu] = useState(false)
+  return (
+    <header>
+      <div>
+        <p>
+          <Link to="/" className='link'>
+            velog
+          </Link>
+        </p>
+        <div 
+          className={'avatar'}
+          onClick={()=>setMenu(!menu)}>
+          <img src={temp} alt={'avatarImg'}/>
+        </div>
+        <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />
+        <div className={'menu'} style={{display: menu?'flex':'none'}}>
+          <a href="/myinfo">내 벨로그</a>
+          <div/>
+          <a href="/write">새 글 작성</a>
+          <a href="/">임시 글</a>
+          <div/>
+          <a href="/setting">설정</a>
+          <a href="/index">로그아웃</a>
+        </div>
+      </div>
+    </header>
+  )
 }
 
 export default Header
