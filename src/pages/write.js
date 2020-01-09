@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
-import marked from 'marked'
+// import marked from 'marked'
 
 const Write = () => {
   const [title, setTitle] = useState('');
@@ -37,12 +37,12 @@ const Write = () => {
             onChange={(e)=> {
               setContent(e.target.value)
               // 마크다운 변환
-              document.getElementById('result').innerHTML = marked(document.getElementById('content').value);
+              // document.getElementById('result').innerHTML = marked(document.getElementById('content').value);
             }}/>
         </div>
         <div className={'mdResult'}>
           <h1>{title}</h1>
-          <pre id="result"></pre>
+          <pre id="result">{content}</pre>
         </div>
       </div>
     </div>
