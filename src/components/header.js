@@ -25,10 +25,10 @@ const Header = () => {
           <a href="/myinfo">내 벨로그</a>
           <div/>
           <a href="/write">새 글 작성</a>
-          <a href="/">임시 글</a>
+          <a href="/tempPost">임시 글</a>
           <div/>
           <a href="/setting">설정</a>
-          <a href="/index">로그아웃</a>
+          <a href="/">로그아웃</a>
         </div>
       </div>
     </header>
