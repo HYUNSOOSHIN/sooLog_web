@@ -1,14 +1,14 @@
-import React, {useState} from "react"
+import React from "react"
 import { Link } from "gatsby"
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import temp from "../images/temp.png"
 
-const Header = () => {
-  const [menu, setMenu] = useState(false)
+const Header = ({menu, setMenu}) => {
+
   return (
-    <header>
+    <header onClick={()=>setMenu(false)}>
       <div>
         <p>
           <Link to="/" className='link'>
@@ -17,7 +17,10 @@ const Header = () => {
         </p>
         <div 
           className={'avatar'}
-          onClick={()=>setMenu(!menu)}>
+          onClick={(e)=>{
+            e.stopPropagation()
+            setMenu(!menu)
+            }}>
           <img src={temp} alt={'avatarImg'}/>
         </div>
         <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />
