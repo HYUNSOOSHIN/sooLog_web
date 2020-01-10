@@ -1,14 +1,13 @@
-import React, {useEffect} from 'react'
+import React, {useState} from 'react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import {inject, observer} from 'mobx-react'
 
 import tempImg from "../images/temp.png"
-import { observe } from 'mobx'
-
 
 const Post = ({posts:postsStore}) => {
   const {posts} = postsStore
+  const [index, setIndex] = useState(window.location.search.replace('?',''))
 
   return (
     <Layout>
@@ -22,14 +21,14 @@ const Post = ({posts:postsStore}) => {
           </div>
         </section>
         <section className={'middle'}>
-          <h1>{posts[window.location.search.replace('?','')].title}</h1>
-          <p>{posts[window.location.search.replace('?','')].date}</p>
+          <h1>{posts[index].title}</h1>
+          <p>{posts[index].date}</p>
           <div className={'line'}/>
           <div className={'btn'}>
             <p>수정</p>
             <p>삭제</p>
           </div>
-          <p className={'content'}>{posts[window.location.search.replace('?','')].content}</p>
+          <p className={'content'}>{posts[index].content}</p>
 
           <div className={'tagList'}>
 
