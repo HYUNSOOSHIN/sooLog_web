@@ -7,8 +7,10 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import MoreVertIcon from '@material-ui/icons/MoreVert'
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import marked from 'marked'
+import { inject, observer } from 'mobx-react'
 
-const Write = () => {
+const Write = ({posts: postsStore}) => {
+  const {posts} = postsStore
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -28,10 +30,19 @@ const Write = () => {
             <ImageOutlinedIcon style={{width: '1rem', marginRight: '0.5rem'}} />
             업로드
           </button>
-          <button className='write'>
+          <button 
+            className='write'
+            onClick={async()=>{
+              const post = {}
+              post.title = title
+              post.content = content
+              post.date = '언젠가'
+              await postsStore.addPost(post)
+              window.location.replace('/post')
+            }}>
             작성하기
           </button>
-          <MoreVertIcon style={{color: '#ffffff', margin: '0 1rem'}} />
+          <MoreVertIcon style={{ cursor: 'pointer', color: '#ffffff', margin: '0 1rem'}} />
         </div>
         <div className='writeSpace'>
           <div className='mdEditor'>
@@ -55,4 +66,4 @@ const Write = () => {
   )
 }
 
-export default Write
+export default inject('posts')(observer(Write))

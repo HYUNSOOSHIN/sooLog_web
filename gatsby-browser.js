@@ -5,3 +5,7 @@
  */
 
 // You can delete this file if you're not using it
+
+import provideStores from './src/provide-stores'
+
+export const wrapRootElement = provideStores

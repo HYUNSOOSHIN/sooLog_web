@@ -853,18 +853,26 @@ header>div>div.menu>div {
 }
 #myinfo_post>div.post>div.postItem {
   width: 100%;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #dbdbdb;
 }
-#myinfo_post>div.post>div.postItem>h1 {
-  font-size: 1.3rem;
+#myinfo_post>div.post>div.postItem>a {
+  color: #222222;
+  font-size: 1.25rem;
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
   margin: 0;
-  margin-bottom: 0.5rem;
+}
+#myinfo_post>div.post>div.postItem>a:hover {
+  color: rgb(126,99,239);
 }
 #myinfo_post>div.post>div.postItem>p.content {
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
 }
 #myinfo_post>div.post>div.postItem>p.date {
   font-size: 1rem;
@@ -899,6 +907,7 @@ header>div>div.menu>div {
   color: #fff;
 }
 #write>div.writeHeader>button.upload {
+  cursor: pointer;
   display: flex;
   align-items: center;
   background-color: inherit;
@@ -912,6 +921,7 @@ header>div>div.menu>div {
   font-family: Arial, Helvetica, sans-serif;
 }
 #write>div.writeHeader>button.write {
+  cursor: pointer;
   background-color: rgb(137,85,246);
   padding: 0.3rem 0.5rem;
   border: 1px solid rgb(137,85,246);
@@ -985,6 +995,141 @@ header>div>div.menu>div {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
+}
+
+/* page/post.js */
+#post {}
+#post>section.top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+#post>section.top>img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 2rem;
+  margin: 0;
+}
+#post>section.top>div>p {
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-left: 1rem;
+}
+#post>section.middle {}
+#post>section.middle>h1 {
+  margin: 0;
+  margin-bottom: 0.4rem;
+}
+#post>section.middle>p {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+#post>section.middle>div.line {
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+  margin: 0.5rem 0;
+}
+#post>section.middle>div.btn {
+  display: flex;
+  justify-content: flex-end;
+}
+#post>section.middle>div.btn>p {
+  cursor: pointer;
+  color: #a2a2a2;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-left: 0.5rem;
+}
+#post>section.middle>div.tagList {
+  display: flex;
+}
+#post>section.middle>p.content {
+  font-size: 1.6rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 5rem 0;
+}
+#post>section.bottom>p {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+#post>section.bottom>textarea {
+  width: 100%;
+  border: 1px solid #dbdbdb;
+  border-radius: 0.2rem;
+  resize: none;
+  outline: none;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#post>section.bottom>div {
+  display: flex;
+  justify-content: flex-end;
+}
+#post>section.bottom>div>p {
+  cursor: pointer;
+  background-color: rgb(137,85,246);
+  width: max-content;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* page/tempPost.js */
+#tempPost {}
+#tempPost>h1 {}
+#tempPost>div {
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+}
+#tempPost>section.tempPostList {
+  display: flex;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1.5rem 1rem;
+  border: 1px solid #dbdbdb;
+}
+#tempPost>section.tempPostList>div.postInfo {
+  flex: 1;
+}
+#tempPost>section.tempPostList>div>p.title {
+  font-size: 1.5rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+#tempPost>section.tempPostList>div>p.time {
+  font-size: 0.9rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+#tempPost>section.tempPostList>div.trashDiv {
+  display: flex;
+  width: 2.2rem;
+  height: 2.2rem;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #dbdbdb;
+  border-radius: 1.1rem;
+  color: #dbdbdb;
+}
+#tempPost>section.tempPostList>div.trashDiv:hover {
+  border: 1.5px solid rgb(232,95,89);
+  color: rgb(232,95,89)
+}
+#tempPost>section.tempPostList>div>.trashBtn {
+  width: 1.7rem;
+  height: 1.6rem;
 }
 
 /* page/settings.js */
