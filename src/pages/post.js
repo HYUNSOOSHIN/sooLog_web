@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import {inject, observer} from 'mobx-react'
@@ -7,7 +7,11 @@ import tempImg from "../images/temp.png"
 
 const Post = ({posts:postsStore}) => {
   const {posts} = postsStore
-  const [index, setIndex] = useState(window.location.search.replace('?',''))
+  const [index, setIndex] = useState(0)
+
+  useEffect(()=>{
+    setIndex(window.location.search.replace('?',''))
+  },[])
 
   return (
     <Layout>
