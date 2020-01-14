@@ -43,8 +43,8 @@ const Setting = () => {
         <section className={'profile'}>
           <p>프로필</p>
           <div className={'userInfo'}>
-            <div>
-              <img src={tempImg} />
+            <div className={'thumbnail'}>
+              <img src={tempImg} alt={'temp'} />
               <p className={'imageBtn'}>썸네일 변경</p>
             </div>
             <div className={'text'}>
@@ -65,6 +65,7 @@ const Setting = () => {
                         fontFamily: 'Arial, Helvetica, sans-serif',
                         margin: 0
                       }} 
+                     
                       onClick={()=>{
                         setEdit(false)
                         setError(false)
@@ -79,6 +80,7 @@ const Setting = () => {
                         margin: 0,
                         marginLeft: '0.5rem'
                       }} 
+                     
                       onClick={()=>{
                         if(limitWC-description.length>-1){
                           setEdit(false)
@@ -90,6 +92,7 @@ const Setting = () => {
                   </div> 
                   : <p 
                       style={{cursor: 'pointer'}} 
+                     
                       onClick={()=>{
                         setEdit(true)
                       }}
@@ -134,13 +137,15 @@ const Setting = () => {
               <>
                 <input type='text' style={{width: '30rem', padding: '0.3rem', outline: 'none', border: '1px solid #dbdbdb', borderRadius: '0.3rem'}} value={emailId} onChange={(e)=>setEmailId(e.target.value)}/>
                 <p
-                  style={{cursor: 'pointer', margin: 0, margin: '0 0.5rem', padding: '0.3rem', border: '1px solid rgb(126,99,239)', borderRadius: '0.3rem', color: 'rgb(126,99,239)'}} 
+                  style={{cursor: 'pointer', margin: '0 0.5rem', padding: '0.3rem', border: '1px solid rgb(126,99,239)', borderRadius: '0.3rem', color: 'rgb(126,99,239)'}} 
+                 
                   onClick={()=>{
                     setEmailEdit(false)
                     setReal2(emailId)
                 }}>변경</p>
                 <p
                   style={{cursor: 'pointer', margin: 0, padding: '0.3rem', border: '1px solid #bbbbbb', borderRadius: '0.3rem'}} 
+                 
                   onClick={()=>{
                     setEmailEdit(false)
                     setEmailId(real2)

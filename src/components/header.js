@@ -8,11 +8,12 @@ import temp from "../images/temp.png"
 const Header = ({menu, setMenu}) => {
 
   return (
-    <header onClick={()=>setMenu(false)}>
+    <header 
+      onClick={()=>setMenu(false)}>
       <div>
         <p>
           <Link to="/" className='link'>
-            velog
+            sooLog
           </Link>
         </p>
         <div 
@@ -25,7 +26,7 @@ const Header = ({menu, setMenu}) => {
         </div>
         <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />
         <div className={'menu'} style={{display: menu?'flex':'none'}}>
-          <a href="/myinfo">내 벨로그</a>
+          <a href="/myinfo">내 정보</a>
           <div/>
           <a href="/write">새 글 작성</a>
           <a href="/tempPost">임시 글</a>

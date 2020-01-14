@@ -45,12 +45,16 @@ const Myinfo = () => {
         <div className={'content'}>
           <div className={'tab'}>
             <p className={activeTab===1?'activeTabItem':'tabItem'}
+             
               onClick={()=>setActiveTab(1)}>글</p>
             <p className={activeTab===2?'activeTabItem':'tabItem'}
+             
               onClick={()=>setActiveTab(2)}>시리즈</p>
             <p className={activeTab===3?'activeTabItem':'tabItem'}
+             
               onClick={()=>setActiveTab(3)}>활동</p>
             <p className={activeTab===4?'activeTabItem':'tabItem'}
+             
               onClick={()=>setActiveTab(4)}>소개</p>
           </div>
           <div className={'tabcontent'}>

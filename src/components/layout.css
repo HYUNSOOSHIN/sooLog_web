@@ -674,9 +674,10 @@ header>div {
   margin: 0;
 }
 header>div>p {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
+  line-height: 1.5;
 }
 header>div>p>.link {
   color: black;
@@ -782,25 +783,25 @@ header>div>div.menu>div {
 #myinfo>div.content>div.tab>p.tabItem {
   cursor: pointer;
   display: flex;
-  width: 7rem;
+  width: 5rem;
   justify-content: center;
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0 0.5rem;
+  margin: 0 1rem;
   padding: 0.5rem 0;
 }
 #myinfo>div.content>div.tab>p.activeTabItem {
   cursor: pointer;
   display: flex;
-  width: 7rem;
+  width: 5rem;
   justify-content: center;
   color: rgb(137,85,246);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-family: Arial, Helvetica, sans-serif;
-  margin: 0 0.5rem;
+  margin: 0 1rem;
   padding: 0.5rem 0;
-  border-bottom: 3px solid rgb(137,85,246);
+  border-bottom: 2px solid rgb(137,85,246);
 }
 #myinfo>div.content>div.tabcontent {
   width: 100%;
@@ -892,21 +893,32 @@ header>div>div.menu>div {
   align-items: center;
   background-color: rgb(53,58,64);
   padding: 1rem;
-  z-index: 100;
+  z-index: 1000;
 }
-#write>div.writeHeader>input {
+#write>div.writeHeader>div.left {
+  display: flex;
+  flex:1;
+  align-items: center;
+}
+#write>div.writeHeader>div.left>input {
   background-color: rgb(53,58,64);
   flex:1;
   margin: 0 1rem;
   border: none;
+  outline: none;
   color: #fff;
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
 }
-#write>div.writeHeader>input::placeholder {
+#write>div.writeHeader>div.left>input::placeholder {
   color: #fff;
 }
-#write>div.writeHeader>button.upload {
+#write>div.writeHeader>div.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#write>div.writeHeader>div.right>label.upload {
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -920,7 +932,7 @@ header>div>div.menu>div {
   font-size: 0.8rem; 
   font-family: Arial, Helvetica, sans-serif;
 }
-#write>div.writeHeader>button.write {
+#write>div.writeHeader>div.right>button.write {
   cursor: pointer;
   background-color: rgb(137,85,246);
   padding: 0.3rem 0.5rem;
@@ -930,6 +942,197 @@ header>div>div.menu>div {
   color: #fff;
   font-size: 0.8rem; 
   font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeModal {
+  position: absolute;
+  background-color: rgb(75,81,88);
+  width: 17.5rem;
+  height: 25rem;
+  top: 5rem;
+  right: 1rem;
+  z-index: 1000;
+}
+#write>div.writeModal>div.writeModal_top {
+  padding: 1.5rem;
+}
+#write>div.writeModal>div.writeModal_top>p {
+  color: #fff;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+#write>div.writeModal>div.writeModal_top>p.title {
+  color: rgb(207,212,218);
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-top: 1rem;
+}
+#write>div.writeModal>div.writeModal_top>div.tag {
+  display: flex;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+#write>div.writeModal>div.writeModal_top>div.tag>input {
+  flex: 1;
+  padding-left: 0.5rem;
+  font-size: 0.9rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeModal>div.writeModal_top>div.tag>p {
+  background-color: rgb(104,113,123);
+  padding: 0 0.7rem;
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  line-height: 2.2;
+}
+#write>div.writeModal>div.writeModal_top>div.upload {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 0.3rem;
+}
+#write>div.writeModal>div.writeModal_top>div.upload>p {
+  font-size: 0.9rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+#write>div.writeModal>div.writeModal_top>div.series {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+}
+#write>div.writeModal>div.writeModal_top>div.series>p {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 0;
+}
+#write>div.writeModal>div.writeModal_bottom {
+  background-color: rgb(54,59,65);
+  padding: 1.5rem;
+}
+#write>div.writeModal>div.writeModal_bottom>div.save {
+  justify-content: space-between;
+  display: flex;
+}
+#write>div.writeModal>div.writeModal_bottom>div.save>p {
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0.2rem 2rem;
+  border-radius: 0.3rem;
+}
+#write>div.writeModal>div.writeModal_bottom>div.private {
+  display: flex;
+  margin-top: 0.7rem;
+}
+#write>div.writeModal>div.writeModal_bottom>div.private>p { 
+  color: rgb(207,106,49);
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 0;
+  margin-left: 2rem;
+}
+#write>div.writeModal>div.writeModal_bottom>div.private>div.active {
+  display: flex;
+  background-color: rgb(146,122,242);
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+#write>div.writeModal>div.writeModal_bottom>div.private>div.inactive {
+  display: flex;
+  background-color: #fff;
+  color: rgb(104,113,123);;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+#write>div.writeModal>div.writeModal_bottom>div.private>div>p {
+  font-size: 0.7rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+#write>div.rigthModalContainer {
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+#write>div.rigthModalContainer>div.rigthModal  {
+  position: absolute;
+  background-color: rgb(74,80,87);
+  width: 15rem;
+  height: 100%;
+  padding: 1rem;
+  right: 0;
+}
+#write>div.rigthModalContainer>div.rigthModal>p {
+  color: #fff;
+  font-size: 0.9rem; 
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin-top: 4rem;
+}
+#write>div.rigthModalContainer>div.rigthModal>div.layout_set {
+  display: flex;
+  justify-content: space-between;
+}
+#write>div.rigthModalContainer>div.rigthModal>div.layout_set>div {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(54,59,65);
+  width: 4rem;
+  justify-content: center;
+  align-items: center;
+}
+#write>div.rigthModalContainer>div.rigthModal>div.layout_set>div.selected {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(54,59,65);
+  width: 4rem;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #fff;
+}
+#write>div.rigthModalContainer>div.rigthModal>div.layout_set>div>img {
+  width: 0.8rem;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+#write>div.rigthModalContainer>div.rigthModal>div.layout_set>div>p {
+  color: #fff;
+  font-size: 0.7rem; 
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+#write>div.rigthModalContainer>div.rigthModal>div.temp_save {
+  display: flex;
+  flex-direction: column;
+}
+#write>div.rigthModalContainer>div.rigthModal>div.temp_save>p {
+  color: #fff;
+  font-size: 0.75rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
 }
 #write>div.writeSpace {
   position: absolute;
@@ -942,18 +1145,9 @@ header>div>div.menu>div {
 }
 #write>div.writeSpace>div.mdEditor {
   background-color: rgb(40,50,56);
-  width: 50vw;
+  width: 100%;
   height: 100%;
   padding: 1rem;
-}
-#write>div.writeSpace>div.mdEditor>input {
-  background-color: rgb(40,50,56);
-  width: 100%;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
 }
 #write>div.writeSpace>div.mdEditor>textarea {
   background-color: rgb(40,50,56);
@@ -966,16 +1160,13 @@ header>div>div.menu>div {
   font-family: Arial, Helvetica, sans-serif;
   resize: none;
 }
-#write>div.writeSpace>div.mdEditor>input::placeholder {
-  color: #fff;
-}
 #write>div.writeSpace>div.mdEditor>textarea::-webkit-scrollbar{
   display:none;
 }
 #write>div.writeSpace>div.mdResult {
   overflow-y: scroll;
   background-color: #ffffff;
-  width: 50vw;
+  width: 100%;
   height: 100%;
   padding: 1rem;
 }
@@ -990,6 +1181,8 @@ header>div>div.menu>div {
   border-bottom: 1px solid #dbdbdb;
 }
 #write>div.writeSpace>div.mdResult>pre {
+  /* 가로길이 넘어갔을 때 스크롤 안생기고 줄바꿈으로 처리하는 방법 */
+  white-space: pre-wrap; 
   background-color: #fff;
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -1155,16 +1348,12 @@ header>div>div.menu>div {
   display: flex;
   margin-top: 1rem;
 }
-#setting>section.profile>div.userInfo>div.text {
-  width: 100%;
-  padding: 0 1rem;
-}
-#setting>section.profile>div.userInfo>div>img {
+#setting>section.profile>div.userInfo>div.thumbnail>img {
   width: 12rem;
   height: 12rem;
   margin: 0;
 }
-#setting>section.profile>div.userInfo>div>p.imageBtn {
+#setting>section.profile>div.userInfo>div.thumbnail>p.imageBtn {
   cursor: pointer;
   background-color: rgb(126,99,239);
   width: 12rem;
@@ -1175,6 +1364,10 @@ header>div>div.menu>div {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin: 0;
+}
+#setting>section.profile>div.userInfo>div.text {
+  width: 100%;
+  padding: 0 1rem;
 }
 #setting>section.profile>div.userInfo>div.text>p.nickName {
   font-size: 1.5rem;
@@ -1309,4 +1502,73 @@ header>div>div.menu>div {
   margin-top: 1rem;
   margin-bottom: 5rem;
   padding: 0.1rem 1rem;
+}
+
+
+
+
+
+@media only screen and (max-width: 480px) {
+  html {
+    font-size: 100%;
+  }
+
+
+  #myinfo>div.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #write>div.writeSpace {
+    padding-top: 6rem;
+  }
+  /* #write>div.writeSpace>div.mdResult>h1 {
+    font-size: 1.2rem;
+  }
+  #write>div.writeSpace>div.mdResult>pre {
+    font-size: 0.9rem;
+  } */
+  #write>div.writeHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  #write>div.writeHeader>div.left {
+    width: 100%;
+  }
+  #write>div.writeHeader>div.right {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+
+
+  #setting>section.profile>div.userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #setting>section.profile>div.userInfo>div.thumbnail {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  #setting>section.profile>div.userInfo>div.thumbnail>p.imageBtn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  #setting>section.profile>div.userInfo>div>p.imageBtn {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    color: #fff;
+    font-size: 1.2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    margin: 0;
+  }
+  #setting>section.profile>div.userInfo>div.text>p.nickName {
+    margin-top: 1.5rem;
+  }
 }

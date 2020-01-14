@@ -10,7 +10,10 @@ const Post = ({posts:postsStore}) => {
   const [index, setIndex] = useState(0)
 
   useEffect(()=>{
-    setIndex(window.location.search.replace('?',''))
+    setIndex(window.location.search.replace('?','')) 
+    // gatsby build 하면 window 떔에 에러 뜸.
+    // 첫번째 게시물 떴다가 다른 게시물 뜨는거 수정해야댐. 
+    // 게시물 리스트에서 클릭하면 로컬스토리지에 저장했다가 불러오면 될거 같음
   },[])
 
   return (
@@ -18,7 +21,7 @@ const Post = ({posts:postsStore}) => {
       <SEO title={'Post'}/>
       <div id={'post'}>
         <section className={'top'}>
-          <img src={tempImg}/>
+          <img src={tempImg} alt={'temp'}/>
           <div>
             <p>@shs0655</p>
             <p>어금니금니입니다.</p>
