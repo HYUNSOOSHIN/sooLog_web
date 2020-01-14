@@ -662,6 +662,7 @@ div[role="group"][tabindex] {
 
 /* header.js */
 header {
+  background-color: inherit;
   margin: 0 auto;
   max-width: 100%;
   padding: 2rem;
@@ -731,10 +732,130 @@ header>div>div.menu>div {
   margin: 0.2rem 0;
 }
 
-/* pages/myinfo.js */
-#myinfo {
-
+/* pages/index.js */
+#index {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
+#index>div.sidebar {
+  width: 15rem;
+  height: 100%;
+}
+#index>div.sidebar>p {
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding-top: 2rem;
+  padding-left: 2rem;
+  line-height: 1.5;
+}
+#index>div.sidebar>p>.link {
+  color: black;
+  text-decoration: none;
+}
+#index>div.sidebar>input {
+  background-color: rgb(242,243,245);
+  width: 10rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 0.3rem;
+  outline: none;
+  margin: 0.5rem 2rem;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#index>div.sidebar>input:focus {
+  background-color: #fff;
+  border: 1px solid rgb(115,86,234);
+}
+#index>div.sidebar>div.sidebarItem {
+  cursor: pointer;
+  display: flex;
+  padding: 0.7rem 2rem;
+}
+#index>div.sidebar>div.s_sidebarItem {
+  cursor: pointer;
+  display: flex;
+  padding: 0.7rem 2rem;
+  color: rgb(115,86,234);
+  border-right: 2px solid rgb(115,86,234);
+}
+#index>div.sidebar>div:hover {
+  background-color: rgb(248,249,250);
+}
+#index>div.sidebar>div>svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+#index>div.sidebar>div>p {
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-left: 1rem;
+}
+#index>div.content {
+  background-color: rgb(242,243,245);
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+}
+#index>div.content>div {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+#index>div.content>div>div.avatar {
+  cursor: pointer;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 1.75rem;
+}
+#index>div.content>div>div.avatar>img {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0;
+  border-radius: 1.75rem;
+}
+#index>div.content>div>.arrowUp {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  right: 2.25rem;
+  top: 5rem;
+}
+#index>div.content>div>div.menu {
+  position: absolute;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 8.5rem;
+  right: 2rem;
+  top: 6.7rem;
+  border: 1px solid #000000;
+}
+#index>div.content>div>div.menu>a {
+  cursor: pointer;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+  color: #000000;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#index>div.content>div>div.menu>a:hover {
+  color: rgb(137,85,246);
+}
+#index>div.content>div>div.menu>div {
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+  margin: 0.2rem 0;
+}
+
+
+/* pages/myinfo.js */
+#myinfo {}
 #myinfo>div.info {
   display: flex;
   margin-bottom: 2rem;

@@ -107,7 +107,11 @@ const Write = ({posts: postsStore}) => {
   return (
     <>
       <SEO title="Write"/>
-      <div id='write'>
+      <div id='write' 
+        onClick={()=>{
+          setHeaderModal(false) 
+          setRightModal(false)
+      }}>
         <div className='writeHeader'>
           <div className='left'>
             <ArrowBackIcon style={{color: '#ffffff', cursor: 'pointer'}} onClick={()=> {
@@ -126,15 +130,22 @@ const Write = ({posts: postsStore}) => {
             </label>
             <button 
               className='write'
-              onClick={()=>setHeaderModal(!headerModal)}>
+              onClick={(e)=>{
+                e.stopPropagation()
+                setHeaderModal(!headerModal)
+                setRightModal(false)
+              }}>
               작성하기
             </button>
-            <div>
+            <div onClick={e=>{
+              e.stopPropagation()
+              setHeaderModal(false)
+            }}>
               {rightModal?
                 <CloseIcon className={'rightbtn'} 
-                onClick={()=> setRightModal(!rightModal)}/>:
+                onClick={()=> setRightModal(false)}/>:
                 <MoreVertIcon className={'rightbtn'} 
-                onClick={()=> setRightModal(!rightModal)}/>
+                onClick={()=> setRightModal(true)}/>
               }
             </div>
           </div>
