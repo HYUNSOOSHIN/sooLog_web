@@ -932,6 +932,10 @@ header>div>div.menu>div {
   font-size: 0.8rem; 
   font-family: Arial, Helvetica, sans-serif;
 }
+#write>div.writeHeader>div.right>label.upload:hover {
+  background-color: #fff;
+  color: rgb(53,58,64);
+}
 #write>div.writeHeader>div.right>button.write {
   cursor: pointer;
   background-color: rgb(137,85,246);
@@ -942,6 +946,27 @@ header>div>div.menu>div {
   color: #fff;
   font-size: 0.8rem; 
   font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeHeader>div.right>button.write:hover {
+  background-color: rgb(146,121,242);
+}
+#write>div.writeHeader>div.right>div {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
+  border-radius: 1rem;
+}
+#write>div.writeHeader>div.right>div:hover {
+  background-color: rgb(78,83,88);
+}
+#write>div.writeHeader>div.right>div>.rightbtn {
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #ffffff;
 }
 #write>div.writeModal {
   position: absolute;
@@ -1365,6 +1390,9 @@ header>div>div.menu>div {
   text-align: center;
   margin: 0;
 }
+#setting>section.profile>div.userInfo>div.thumbnail>p.imageBtn:hover {
+  background-color: rgb(146,121,242);
+}
 #setting>section.profile>div.userInfo>div.text {
   width: 100%;
   padding: 0 1rem;
@@ -1402,6 +1430,16 @@ header>div>div.menu>div {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 }
+#setting>section.profile>div.userInfo>div.text>div>div {
+  display: flex;
+}
+#setting>section.profile>div.userInfo>div.text>div>div>p {
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-left: 0.5rem;
+}
 #setting>section.profile>div.social {
   margin-top: 1rem;
 }
@@ -1429,6 +1467,22 @@ header>div>div.menu>div {
   border-radius: 0.5rem;
   font-size: 1rem; 
   font-family: Arial, Helvetica, sans-serif;
+}
+#setting>section.profile>div.social>div.socailsave {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+#setting>section.profile>div.social>div.socailsave>p {
+  cursor: pointer;
+  background-color: rgb(137,85,246);
+  padding: 0.5rem;
+  border-radius: 0.2rem;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#setting>section.profile>div.social>div.socailsave>p:hover {
+  background-color: rgb(146,121,242);
 }
 #setting>section.email {
   margin-top: 4rem;
@@ -1461,13 +1515,17 @@ header>div>div.menu>div {
   cursor: pointer;
   width: max-content;
   padding: 0.3rem;
-  border: 1px solid #222222;
+  border: 1px solid rgb(75,80,87);
   border-radius: 0.2rem;
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
   margin-top: 0.5rem;
+}
+#setting>section.email>div.emailSetting>p.saveBtn:hover {
+  background-color: rgb(75,80,87);
+  color: #fff;
 }
 #setting>section.email>div.emailSetting>div {
   display: flex;
@@ -1502,6 +1560,10 @@ header>div>div.menu>div {
   margin-top: 1rem;
   margin-bottom: 5rem;
   padding: 0.1rem 1rem;
+}
+#setting>section.etc>p.outBtn:hover {
+  background-color: rgb(207,66,59);
+  color: #fff;
 }
 
 

@@ -57,46 +57,24 @@ const Setting = () => {
               <div>
                 <p style={{color: error?'#ff0000':'#000000'}}>{error?'글자 수를 초과하였습니다.':edit?`남은 글자 수: ${limitWC-description.length}`:''}</p>
                 {edit?
-                  <div style={{display: 'flex'}}>
-                    <p 
-                      style={{
-                        cursor: 'pointer',
-                        fontSize: '1rem',
-                        fontFamily: 'Arial, Helvetica, sans-serif',
-                        margin: 0
-                      }} 
-                     
-                      onClick={()=>{
+                  <div>
+                    <p onClick={()=>{
                         setEdit(false)
                         setError(false)
                         setDescription(real)
-                      }}
-                    >취소</p>
-                    <p 
-                      style={{
-                        cursor: 'pointer',
-                        fontSize: '1rem',
-                        fontFamily: 'Arial, Helvetica, sans-serif',
-                        margin: 0,
-                        marginLeft: '0.5rem'
-                      }} 
-                     
-                      onClick={()=>{
+                    }}>취소</p>
+                    <p onClick={()=>{
                         if(limitWC-description.length>-1){
                           setEdit(false)
                           setReal(description)
                         } 
                         else setError(true)
-                      }}
-                    >저장</p>
+                    }}>저장</p>
                   </div> 
-                  : <p 
-                      style={{cursor: 'pointer'}} 
-                     
+                  : <p style={{cursor: 'pointer'}} 
                       onClick={()=>{
                         setEdit(true)
-                      }}
-                    >수정</p>
+                    }}>수정</p>
                 }
               </div>
             </div>
@@ -124,8 +102,8 @@ const Setting = () => {
               <p>홈페이지</p>
               <input type='text' value={homepage} onChange={(e)=>setHomepage(e.target.value)}/>
             </div>
-            <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '1rem'}}>
-              <p style={{cursor: 'pointer', backgroundColor: 'rgb(137,85,246)', padding: '0.5rem', borderRadius: '0.2rem', color: '#fff', fontFamily: 'Arial, Helvetica, sans-serif'}}>저장</p>
+            <div className={'socailsave'}>
+              <p>저장</p>
             </div>
           </div>
         </section>

@@ -81,15 +81,15 @@ const Write = ({posts: postsStore}) => {
         <div className={'rigthModal'} onClick={(e)=> e.stopPropagation()}>
           <p>레이아웃 설정</p>
           <div className={'layout_set'}>
-            <div className={selected==1? 'selected':null} onClick={()=>{setSelected(1)}}>
+            <div className={selected===1? 'selected':null} onClick={()=>{setSelected(1)}}>
               <img src={left} alt={'editor'}/>
               <p>에디터만</p>
             </div>
-            <div className={selected==2? 'selected':null} onClick={()=>{setSelected(2)}}>
+            <div className={selected===2? 'selected':null} onClick={()=>{setSelected(2)}}>
               <img src={both} alt={'both'}/>
               <p>둘 다 보기</p>
             </div>
-            <div className={selected==3? 'selected':null} onClick={()=>{setSelected(3)}}>
+            <div className={selected===3? 'selected':null} onClick={()=>{setSelected(3)}}>
               <img src={right} alt={'sample'}/>
               <p>미리보기만</p>
             </div>
@@ -129,18 +129,20 @@ const Write = ({posts: postsStore}) => {
               onClick={()=>setHeaderModal(!headerModal)}>
               작성하기
             </button>
-            {rightModal?
-              <CloseIcon style={{ cursor: 'pointer', color: '#ffffff', marginLeft: '1rem'}} 
-              onClick={()=> setRightModal(!rightModal)}/>:
-              <MoreVertIcon style={{ cursor: 'pointer', color: '#ffffff', marginLeft: '1rem'}} 
-              onClick={()=> setRightModal(!rightModal)}/>
-            }
+            <div>
+              {rightModal?
+                <CloseIcon className={'rightbtn'} 
+                onClick={()=> setRightModal(!rightModal)}/>:
+                <MoreVertIcon className={'rightbtn'} 
+                onClick={()=> setRightModal(!rightModal)}/>
+              }
+            </div>
           </div>
         </div>
         {renderModal()}
         {renderRightModal()}
         <div className='writeSpace'>
-          <div className='mdEditor' style={{display: selected==3? 'none':'block'}}>
+          <div className='mdEditor' style={{display: selected===3? 'none':'block'}}>
             <textarea 
               placeholder='당신의 이야기를 적어보세요...'
               id='content'
@@ -151,7 +153,7 @@ const Write = ({posts: postsStore}) => {
                 document.getElementById('result').innerHTML = marked(document.getElementById('content').value);
               }}/>
           </div>
-          <div className='mdResult' style={{display: selected==1? 'none':'block'}}>
+          <div className='mdResult' style={{display: selected===1? 'none':'block'}}>
             <h1>{title}</h1>
             <pre id="result"></pre>
           </div>
