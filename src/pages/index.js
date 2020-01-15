@@ -73,12 +73,14 @@ const Index = () => {
       <div className={'content'}>
         <div>
           <pre>
-            앞으로 할 일들<br/>
+            앞으로 할 일들<br/><br/>
             1. 서버구현<br/>
-            -로그인<br/>
-            -게시글<br/>
+            - axios<br/>
+            - 로그인(jwt토큰, react-cookies)<br/>
+            - 게시글<br/><br/>
             2. 프론트<br/>
-            -마크다운 메뉴<br/>
+            - 마크다운 메뉴<br/>
+            - 내 정보 페이지 소셜 추가<br/>
           </pre>
         </div>
       </div>
