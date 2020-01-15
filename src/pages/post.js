@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import {inject, observer} from 'mobx-react'
 
+import Tag from '../components/tag'
 import tempImg from "../images/temp.png"
 
 const Post = ({posts:postsStore}) => {
@@ -38,9 +39,10 @@ const Post = ({posts:postsStore}) => {
           <p className={'content'}>{posts[index].content}</p>
 
           <div className={'tagList'}>
-
+            {posts[index].tag.map((tag,idx)=>
+              <Tag name={tag} key={idx}/>
+            )}
           </div>
-
         </section>
         <section className={'bottom'}>
           <p>0개의 댓글</p>

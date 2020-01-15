@@ -12,6 +12,7 @@ import PublishIcon from '@material-ui/icons/Publish'
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd'
 import PublicIcon from '@material-ui/icons/Public'
 import LockIcon from '@material-ui/icons/Lock'
+import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 
 import left from '../images/write_left.png'
 import both from '../images/write_both.png'
@@ -24,16 +25,41 @@ const Write = ({posts: postsStore}) => {
   const [selected, setSelected] = useState(2) // 에디터 레이아웃 인덱스
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [tagText, setTagText] = useState('')
+  const [tagList, setTagList] = useState([])
+  const [privatePost, setPrivatePost] = useState(false)
 
   function renderModal() {
     return (
-      <div className={'writeModal'} style={{ display: headerModal? 'block':'none' }}>
+      <div className={'writeModal'} style={{ display: headerModal? 'block':'none' }} 
+        onClick={(e)=> e.stopPropagation()}
+      >
         <div className={'writeModal_top'}>
             <p>새 글 작성하기</p>
             <p className={'title'}>태그 설정</p>
             <div className={'tag'}>
-              <input type='text' placeholder={'태그를 입력하세요'}/>
-              <p>등록</p>
+              <input type='text' 
+                placeholder={'태그를 입력하세요'}
+                value={tagText}
+                onChange={(e)=>setTagText(e.target.value)}/>
+              <div onClick={()=>{
+                if(tagText!=='') setTagList([...tagList, tagText])
+                setTagText('')
+                }}>등록</div>
+            </div>
+            <div className={'tagList'}>
+              {tagList.map((item,index)=>
+                <div key={index}>
+                  {item}
+                  <div
+                    onClick={()=>{
+                      const arr = tagList.splice(index,1)
+                      setTagList(tagList)
+                    }}>
+                      <RemoveOutlinedIcon />
+                  </div>
+                </div>
+              )}
             </div>
             <p className={'title'}>썸네일 지정</p>
             <div className={'upload'}>
@@ -48,20 +74,21 @@ const Write = ({posts: postsStore}) => {
         </div>
         <div className={'writeModal_bottom'}>
           <div className={'save'}>
-            <p style={{backgroundColor: 'rgb(104,113,123)'}}>임시저장</p>
-            <p style={{backgroundColor: 'rgb(127,100,239)'}} 
-             
+            <p className={'tempsave'}>임시저장</p>
+            <p className={'save'} 
               onClick={()=>{
               window.location.replace('/post')
               }}
             >작성하기</p>
           </div>
           <div className={'private'}>
-            <div className={'active'}>
+            <div className={privatePost? 'inactive':'active'}
+              onClick={()=>setPrivatePost(false)}>
               <PublicIcon style={{width: '0.8rem', height: '0.8rem'}} />
               <p>전체 공개</p>
             </div>
-            <div className={'inactive'}>
+            <div className={privatePost? 'active':'inactive'}
+              onClick={()=>setPrivatePost(true)}>
               <LockIcon style={{width: '0.8rem', height: '0.8rem'}} />
               <p>나만 보기</p>
             </div>
@@ -76,8 +103,7 @@ const Write = ({posts: postsStore}) => {
     return (
       <div 
         className={'rigthModalContainer'} 
-        style={{ display: rightModal? 'block':'none'}}
-        onClick={()=>setRightModal(false)}>
+        style={{ display: rightModal? 'block':'none'}}>
         <div className={'rigthModal'} onClick={(e)=> e.stopPropagation()}>
           <p>레이아웃 설정</p>
           <div className={'layout_set'}>

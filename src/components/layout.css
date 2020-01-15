@@ -662,6 +662,7 @@ div[role="group"][tabindex] {
 
 /* header.js */
 header {
+  user-select: none;
   background-color: inherit;
   margin: 0 auto;
   max-width: 100%;
@@ -738,21 +739,77 @@ header>div>div.menu>div {
   width: 100%;
   height: 100%;
 }
-#index>div.sidebar {
-  width: 15rem;
-  height: 100%;
+#index>div.header {
+  user-select: none;
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2rem;
 }
-#index>div.sidebar>p {
+#index>div.header>p {
   font-size: 2rem;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
-  padding-top: 2rem;
-  padding-left: 2rem;
   line-height: 1.5;
 }
-#index>div.sidebar>p>.link {
+#index>div.header>p>.link {
   color: black;
   text-decoration: none;
+}
+
+#index>div.header>div.avatar {
+  cursor: pointer;
+  width: 3.5rem;
+  height: 3.5rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 1.75rem;
+}
+#index>div.header>div.avatar>img {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0;
+  border-radius: 1.75rem;
+}
+#index>div.header>.arrowUp {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  right: 2.25rem;
+  top: 5rem;
+}
+#index>div.header>div.menu {
+  position: absolute;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 8.5rem;
+  right: 2rem;
+  top: 6.7rem;
+  border: 1px solid #000000;
+}
+#index>div.header>div.menu>a {
+  cursor: pointer;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+  color: #000000;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#index>div.header>div.menu>a:hover {
+  color: rgb(137,85,246);
+}
+#index>div.header>div.menu>div {
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+  margin: 0.2rem 0;
+}
+
+#index>div.sidebar {
+  width: 15rem;
+  height: 100%;
+  margin-top: 6rem;
 }
 #index>div.sidebar>input {
   background-color: rgb(242,243,245);
@@ -799,58 +856,7 @@ header>div>div.menu>div {
   width: 100%;
   height: 100%;
   padding: 2rem;
-}
-#index>div.content>div {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-}
-#index>div.content>div>div.avatar {
-  cursor: pointer;
-  width: 3.5rem;
-  height: 3.5rem;
-  border: 1px solid #dbdbdb;
-  border-radius: 1.75rem;
-}
-#index>div.content>div>div.avatar>img {
-  width: 3.5rem;
-  height: 3.5rem;
-  margin: 0;
-  border-radius: 1.75rem;
-}
-#index>div.content>div>.arrowUp {
-  position: absolute;
-  width: 3rem;
-  height: 3rem;
-  right: 2.25rem;
-  top: 5rem;
-}
-#index>div.content>div>div.menu {
-  position: absolute;
-  flex-direction: column;
-  background-color: #ffffff;
-  width: 8.5rem;
-  right: 2rem;
-  top: 6.7rem;
-  border: 1px solid #000000;
-}
-#index>div.content>div>div.menu>a {
-  cursor: pointer;
-  margin: 0;
-  padding: 0.2rem 0.5rem;
-  text-decoration: none;
-  color: #000000;
-  font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
-}
-#index>div.content>div>div.menu>a:hover {
-  color: rgb(137,85,246);
-}
-#index>div.content>div>div.menu>div {
-  background-color: #dbdbdb;
-  width: 100%;
-  height: 1px;
-  margin: 0.2rem 0;
+  padding-top: 6rem;
 }
 
 
@@ -861,6 +867,7 @@ header>div>div.menu>div {
   margin-bottom: 2rem;
 }
 #myinfo>div.info>img.profileImg {
+  user-select: none;
   width: 12rem;
   height: 12rem;
   margin: 0;
@@ -928,6 +935,7 @@ header>div>div.menu>div {
   width: 100%;
   margin-top: 4rem;
 }
+
 /* components/myinfo/Post.js */
 #myinfo_post {
   display: flex;
@@ -1125,7 +1133,9 @@ header>div>div.menu>div {
   font-size: 0.9rem;
   font-family: Arial, Helvetica, sans-serif;
 }
-#write>div.writeModal>div.writeModal_top>div.tag>p {
+#write>div.writeModal>div.writeModal_top>div.tag>div {
+  cursor: pointer;
+  user-select: none;
   background-color: rgb(104,113,123);
   padding: 0 0.7rem;
   color: #fff;
@@ -1134,7 +1144,42 @@ header>div>div.menu>div {
   margin: 0;
   line-height: 2.2;
 }
+#write>div.writeModal>div.writeModal_top>div.tag>div:hover {
+  background-color: rgb(116,126,136);
+}
+#write>div.writeModal>div.writeModal_top>div.tagList {
+  white-space: pre-wrap;
+  display: flex;
+  margin-top: 0.5rem;
+}
+#write>div.writeModal>div.writeModal_top>div.tagList>div {
+  display: flex;
+  background-color: rgb(235,238,240);
+  align-items: center;
+  margin-right: 0.5rem;
+  padding: 0 0.3rem;
+  border-radius: 0.2rem;
+  color: #000;
+  font-size: 0.9rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#write>div.writeModal>div.writeModal_top>div.tagList>div>div {
+  background-color: rgb(200,200,200);
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.2rem;
+  border-radius: 0.5rem;
+}
+#write>div.writeModal>div.writeModal_top>div.tagList>div>div:hover {
+  background-color: rgb(185,59,52);
+  color: #fff;
+}
+#write>div.writeModal>div.writeModal_top>div.tagList>div>div>svg {
+  width: 1rem;
+  height: 1rem;
+}
 #write>div.writeModal>div.writeModal_top>div.upload {
+  cursor: pointer;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -1143,13 +1188,18 @@ header>div>div.menu>div {
   padding: 0.25rem;
   border-radius: 0.3rem;
 }
+#write>div.writeModal>div.writeModal_top>div.upload:hover {
+  background-color: rgb(242,243,245);
+}
 #write>div.writeModal>div.writeModal_top>div.upload>p {
+  user-select: none;
   font-size: 0.9rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  margin: 0;
+  margin: 0 0.5rem;
 }
 #write>div.writeModal>div.writeModal_top>div.series {
+  cursor: pointer;
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -1158,11 +1208,15 @@ header>div>div.menu>div {
   padding: 0.5rem;
   border-radius: 0.3rem;
 }
+#write>div.writeModal>div.writeModal_top>div.series:hover {
+  background-color: rgb(242,243,245);
+}
 #write>div.writeModal>div.writeModal_top>div.series>p {
+  user-select: none;
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
-  margin: 0;
+  margin: 0 0.5rem;
 }
 #write>div.writeModal>div.writeModal_bottom {
   background-color: rgb(54,59,65);
@@ -1172,7 +1226,10 @@ header>div>div.menu>div {
   justify-content: space-between;
   display: flex;
 }
-#write>div.writeModal>div.writeModal_bottom>div.save>p {
+#write>div.writeModal>div.writeModal_bottom>div.save>p.tempsave {
+  cursor: pointer;
+  user-select: none;
+  background-color: rgb(104,113,123);
   color: #fff;
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -1181,11 +1238,30 @@ header>div>div.menu>div {
   padding: 0.2rem 2rem;
   border-radius: 0.3rem;
 }
+#write>div.writeModal>div.writeModal_bottom>div.save>p.tempsave:hover {
+  background-color: rgb(116,126,136);
+}
+#write>div.writeModal>div.writeModal_bottom>div.save>p.save {
+  cursor: pointer;
+  background-color: rgb(127,100,239);
+  color: #fff;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0.2rem 2rem;
+  border-radius: 0.3rem;
+}
+#write>div.writeModal>div.writeModal_bottom>div.save>p.save:hover {
+  background-color: rgb(146,123,240);
+}
 #write>div.writeModal>div.writeModal_bottom>div.private {
   display: flex;
   margin-top: 0.7rem;
 }
 #write>div.writeModal>div.writeModal_bottom>div.private>p { 
+  cursor: pointer;
+  user-select: none;
   color: rgb(207,106,49);
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -1194,6 +1270,8 @@ header>div>div.menu>div {
   margin-left: 2rem;
 }
 #write>div.writeModal>div.writeModal_bottom>div.private>div.active {
+  cursor: pointer;
+  user-select: none;
   display: flex;
   background-color: rgb(146,122,242);
   color: #fff;
@@ -1202,6 +1280,8 @@ header>div>div.menu>div {
   padding: 0 0.5rem;
 }
 #write>div.writeModal>div.writeModal_bottom>div.private>div.inactive {
+  cursor: pointer;
+  user-select: none;
   display: flex;
   background-color: #fff;
   color: rgb(104,113,123);;
@@ -1249,6 +1329,9 @@ header>div>div.menu>div {
   justify-content: center;
   align-items: center;
 }
+#write>div.rigthModalContainer>div.rigthModal>div.layout_set>div:hover {
+  background-color: rgb(62,67,74);
+}
 #write>div.rigthModalContainer>div.rigthModal>div.layout_set>div.selected {
   cursor: pointer;
   display: flex;
@@ -1265,6 +1348,7 @@ header>div>div.menu>div {
   margin-top: 0.5rem;
 }
 #write>div.rigthModalContainer>div.rigthModal>div.layout_set>div>p {
+  user-select: none;
   color: #fff;
   font-size: 0.7rem; 
   font-family: Arial, Helvetica, sans-serif;
@@ -1378,6 +1462,7 @@ header>div>div.menu>div {
 }
 #post>section.middle>div.btn>p {
   cursor: pointer;
+  user-select: none;
   color: #a2a2a2;
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -1391,6 +1476,9 @@ header>div>div.menu>div {
   font-size: 1.6rem;
   font-family: Arial, Helvetica, sans-serif;
   margin: 5rem 0;
+}
+#post>section.bottom {
+  margin-top: 2rem;
 }
 #post>section.bottom>p {
   font-size: 1rem;
@@ -1413,6 +1501,7 @@ header>div>div.menu>div {
 }
 #post>section.bottom>div>p {
   cursor: pointer;
+  user-select: none;
   background-color: rgb(137,85,246);
   width: max-content;
   margin-top: 0.5rem;
@@ -1495,12 +1584,15 @@ header>div>div.menu>div {
   margin-top: 1rem;
 }
 #setting>section.profile>div.userInfo>div.thumbnail>img {
+  user-select: none;
   width: 12rem;
   height: 12rem;
   margin: 0;
+  border-radius: 6rem;
 }
 #setting>section.profile>div.userInfo>div.thumbnail>p.imageBtn {
   cursor: pointer;
+  user-select: none;
   background-color: rgb(126,99,239);
   width: 12rem;
   padding: 0.5rem;
@@ -1547,6 +1639,7 @@ header>div>div.menu>div {
   margin-top: 1rem;
 }
 #setting>section.profile>div.userInfo>div.text>div>p {
+  user-select: none;
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -1556,6 +1649,7 @@ header>div>div.menu>div {
 }
 #setting>section.profile>div.userInfo>div.text>div>div>p {
   cursor: pointer;
+  user-select: none;
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
@@ -1596,6 +1690,7 @@ header>div>div.menu>div {
 }
 #setting>section.profile>div.social>div.socailsave>p {
   cursor: pointer;
+  user-select: none;
   background-color: rgb(137,85,246);
   padding: 0.5rem;
   border-radius: 0.2rem;
@@ -1634,6 +1729,7 @@ header>div>div.menu>div {
 }
 #setting>section.email>div.emailSetting>p.saveBtn {
   cursor: pointer;
+  user-select: none;
   width: max-content;
   padding: 0.3rem;
   border: 1px solid rgb(75,80,87);
@@ -1669,6 +1765,7 @@ header>div>div.menu>div {
 }
 #setting>section.etc>p.outBtn {
   cursor: pointer;
+  user-select: none;
   width: max-content;
   padding: 0.3rem;
   border: 1px solid rgb(207,66,59);
@@ -1691,11 +1788,67 @@ header>div>div.menu>div {
 
 
 
+/* components */
+#tag {
+  cursor: pointer;
+  user-select: none;
+  background-color: rgb(235,238,240);
+  width: max-content;
+  margin-right: 0.5rem;
+  padding: 0 0.3rem;
+  border-radius: 0.2rem;
+  color: #000;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#tag:hover {
+  background-color: rgb(242,243,245)
+}
+
+
+
+
+
 @media only screen and (max-width: 480px) {
   html {
     font-size: 100%;
   }
 
+  #index {
+    flex-direction: column;
+  }
+  #index>div.sidebar {
+    display: flex;
+    width: 100%; 
+    height: 5rem;
+    margin-top: 8rem;
+  }
+  #index>div.sidebar>input {
+    display: none;
+  }
+  #index>div.sidebar>div.sidebarItem {
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    padding: 0; 
+  }
+  #index>div.sidebar>div.s_sidebarItem {
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    border-right: none;
+    padding: 0;
+    border-bottom: 2px solid rgb(115,86,234);
+  }
+  #index>div.sidebar>div>p {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+  #index>div.content {
+    padding: 2rem;
+  }
 
   #myinfo>div.info {
     display: flex;

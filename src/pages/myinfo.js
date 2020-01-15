@@ -4,6 +4,8 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Post from "../components/myinfo/Post"
 import Series from "../components/myinfo/Series"
+import Activity from "../components/myinfo/Activity"
+import Introduce from "../components/myinfo/Introduce"
 
 import temp from "../images/temp.png"
 
@@ -19,10 +21,10 @@ const Myinfo = () => {
         return <Series/>
 
       case 3:
-        return <Series/>
+        return <Activity/>
       
       case 4:
-        return <Series/>
+        return <Introduce/>
     
       default:
         return <Post/>
