@@ -34,7 +34,7 @@ const Header = ({menu, setMenu}) => {
           <a href="/tempPost">임시 글</a>
           <div/>
           <a href="/setting">설정</a>
-          <a href="/signin">로그아웃</a>
+          <a href="/" onClick={()=>cookie.removeAllData()}>로그아웃</a>
         </div>
       </div>
     </header>

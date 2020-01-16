@@ -149,7 +149,7 @@ const Signup = () => {
                 console.log(result)
                 if(result) {
                   alert('회원가입이 완료되었습니다.')
-                  window.location.replace('/signin')
+                  window.location.replace('/')
                 }
                 else console.log('실패')
               } 

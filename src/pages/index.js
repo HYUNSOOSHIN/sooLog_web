@@ -1,9 +1,10 @@
 import React, {useState} from "react"
 import { Link } from "gatsby"
-import cookie from '../utils/cookie'
 
 import "../components/layout.css"
 import SEO from "../components/seo"
+import cookie from '../utils/cookie'
+import LoginPage from './signin'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
@@ -17,6 +18,7 @@ const Index = () => {
   const [selected, setSelected] = useState(1)
 
   return (
+    cookie.getData('isLogin')===undefined? <LoginPage/>:
     <div id={'index'} onClick={()=>setMenu(false)}>
       <SEO title="Home" />
       <div className={'header'}>
@@ -42,7 +44,7 @@ const Index = () => {
           <a href="/tempPost">임시 글</a>
           <div/>
           <a href="/setting">설정</a>
-          <a href="/signin">로그아웃</a>
+          <a href="/" onClick={()=>cookie.removeAllData()}>로그아웃</a>
         </div>
       </div>
       <div className={'sidebar'}>
