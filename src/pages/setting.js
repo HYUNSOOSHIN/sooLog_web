@@ -2,10 +2,11 @@ import React, {useState} from 'react'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Switch from '../components/switch'
+import cookie from '../utils/cookie'
 
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import tempImg from '../images/temp.png'
+import temp from '../images/temp.png'
 
 const Setting = () => {
   const limitWC = 100
@@ -44,7 +45,7 @@ const Setting = () => {
           <p>프로필</p>
           <div className={'userInfo'}>
             <div className={'thumbnail'}>
-              <img src={tempImg} alt={'temp'} />
+              <img src={cookie.getData('image')===''? temp:cookie.getData('image')}  alt={'temp'} />
               <p className={'imageBtn'}>썸네일 변경</p>
             </div>
             <div className={'text'}>

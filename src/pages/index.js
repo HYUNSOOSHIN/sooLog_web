@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import { Link } from "gatsby"
+import cookie from '../utils/cookie'
 
 import "../components/layout.css"
 import SEO from "../components/seo"
@@ -25,23 +26,24 @@ const Index = () => {
           </Link>
         </p>
         <div 
-            className={'avatar'}
-            onClick={(e)=>{
-              e.stopPropagation()
-              setMenu(!menu)
-              }}>
-            <img src={temp} alt={'avatarImg'}/>
-          </div>
-          <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />
-          <div className={'menu'} style={{display: menu?'flex':'none'}}>
-            <a href="/myinfo">내 정보</a>
-            <div/>
-            <a href="/write">새 글 작성</a>
-            <a href="/tempPost">임시 글</a>
-            <div/>
-            <a href="/setting">설정</a>
-            <a href="/">로그아웃</a>
-          </div>
+          className={'avatar'}
+          onClick={(e)=>{
+            e.stopPropagation()
+            setMenu(!menu)
+            }}>
+          <img src={cookie.getData('image')===''? temp:cookie.getData('image')} 
+            alt={'avatarImg'}/>
+        </div>
+        <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />
+        <div className={'menu'} style={{display: menu?'flex':'none'}}>
+          <a href="/myinfo">내 정보</a>
+          <div/>
+          <a href="/write">새 글 작성</a>
+          <a href="/tempPost">임시 글</a>
+          <div/>
+          <a href="/setting">설정</a>
+          <a href="/signin">로그아웃</a>
+        </div>
       </div>
       <div className={'sidebar'}>
        

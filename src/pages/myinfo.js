@@ -1,5 +1,7 @@
 import React, {useState} from "react"
 
+import cookie from '../utils/cookie'
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Post from "../components/myinfo/Post"
@@ -36,12 +38,13 @@ const Myinfo = () => {
       <SEO title="Myinfo" />
       <div id='myinfo'>
         <div className='info'>
-          <img src={temp} className={'profileImg'} alt='profileImg' />
+          <img src={cookie.getData('image')===''? temp:cookie.getData('image')} 
+            className={'profileImg'} alt='profileImg' />
           <div>
-            <p className="id">@shs0655</p>
+            <p className="id">@{cookie.getData('id')}</p>
             <div className="line"/>
-            <p className="nickName">어금니금니</p>
-            <p className="description">어금니금니입니다.</p>
+            <p className="nickName">{cookie.getData('nickname')}</p>
+            <p className="description">{cookie.getData('introduce')}</p>
           </div>
         </div>
         <div className={'content'}>

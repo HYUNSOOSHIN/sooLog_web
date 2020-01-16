@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
+import cookie from '../utils/cookie'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
@@ -22,7 +23,8 @@ const Header = ({menu, setMenu}) => {
             e.stopPropagation()
             setMenu(!menu)
             }}>
-          <img src={temp} alt={'avatarImg'}/>
+          <img src={cookie.getData('image')===''? temp:cookie.getData('image')} 
+            alt={'avatarImg'}/>
         </div>
         <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />
         <div className={'menu'} style={{display: menu?'flex':'none'}}>
@@ -32,7 +34,7 @@ const Header = ({menu, setMenu}) => {
           <a href="/tempPost">임시 글</a>
           <div/>
           <a href="/setting">설정</a>
-          <a href="/">로그아웃</a>
+          <a href="/signin">로그아웃</a>
         </div>
       </div>
     </header>
