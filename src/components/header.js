@@ -23,7 +23,7 @@ const Header = ({menu, setMenu}) => {
             e.stopPropagation()
             setMenu(!menu)
             }}>
-          <img src={cookie.getData('image')===''? temp:cookie.getData('image')} 
+          <img src={temp} 
             alt={'avatarImg'}/>
         </div>
         <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />

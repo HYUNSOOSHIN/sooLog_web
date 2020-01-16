@@ -38,7 +38,7 @@ const Myinfo = () => {
       <SEO title="Myinfo" />
       <div id='myinfo'>
         <div className='info'>
-          <img src={cookie.getData('image')===''? temp:cookie.getData('image')} 
+          <img src={temp}
             className={'profileImg'} alt='profileImg' />
           <div>
             <p className="id">@{cookie.getData('id')}</p>
