@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
-import { inject, observer} from 'mobx-react'
+import marked from 'marked'
 import Tag from '../tag'
 
-const Post = ({posts: postsStore}) => {
-  const { posts } = postsStore 
+const Post = ({posts}) => {
   const [tag, setTag] = useState(1)
   return (
     <div id={'myinfo_post'}>
@@ -22,14 +21,14 @@ const Post = ({posts: postsStore}) => {
       <div className={'post'}>
         {posts.map((item, index)=>
           <div className={'postItem'} key={index}>
-            <a href={`/post?${index}`}>{item.title}</a>
+            <a href={`/post/?${item.id}`}>{item.title}</a>
             <p className={'content'}>{item.content}</p>
-            <p className={'date'}>{item.date}</p>
-            <div style={{display: 'flex', marginTop: '0.5rem'}}>
+            <p className={'date'}>{item.createdAt}</p>
+            {/* <div style={{display: 'flex', marginTop: '0.5rem'}}>
               {item.tag.map((tag, idx)=>
                 <Tag key={idx} name={tag}/>
               )}
-            </div>
+            </div> */}
           </div>
         )}
       </div>
@@ -37,4 +36,4 @@ const Post = ({posts: postsStore}) => {
   )
 }
 
-export default inject('posts')(observer(Post))
+export default Post

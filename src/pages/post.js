@@ -1,21 +1,25 @@
 import React, {useState, useEffect} from 'react'
+import marked from 'marked'
+import postApi from '../apis/post/post'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import {inject, observer} from 'mobx-react'
-
 import Tag from '../components/tag'
+
 import tempImg from "../images/temp.png"
 
-const Post = ({posts:postsStore}) => {
-  const {posts} = postsStore
-  const [index, setIndex] = useState(0)
+const Post = () => {
+  const [post, setPost] = useState({})
 
   useEffect(()=>{
-    setIndex(window.location.search.replace('?','')) 
-    // gatsby build 하면 window 떔에 에러 뜸.
-    // 첫번째 게시물 떴다가 다른 게시물 뜨는거 수정해야댐. 
-    // 게시물 리스트에서 클릭하면 로컬스토리지에 저장했다가 불러오면 될거 같음
+    getPost()
   },[])
+
+  const getPost = async() => {
+    const result = await postApi.readPost(window.location.search.replace('?',''))
+    if(result) setPost(result)
+    // content에 마크다운으로 넣음
+    document.getElementById('content').innerHTML = marked(result.content)
+  }
 
   return (
     <Layout>
@@ -29,20 +33,21 @@ const Post = ({posts:postsStore}) => {
           </div>
         </section>
         <section className={'middle'}>
-          <h1>{posts[index].title}</h1>
-          <p>{posts[index].date}</p>
+          <h1>{post.title}</h1>
+          <p>{post.createdAt}</p>
           <div className={'line'}/>
           <div className={'btn'}>
             <p>수정</p>
             <p>삭제</p>
           </div>
-          <p className={'content'}>{posts[index].content}</p>
+          
+          <pre id= {'content'} className={'content'}></pre>
 
-          <div className={'tagList'}>
-            {posts[index].tag.map((tag,idx)=>
+          {/* <div className={'tagList'}>
+            {post[index].tag.map((tag,idx)=>
               <Tag name={tag} key={idx}/>
             )}
-          </div>
+          </div> */}
         </section>
         <section className={'bottom'}>
           <p>0개의 댓글</p>
@@ -56,4 +61,4 @@ const Post = ({posts:postsStore}) => {
   )
 }
 
-export default inject('posts')(observer(Post))
+export default Post

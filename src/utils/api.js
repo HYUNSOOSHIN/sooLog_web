@@ -9,7 +9,7 @@ const axiosFunction = (method) => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        // 'Authorization': 'bearer '+token
+        'x-access-token': token
       }
     })
     .catch(function(err) {

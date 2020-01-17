@@ -1205,10 +1205,16 @@ header>div>div.menu>div {
 #post>section.middle>div.tagList {
   display: flex;
 }
-#post>section.middle>p.content {
-  font-size: 1.6rem;
+#post>section.middle>pre.content {
+  white-space: pre-wrap; 
+  background-color: #fff;
+  /* font-size: 1.6rem; */
   font-family: Arial, Helvetica, sans-serif;
-  margin: 5rem 0;
+  margin: 3rem 0;
+  padding: 0;
+}
+#post>section.middle>pre.content>* {
+  margin:0
 }
 #post>section.bottom {
   margin-top: 2rem;

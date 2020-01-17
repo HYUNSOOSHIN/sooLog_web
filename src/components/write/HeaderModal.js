@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 
+import postApi from '../../apis/post/post'
+
 import PublishIcon from '@material-ui/icons/Publish'
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd'
 import PublicIcon from '@material-ui/icons/Public'
@@ -9,10 +11,11 @@ import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined';
 const HeaderModal = ({
   headerModal,
   setHeaderModal,
-  postData, // title, content, tagList, privatePost
+  postData, // title, content, tagList, isPrivate
   setPostData,
 }) => {
   const [tagText, setTagText] = useState('')
+  
   return (
     <div id={'writeModal'} style={{ display: headerModal? 'block':'none' }} 
       onClick={(e)=> e.stopPropagation()}
@@ -59,19 +62,26 @@ const HeaderModal = ({
         <div className={'save'}>
           <p className={'tempsave'}>임시저장</p>
           <p className={'save'} 
-            onClick={()=>{
-            window.location.replace('/post')
+            onClick={async()=>{
+              const data = {}
+              data.title = postData.title
+              data.content = postData.content
+              data.isPrivate = postData.isPrivate
+              const result = await postApi.createPost(data)
+              if(result){
+                window.location.replace('/myinfo')
+              } else alert('게시글 업로드에 실패하였습니다.')
             }}
           >작성하기</p>
         </div>
         <div className={'private'}>
-          <div className={postData.privatePost? 'inactive':'active'}
-            onClick={()=>setPostData({...postData, privatePost: false })}>
+          <div className={postData.isPrivate? 'inactive':'active'}
+            onClick={()=>setPostData({...postData, isPrivate: false })}>
             <PublicIcon style={{width: '0.8rem', height: '0.8rem'}} />
             <p>전체 공개</p>
           </div>
-          <div className={postData.privatePost? 'active':'inactive'}
-            onClick={()=>setPostData({...postData, privatePost: true })}>
+          <div className={postData.isPrivate? 'active':'inactive'}
+            onClick={()=>setPostData({...postData, isPrivate: true })}>
             <LockIcon style={{width: '0.8rem', height: '0.8rem'}} />
             <p>나만 보기</p>
           </div>

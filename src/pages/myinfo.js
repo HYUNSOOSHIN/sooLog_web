@@ -1,5 +1,5 @@
-import React, {useState} from "react"
-
+import React, {useState,useEffect} from "react"
+import postApi from '../apis/post/post'
 import cookie from '../utils/cookie'
 
 import Layout from "../components/layout"
@@ -13,11 +13,21 @@ import temp from "../images/temp.png"
 
 const Myinfo = () => {
   const [activeTab, setActiveTab] = useState(1)
+  const [postsList, setPostsList] = useState([])
+
+  useEffect(()=>{
+    getPosts()
+  },[])
+  
+  const getPosts = async() => {
+    const posts = await postApi.getPostList()
+    if(posts) setPostsList(posts)
+  }
 
   function renderTabContent() {
     switch (activeTab) {
       case 1:
-        return <Post/>
+        return <Post posts={postsList}/>
 
       case 2:
         return <Series/>

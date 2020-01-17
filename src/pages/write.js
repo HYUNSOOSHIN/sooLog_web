@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { inject, observer } from 'mobx-react'
 import marked from 'marked'
 import "../components/layout.css"
 import SEO from "../components/seo"
@@ -12,8 +11,7 @@ import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
 import HeaderModal from '../components/write/HeaderModal'
 import RightModal from '../components/write/RightModal'
 
-const Write = ({posts: postsStore}) => {
-  const {posts} = postsStore
+const Write = () => {
   const [headerModal, setHeaderModal] = useState(false)
   const [rightModal, setRightModal] = useState(false)
   const [selected, setSelected] = useState(2) // 에디터 레이아웃 인덱스
@@ -21,7 +19,7 @@ const Write = ({posts: postsStore}) => {
     title: '',
     content: '',
     tagList: [],
-    privatePost: false,
+    isPrivate: false,
   })
 
   return (
@@ -103,4 +101,4 @@ const Write = ({posts: postsStore}) => {
   )
 }
 
-export default inject('posts')(observer(Write))
+export default Write
