@@ -23,7 +23,7 @@ const Post = ({posts}) => {
           <div className={'postItem'} key={index}>
             <a href={`/post/?${item.id}`}>{item.title}</a>
             <p className={'content'}>{item.content}</p>
-            <p className={'date'}>{item.createdAt}</p>
+            <p className={'date'}>{`${item.createdAt} - 0개의 댓글`}</p>
             {/* <div style={{display: 'flex', marginTop: '0.5rem'}}>
               {item.tag.map((tag, idx)=>
                 <Tag key={idx} name={tag}/>
