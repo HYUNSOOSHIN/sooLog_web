@@ -7,7 +7,7 @@ const signin = async (signData) => {
   })
   if(jsonData.statusCode===200) {
     const result = jsonData.result
-    cookie.putData('isLogin', true)
+    cookie.putData('token', result.token)
     cookie.putData('id', result.id)
     cookie.putData('email', result.email)
     cookie.putData('nickname', result.nickName)

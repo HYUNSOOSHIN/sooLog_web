@@ -18,7 +18,7 @@ const Index = () => {
   const [selected, setSelected] = useState(1)
 
   return (
-    cookie.getData('isLogin')===undefined? <LoginPage/>:
+    cookie.getData('token')===undefined? <LoginPage/>:
     <div id={'index'} onClick={()=>setMenu(false)}>
       <SEO title="Home" />
       <div className={'header'}>
@@ -52,23 +52,17 @@ const Index = () => {
         <input type='text' />
 
         <div className={selected===1? 's_sidebarItem':'sidebarItem'}
-          onClick={()=>{
-            setSelected(1)
-        }}>
+          onClick={()=>setSelected(1)}>
           <TrendingUpIcon />
           <p>트랜딩</p>
         </div>
         <div className={selected===2? 's_sidebarItem':'sidebarItem'}
-          onClick={()=>{
-            setSelected(2)
-        }}>
+          onClick={()=>setSelected(2)}>
           <QueryBuilderIcon />
           <p>최신 포스트</p>
         </div>
         <div className={selected===3? 's_sidebarItem':'sidebarItem'}
-          onClick={()=>{
-            setSelected(3)
-        }}>
+          onClick={()=>setSelected(3)}>
           <LabelOutlinedIcon />
           <p>태그 목록</p>
         </div>
@@ -82,6 +76,7 @@ const Index = () => {
             - axios<br/>
             - 로그인(jwt토큰, react-cookies)<br/>
             - 게시글<br/><br/>
+            {cookie.getData('token')}<br/><br/>
             2. 프론트<br/>
             - 마크다운 메뉴<br/>
             - 내 정보 페이지 소셜 추가<br/>

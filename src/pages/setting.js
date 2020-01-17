@@ -45,7 +45,7 @@ const Setting = () => {
           <p>프로필</p>
           <div className={'userInfo'}>
             <div className={'thumbnail'}>
-              <img src={cookie.getData('image')===''? temp:cookie.getData('image')}  alt={'temp'} />
+              <img src={temp}  alt={'temp'} />
               <p className={'imageBtn'}>썸네일 변경</p>
             </div>
             <div className={'text'}>
