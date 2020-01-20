@@ -1,5 +1,6 @@
 import React, {useState,useEffect} from "react"
 import postApi from '../apis/post/post'
+import tagApi from '../apis/tag/tag'
 import cookie from '../utils/cookie'
 
 import Layout from "../components/layout"
@@ -14,6 +15,7 @@ import temp from "../images/temp.png"
 const Myinfo = () => {
   const [activeTab, setActiveTab] = useState(1)
   const [postsList, setPostsList] = useState([])
+  const [tagsList, setTagsList] = useState([])
 
   useEffect(()=>{
     getPosts()
@@ -22,12 +24,14 @@ const Myinfo = () => {
   const getPosts = async() => {
     const posts = await postApi.getPostList()
     if(posts) setPostsList(posts)
+    const tags = await tagApi.getTags()
+    if(tags) setTagsList(tags)
   }
 
   function renderTabContent() {
     switch (activeTab) {
       case 1:
-        return <Post posts={postsList}/>
+        return <Post posts={postsList} tags={tagsList}/>
 
       case 2:
         return <Series/>

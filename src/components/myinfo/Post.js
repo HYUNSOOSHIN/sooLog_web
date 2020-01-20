@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import marked from 'marked'
 import Tag from '../tag'
 
-const Post = ({posts}) => {
+const Post = ({posts, tags}) => {
   const [tag, setTag] = useState(1)
   return (
     <div id={'myinfo_post'}>
@@ -10,12 +10,12 @@ const Post = ({posts}) => {
         <p>태그</p>
         <div/>
         <ul>
-          <li className={tag===1?'active':'unactive'}
-            onClick={()=>setTag(1)}>전체보기</li>
-          <li className={tag===2?'active':'unactive'}
-            onClick={()=>setTag(2)}>개발</li>
-          <li className={tag===3?'active':'unactive'}
-            onClick={()=>setTag(3)}>취미</li>
+          <li className={tag===0?'active':'unactive'}
+            onClick={()=>setTag(0)}>전체보기</li>
+          {tags.map((item, index)=> 
+            <li key={index} className={tag===index+1?'active':'unactive'}
+              onClick={()=>setTag(index+1)}>{item.tag_name}</li>
+          )}
         </ul>
       </div>
       <div className={'post'}>
