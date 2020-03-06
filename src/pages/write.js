@@ -1,13 +1,9 @@
 import React, {useState} from 'react'
+import styled from 'styled-components'
 import marked from 'marked'
 import "../components/layout.css"
 import SEO from "../components/seo"
-
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import MoreVertIcon from '@material-ui/icons/MoreVert'
-import CloseIcon from '@material-ui/icons/Close';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined'
-
+import Header from '../components/write/Header'
 import HeaderModal from '../components/write/HeaderModal'
 import RightModal from '../components/write/RightModal'
 
@@ -18,55 +14,26 @@ const Write = () => {
   const [postData, setPostData] = useState({ // 게시글에 대한 정보
     title: '',
     content: '',
-    tagList: [],
     isPrivate: false,
   })
 
   return (
     <>
       <SEO title="Write"/>
-      <div id='write' 
+      <Container
         onClick={()=>{
           setHeaderModal(false) 
           setRightModal(false)
       }}>
-        <div className='writeHeader'>
-          <div className='left'>
-            <ArrowBackIcon style={{color: '#ffffff', cursor: 'pointer'}} onClick={()=> {
-              document.location.replace(document.referrer)
-              }}/>
-            <input type='text' 
-              placeholder='제목을 입력해주세요.'
-              value={postData.title}
-              onChange={(e)=> setPostData({...postData, title: e.target.value})} />
-          </div>
-          <div className={'right'}>
-            <input type='file' id='filebtn' style={{display: 'none'}} onChange={(e)=>console.log(e.target.files[0])}/>
-            <label className='upload' htmlFor={'filebtn'} >
-              <ImageOutlinedIcon style={{width: '1rem', marginRight: '0.5rem'}} />
-              업로드
-            </label>
-            <button className='write'
-              onClick={(e)=>{
-                e.stopPropagation()
-                setHeaderModal(!headerModal)
-                setRightModal(false)
-              }}>
-              작성하기
-            </button>
-            <div onClick={e=>{
-              e.stopPropagation()
-              setHeaderModal(false)
-            }}>
-              {rightModal?
-                <CloseIcon className={'rightbtn'} 
-                onClick={()=> setRightModal(false)}/>:
-                <MoreVertIcon className={'rightbtn'} 
-                onClick={()=> setRightModal(true)}/>
-              }
-            </div>
-          </div>
-        </div>
+        
+        <Header 
+          headerModal={headerModal}
+          setHeaderModal={setHeaderModal}
+          rightModal={rightModal}
+          setRightModal={setRightModal}
+          postData={postData}
+          setPostData={setPostData}/>
+
         <HeaderModal 
           headerModal={headerModal}
           setHeaderModal={setHeaderModal}
@@ -79,9 +46,10 @@ const Write = () => {
           selected={selected} 
           setSelected={setSelected}
         />
-        <div className='writeSpace'>
-          <div className='mdEditor' style={{display: selected===3? 'none':'block'}}>
-            <textarea 
+
+        <WriteSpace>
+          <MdEditor style={{display: selected===3? 'none':'block'}}>
+            <TextArea 
               placeholder='당신의 이야기를 적어보세요...'
               id='content'
               value={postData.content}
@@ -90,15 +58,74 @@ const Write = () => {
                 // 마크다운 변환
                 document.getElementById('result').innerHTML = marked(document.getElementById('content').value);
               }}/>
-          </div>
-          <div className='mdResult' style={{display: selected===1? 'none':'block'}}>
-            <h1>{postData.title}</h1>
-            <pre id="result"></pre>
-          </div>
-        </div>
-      </div>
+          </MdEditor>
+          <MdResult style={{display: selected===1? 'none':'block'}}>
+            <ResultTitle>{postData.title}</ResultTitle>
+            <ResultContent id="result"></ResultContent>
+          </MdResult>
+        </WriteSpace>
+      </Container>
     </>
   )
 }
 
 export default Write
+
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+const WriteSpace = styled.div`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding-top: 4rem;
+  top: 0;
+  z-index: 90;
+`;
+const MdEditor = styled.div`
+  background-color: rgb(40,50,56);
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+`;
+const TextArea = styled.textarea`
+  background-color: rgb(40,50,56);
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const MdResult = styled.div`
+  overflow-y: scroll;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+const ResultTitle = styled.h1`
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #dbdbdb;
+`;
+const ResultContent = styled.pre`
+  white-space: pre-wrap; 
+  background-color: #fff;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+`;

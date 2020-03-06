@@ -22,6 +22,7 @@ const axiosFunction = (method) => {
         }
       }
     })
+    console.log(result)
     const response = result.data
 
     if(response.statusCode===200) {

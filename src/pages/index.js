@@ -1,10 +1,15 @@
 import React, {useState} from "react"
+import styled from 'styled-components'
 import { Link } from "gatsby"
 
 import "../components/layout.css"
 import SEO from "../components/seo"
 import cookie from '../utils/cookie'
 import LoginPage from './signin'
+
+import TrendingComponent from '../components/home/trending'
+import NewestComponent from '../components/home/newest'
+import TagListComponent from '../components/home/taglist'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
@@ -19,77 +24,184 @@ const Index = () => {
 
   return (
     cookie.getData('token')===undefined? <LoginPage/>:
-    <div id={'index'} onClick={()=>setMenu(false)}>
+    <Container onClick={()=>setMenu(false)}>
       <SEO title="Home" />
-      <div className={'header'}>
-        <p>
-          <Link to="/" className={'link'}>
+
+      <Sidebar>
+        <Logo>
+          <LogoLink to="/" onClick={()=>setSelected(1)}>
             sooLog
-          </Link>
-        </p>
-        <div 
-          className={'avatar'}
+          </LogoLink>
+        </Logo>
+        <Input type='text' />
+
+        <SidebarItem selected={selected===1? true:false}
+          onClick={()=>setSelected(1)}>
+          <TrendingUpIcon style={{width: '1.5rem', height: '1.5rem'}}/>
+          <SidebarItemText>트랜딩</SidebarItemText>
+        </SidebarItem>
+        <SidebarItem selected={selected===2? true:false}
+          onClick={()=>setSelected(2)}>
+          <QueryBuilderIcon style={{width: '1.5rem', height: '1.5rem'}}/>
+          <SidebarItemText>최신 포스트</SidebarItemText>
+        </SidebarItem>
+        <SidebarItem selected={selected===3? true:false}
+          onClick={()=>setSelected(3)}>
+          <LabelOutlinedIcon style={{width: '1.5rem', height: '1.5rem'}}/>
+          <SidebarItemText>태그 목록</SidebarItemText>
+        </SidebarItem>
+      </Sidebar>
+
+      <Content>
+        <AvatarBtn
           onClick={(e)=>{
             e.stopPropagation()
             setMenu(!menu)
             }}>
-          <img src={temp} 
-            alt={'avatarImg'}/>
-        </div>
-        <ArrowDropUpIcon className={'arrowUp'} style={{display: menu?'flex':'none'}} />
-        <div className={'menu'} style={{display: menu?'flex':'none'}}>
-          <a href="/myinfo">내 정보</a>
-          <div/>
-          <a href="/write">새 글 작성</a>
-          <a href="/tempPost">임시 글</a>
-          <div/>
-          <a href="/setting">설정</a>
-          <a href="/" onClick={()=>cookie.removeAllData()}>로그아웃</a>
-        </div>
-      </div>
-      <div className={'sidebar'}>
-       
-        <input type='text' />
-
-        <div className={selected===1? 's_sidebarItem':'sidebarItem'}
-          onClick={()=>setSelected(1)}>
-          <TrendingUpIcon />
-          <p>트랜딩</p>
-        </div>
-        <div className={selected===2? 's_sidebarItem':'sidebarItem'}
-          onClick={()=>setSelected(2)}>
-          <QueryBuilderIcon />
-          <p>최신 포스트</p>
-        </div>
-        <div className={selected===3? 's_sidebarItem':'sidebarItem'}
-          onClick={()=>setSelected(3)}>
-          <LabelOutlinedIcon />
-          <p>태그 목록</p>
-        </div>
-
-      </div>
-      <div className={'content'}>
+          <AvatarBtnImg src={temp} alt={'avatarImg'}/>
+        </AvatarBtn>
+        <ArrowDropUpIcon 
+          style={{
+            display: menu?'flex':'none',
+            position: 'absolute',
+            width: '3rem',
+            height: '3rem',
+            right: '3rem',
+            top: '5rem'
+          }} 
+        />
+        <Menu style={{display: menu?'flex':'none'}}>
+          <MenuItem href="/myinfo">내 정보</MenuItem>
+          <Line />
+          <MenuItem href="/write">새 글 작성</MenuItem>
+          <MenuItem href="/tempPost">임시 글</MenuItem>
+          <Line />
+          <MenuItem href="/setting">설정</MenuItem>
+          <MenuItem href="/" onClick={()=>cookie.removeAllData()}>로그아웃</MenuItem>
+        </Menu>
         <div>
-          <pre>
-            앞으로 할 일들<br/><br/>
-            1. 서버구현<br/>
-            - 게시글(수정,삭제)<br/>
-            - DB 관계 지정<br/>
-            - 태그 DB 구조
-            <br/><br/>
-
-            2. 프론트<br/>
-            - 마크다운 메뉴 구현<br/>
-            - 내 정보 => 소셜 추가<br/>
-            - 내 정보 => 태그 처리<br/>
-            - 내 정보 => 게시글 마크다운 문법 제거<br/>
-            - 홈 => 트렌딩 최신포스트 태그목록 처리
-            <br/><br/>
-          </pre>
+          {selected===1? 
+            <TrendingComponent/> : selected===2? 
+              <NewestComponent/>:<TagListComponent/>}
         </div>
-      </div>
-    </div>
+      </Content>
+    </Container>
   )
 }
 
 export default Index
+
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
+const Sidebar = styled.div`
+  user-select: none;
+  position: fixed;
+  background-color: #ffffff;
+  width: 15rem;
+  height: 100%;
+`;
+const Logo = styled.p`
+  font-size: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 2rem;
+  line-height: 1.5;
+`;
+const LogoLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;
+const Input = styled.input`
+  background-color: rgb(242,243,245);
+  width: 10rem;
+  border: 1px solid #dbdbdb;
+  border-radius: 0.3rem;
+  outline: none;
+  margin: 0.5rem 2rem;
+  padding-left: 0.5rem;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  &:focus {
+    background-color: #fff;
+    border: 1px solid rgb(115,86,234);
+  }
+`;
+
+const SidebarItem = styled.div`
+  cursor: pointer;
+  display: flex;
+  padding: 0.7rem 2rem;
+  color: ${props=>props.selected? 'rgb(115,86,234)': 'none'};
+  border-right: ${props=>props.selected? '2px solid rgb(115,86,234)':'none'};
+  &:hover {
+    background-color: rgb(248,249,250);
+  }
+`;
+
+const SidebarItemText = styled.p`
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  margin-left: 1rem;
+`;
+
+const Content = styled.div`
+  background-color: rgb(242,243,245);
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+  padding: 2rem 0;
+  padding-left: 15rem;
+`;
+
+const AvatarBtn = styled.div`
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  height: 3.5rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+`;
+const AvatarBtnImg = styled.img`
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0;
+  border-radius: 1.75rem;
+`;
+// const ArrowUpBtn = styled(ArrowDropUpIcon)`
+//   position: absolute;
+//   width: 3rem;
+//   height: 3rem;
+//   right: 2.25rem;
+//   top: 5rem;
+// `;
+const Menu = styled.div`
+  position: absolute;
+  flex-direction: column;
+  background-color: #ffffff;
+  width: 8.5rem;
+  right: 2rem;
+  top: 6.7rem;
+  border: 1px solid #000000;
+`;
+const MenuItem = styled.a`
+  cursor: pointer;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+  color: #000000;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  &:hover {
+    color: rgb(137,85,246);
+  }
+`;
+const Line = styled.div`
+  background-color: #dbdbdb;
+  width: 100%;
+  height: 1px;
+  margin: 0.2rem 0;
+`

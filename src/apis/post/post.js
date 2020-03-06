@@ -25,7 +25,7 @@ const createPost = async(postData) => {
   })
  
   if(result.statusCode==200){
-    return true
+    return result.result
   } else return false
 }
 
