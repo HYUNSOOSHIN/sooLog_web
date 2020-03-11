@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `SOOLOG`,
     description: `velog 따라하기`,
-    author: `@gatsbyjs`,
+    author: `HYUNSOOSHIN`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

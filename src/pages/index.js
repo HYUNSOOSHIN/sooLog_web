@@ -5,14 +5,14 @@ import { Link } from "gatsby"
 import "../components/layout.css"
 import SEO from "../components/seo"
 import cookie from '../utils/cookie'
-import LoginPage from './signin'
 
-import TrendingComponent from '../components/home/trending'
+import HomeComponent from '../components/home/home'
 import NewestComponent from '../components/home/newest'
 import TagListComponent from '../components/home/taglist'
 
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import HomeIcon from '@material-ui/icons/Home';
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import LabelOutlinedIcon from '@material-ui/icons/LabelOutlined';
 
@@ -23,7 +23,6 @@ const Index = () => {
   const [selected, setSelected] = useState(1)
 
   return (
-    cookie.getData('token')===undefined? <LoginPage/>:
     <Container onClick={()=>setMenu(false)}>
       <SEO title="Home" />
 
@@ -37,8 +36,8 @@ const Index = () => {
 
         <SidebarItem selected={selected===1? true:false}
           onClick={()=>setSelected(1)}>
-          <TrendingUpIcon style={{width: '1.5rem', height: '1.5rem'}}/>
-          <SidebarItemText>트랜딩</SidebarItemText>
+          <HomeIcon style={{width: '1.5rem', height: '1.5rem'}}/>
+          <SidebarItemText>홈</SidebarItemText>
         </SidebarItem>
         <SidebarItem selected={selected===2? true:false}
           onClick={()=>setSelected(2)}>
@@ -53,20 +52,28 @@ const Index = () => {
       </Sidebar>
 
       <Content>
-        <AvatarBtn
-          onClick={(e)=>{
-            e.stopPropagation()
-            setMenu(!menu)
-            }}>
-          <AvatarBtnImg src={temp} alt={'avatarImg'}/>
-        </AvatarBtn>
+        <AvatarView>
+          {cookie.getData('token')!==undefined?
+            <AvatarBtn
+              onClick={(e)=>{
+                e.stopPropagation()
+                setMenu(!menu)
+                }}>
+                <AvatarBtnImg src={temp} alt={'avatarImg'}/>
+            </AvatarBtn>
+            :
+            <LoginBtn to="/signin">
+              <LockOutlinedIcon style={{width: '2rem', height: '2rem'}} />
+            </LoginBtn>
+          }
+        </AvatarView>
         <ArrowDropUpIcon 
           style={{
             display: menu?'flex':'none',
             position: 'absolute',
             width: '3rem',
             height: '3rem',
-            right: '3rem',
+            right: '2.3rem',
             top: '5rem'
           }} 
         />
@@ -81,7 +88,7 @@ const Index = () => {
         </Menu>
         <div>
           {selected===1? 
-            <TrendingComponent/> : selected===2? 
+            <HomeComponent/> : selected===2? 
               <NewestComponent/>:<TagListComponent/>}
         </div>
       </Content>
@@ -157,18 +164,35 @@ const Content = styled.div`
   padding-left: 15rem;
 `;
 
-const AvatarBtn = styled.div`
-  cursor: pointer;
+const AvatarView = styled.div`
   display: flex;
   justify-content: flex-end;
   height: 3.5rem;
   margin-right: 2rem;
   margin-bottom: 2rem;
 `;
+const AvatarBtn = styled.div`
+  cursor: pointer;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1.75rem;
+`;
 const AvatarBtnImg = styled.img`
   width: 3.5rem;
   height: 3.5rem;
   margin: 0;
+  border-radius: 1.75rem;
+`;
+const LoginBtn = styled(Link)`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(225,49,90);
+  color: #fff;
+  text-decoration: none;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 1.75rem;
 `;
 // const ArrowUpBtn = styled(ArrowDropUpIcon)`

@@ -2,6 +2,8 @@ import React, {useState} from 'react';
 
 import signupApi from '../apis/sign/signup'
 
+import SEO from "../components/seo"
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -69,6 +71,7 @@ const Signup = () => {
   
   return (
     <Container component="main" maxWidth="xs">
+      <SEO title="SignUp" />
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

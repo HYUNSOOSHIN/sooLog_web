@@ -68,13 +68,19 @@ const Myinfo = () => {
             <IntroText>{cookie.getData('introduce')}</IntroText>
             <div style={{marginTop: '16px'}}> 
               <div style={{display: 'flex'}}>
-                <a href="/" target="_blank" style={{marginRight: '1rem', color: '#555555'}}>
+                <a href="https://github.com/HYUNSOOSHIN" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{marginRight: '1rem', color: '#555555'}}>
                   <GitHubIcon style={{width:'34px', height: '34px'}}/>
                 </a>
                 <a href="/" target="_blank" style={{marginRight: '1rem', color: '#555555'}}>
                   <TwitterIcon style={{width:'34px', height: '34px'}}/>
                 </a>
-                <a href="/" target="_blank" style={{marginRight: '1rem', color: '#555555'}}>
+                <a href="https://www.facebook.com/profile.php?id=100005402461078&ref=bookmarks" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  style={{marginRight: '1rem', color: '#555555'}}>
                   <FacebookIcon style={{width:'34px', height: '34px'}}/>
                 </a>
               </div>

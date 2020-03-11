@@ -29,9 +29,9 @@ const Newest = () => {
         </UserImgContainer>
         <PostItemContent>
           <Top>
-            <UserId to='/'>아이디</UserId>
+            <UserId to='/'>{'아이디'}</UserId>
             <br />
-            <TitleText to='/'>{post.title}</TitleText>
+            <TitleText to={`/post?${post.id}`}>{post.title}</TitleText>
             <CreatedAtText>{post.createdAt}</CreatedAtText>
           </Top>
           <Bottom>

@@ -30,11 +30,7 @@ const createPost = async(postData) => {
 }
 
 const readPost = async(postId) => {
-  const token = cookie.getData('token')
-
-  const result = await api.get(`${url}/post?postId=${postId}`, {
-    token: token
-  })
+  const result = await api.get(`${url}/post?postId=${postId}`)
 
   if(result.statusCode=200){
     return result.result
