@@ -635,15 +635,12 @@ pre tt:after {
 
 
 /* 웹 페이지 높이 100% 사용하는 코드 */
-html,body, #___gatsby {
+html,body, #___gatsby, #gatsby-focus-wrapper {
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
 }
 body {
   margin: 0px;
-}
-div[role="group"][tabindex] {
-  height: 100%;
 }
 
 

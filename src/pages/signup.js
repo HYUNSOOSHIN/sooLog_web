@@ -1,77 +1,84 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from "react"
 
-import signupApi from '../apis/sign/signup'
+import signupApi from "../apis/sign/signup"
 
-import SEO from "../components/seo"
-
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import Avatar from "@material-ui/core/Avatar"
+import Button from "@material-ui/core/Button"
+import CssBaseline from "@material-ui/core/CssBaseline"
+import TextField from "@material-ui/core/TextField"
+import Link from "@material-ui/core/Link"
+import Grid from "@material-ui/core/Grid"
+import Box from "@material-ui/core/Box"
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
+import Typography from "@material-ui/core/Typography"
+import { makeStyles } from "@material-ui/core/styles"
+import Container from "@material-ui/core/Container"
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
-  );
+  )
 }
 
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-}));
+}))
 
 const Signup = () => {
-  const classes = useStyles();
-  
-  const [id, setId] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [nickname, setNickname] = useState('')
-  const [introduce, setIntroduce] = useState('')
+  const classes = useStyles()
+
+  const [id, setId] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [nickname, setNickname] = useState("")
+  const [introduce, setIntroduce] = useState("")
+
+  useEffect(() => {
+    document.title = "SignUp | SOOLOG"
+  }, [])
 
   function accountRule(id, email, password, nickname, introduce) {
     const rule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
-    if(id!==''&&email!==''&&password!==''&&nickname!==''&&introduce!==''){
-      if(!rule.test(email)) {
-        alert('이메일 형식이 아닙니다.')
+    if (
+      id !== "" &&
+      email !== "" &&
+      password !== "" &&
+      nickname !== "" &&
+      introduce !== ""
+    ) {
+      if (!rule.test(email)) {
+        alert("이메일 형식이 아닙니다.")
       } else return true
     } else {
-      alert('빈 칸이 존재합니다.')
+      alert("빈 칸이 존재합니다.")
     }
   }
-  
+
   return (
     <Container component="main" maxWidth="xs">
-      <SEO title="SignUp" />
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -89,7 +96,7 @@ const Signup = () => {
                 fullWidth
                 label="ID"
                 value={id}
-                onChange={e=>setId(e.target.value)}
+                onChange={e => setId(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -99,7 +106,7 @@ const Signup = () => {
                 fullWidth
                 label="Email Address"
                 value={email}
-                onChange={e=>setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -110,7 +117,7 @@ const Signup = () => {
                 label="Password"
                 type="password"
                 value={password}
-                onChange={e=>setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -120,7 +127,7 @@ const Signup = () => {
                 fullWidth
                 label="NickName"
                 value={nickname}
-                onChange={e=>setNickname(e.target.value)}
+                onChange={e => setNickname(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={12}>
@@ -130,7 +137,7 @@ const Signup = () => {
                 fullWidth
                 label="Introduce"
                 value={introduce}
-                onChange={e=>setIntroduce(e.target.value)}
+                onChange={e => setIntroduce(e.target.value)}
               />
             </Grid>
           </Grid>
@@ -140,8 +147,8 @@ const Signup = () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={async()=>{
-              if(accountRule(id,email,password,nickname,introduce)) {
+            onClick={async () => {
+              if (accountRule(id, email, password, nickname, introduce)) {
                 const signData = {}
                 signData.id = id
                 signData.email = email
@@ -150,12 +157,11 @@ const Signup = () => {
                 signData.introduce = introduce
                 const result = await signupApi.signup(signData)
                 console.log(result)
-                if(result) {
-                  alert('회원가입이 완료되었습니다.')
-                  window.location.replace('/')
-                }
-                else console.log('실패')
-              } 
+                if (result) {
+                  alert("회원가입이 완료되었습니다.")
+                  window.location.replace("/")
+                } else console.log("실패")
+              }
             }}
           >
             Sign Up
