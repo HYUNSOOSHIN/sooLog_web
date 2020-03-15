@@ -632,10 +632,11 @@ pre tt:after {
                                   @@
 */
 
-
-
 /* 웹 페이지 높이 100% 사용하는 코드 */
-html,body, #___gatsby, #gatsby-focus-wrapper {
+html,
+body,
+#___gatsby,
+#gatsby-focus-wrapper {
   font-family: Arial, Helvetica, sans-serif;
   height: 100%;
 }
@@ -643,120 +644,10 @@ body {
   margin: 0px;
 }
 
-
-
-/* 
-          @@@     @@@     @@@
-        @@@ @@@  @@ @@   @@  @@
-       @@@   @@@@@   @@@@@    @@
-      @@@     @@@     @@@      @@
-     @@@      @@@     @@@       @@
-     @@@      @@@     @@@       @@
-*/
-
-@media only screen and (max-width: 480px) {
-  html {
-    font-size: 100%;
-  }
-
-  #index {
-    flex-direction: column;
-  }
-  #index>div.sidebar {
-    display: flex;
-    width: 100%; 
-    height: 5rem;
-    margin-top: 8rem;
-  }
-  #index>div.sidebar>input {
-    display: none;
-  }
-  #index>div.sidebar>div.sidebarItem {
-    flex-direction: column;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    padding: 0.8rem 0;
-  }
-  #index>div.sidebar>div.s_sidebarItem {
-    flex-direction: column;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    border-right: none;
-    padding: 0.5rem 0;
-    border-bottom: 2px solid rgb(115,86,234);
-  }
-  #index>div.sidebar>div>p {
-    font-size: 1.2rem;
-    margin: 0;
-    margin-top: 0.2rem;
-  }
-  #index>div.content {
-    padding: 2rem;
-  }
-
-  #myinfo>div.info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #write>div.writeSpace {
-    padding-top: 6rem;
-  }
-  /* #write>div.writeSpace>div.mdResult>h1 {
-    font-size: 1.2rem;
-  }
-  #write>div.writeSpace>div.mdResult>pre {
-    font-size: 0.9rem;
-  } */
-  #write>div.writeHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  #write>div.writeHeader>div.left {
-    width: 100%;
-  }
-  #write>div.writeHeader>div.right {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    margin-top: 0.5rem;
-  }
-
-
-  #setting>section.profile>div.userInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #setting>section.profile>div.userInfo>div.thumbnail {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-  }
-  #setting>section.profile>div.userInfo>div.thumbnail>p.imageBtn {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-  #setting>section.profile>div.userInfo>div>p.imageBtn {
-    width: 100%;
-    padding: 0.5rem;
-    border-radius: 0.3rem;
-    color: #fff;
-    font-size: 1.2rem;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    margin: 0;
-  }
-  #setting>section.profile>div.userInfo>div.text>p.nickName {
-    margin-top: 1.5rem;
-  }
-
-
-  /* components */
-  #writeModal {
-    top: 7rem;
-  }
+/* 브라우저 스크롤 지우기 */
+body {
+  -ms-overflow-style: none;
+}
+body::-webkit-scrollbar {
+  display: none;
 }

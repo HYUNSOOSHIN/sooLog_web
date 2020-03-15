@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function SignInSide() {
+function SignIn() {
   const classes = useStyles()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -111,8 +111,9 @@ export default function SignInSide() {
               signData.email = email
               signData.password = password
               let result = await signinApi.signin(signData)
-              if (result) window.location.replace("/")
-              else alert("아이디 및 비밀번호가 틀렸습니다.")
+              if (result) {
+                window.location.replace("/")
+              } else alert("아이디 및 비밀번호가 틀렸습니다.")
             }}
           >
             Sign In
@@ -137,3 +138,5 @@ export default function SignInSide() {
     </Grid>
   )
 }
+
+export default SignIn

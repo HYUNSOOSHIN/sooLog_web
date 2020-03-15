@@ -1,38 +1,38 @@
-import api from '../../utils/api'
-import app from '../../configs/app'
-import cookie from '../../utils/cookie'
+import api from "../../utils/api"
+import app from "../../configs/app"
+import cookie from "../../utils/cookie"
 
 const url = app.url.api
 
-const getPostList = async() => {
-  const token = cookie.getData('token')
+const getPostList = async () => {
+  const token = await cookie.getData("token")
 
   const result = await api.get(`${url}/post/getPostsList`, {
-    token: token
+    token: token,
   })
-  
-  if(result.statusCode==200){
+
+  if (result.statusCode === 200) {
     return result.result.reverse()
   } else return false
 }
 
-const createPost = async(postData) => {
-  const token = cookie.getData('token')
+const createPost = async postData => {
+  const token = await cookie.getData("token")
 
   const result = await api.post(`${url}/post`, {
     body: postData,
-    token: token
+    token: token,
   })
- 
-  if(result.statusCode==200){
+
+  if (result.statusCode === 200) {
     return result.result
   } else return false
 }
 
-const readPost = async(postId) => {
+const readPost = async postId => {
   const result = await api.get(`${url}/post?postId=${postId}`)
 
-  if(result.statusCode=200){
+  if ((result.statusCode = 200)) {
     return result.result
   } else return false
 }
@@ -40,5 +40,5 @@ const readPost = async(postId) => {
 export default {
   getPostList,
   createPost,
-  readPost
+  readPost,
 }

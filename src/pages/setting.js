@@ -177,11 +177,13 @@ const Setting = () => {
                   value={emailId}
                   onChange={e => setEmailId(e.target.value)}
                 />
-                <p
+                <button
                   style={{
                     cursor: "pointer",
+                    backgroundColor: "transparent",
                     margin: "0 0.5rem",
                     padding: "0.3rem",
+                    outline: "none",
                     border: "1px solid rgb(126,99,239)",
                     borderRadius: "0.3rem",
                     color: "rgb(126,99,239)",
@@ -192,12 +194,14 @@ const Setting = () => {
                   }}
                 >
                   변경
-                </p>
-                <p
+                </button>
+                <button
                   style={{
                     cursor: "pointer",
+                    backgroundColor: "transparent",
                     margin: 0,
                     padding: "0.3rem",
+                    outline: "none",
                     border: "1px solid #bbbbbb",
                     borderRadius: "0.3rem",
                   }}
@@ -207,7 +211,7 @@ const Setting = () => {
                   }}
                 >
                   취소
-                </p>
+                </button>
               </>
             ) : (
               <div
@@ -218,10 +222,13 @@ const Setting = () => {
                 }}
               >
                 <p style={{ margin: 0, marginRight: "4px" }}>{emailId}</p>
-                <p
+                <button
                   style={{
                     cursor: "pointer",
+                    backgroundColor: "transparent",
                     margin: 0,
+                    outline: "none",
+                    border: "none",
                     color: "#868e96",
                     fontSize: "14px",
                     textDecoration: "underline",
@@ -229,7 +236,7 @@ const Setting = () => {
                   onClick={() => setEmailEdit(true)}
                 >
                   변경
-                </p>
+                </button>
               </div>
             )}
           </EmailChangeBox>
@@ -408,7 +415,7 @@ const SocailSaveBtnText = styled.p`
   cursor: pointer;
   user-select: none;
   background-color: rgb(137, 85, 246);
-  padding: 0.5rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 0.2rem;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
@@ -433,7 +440,7 @@ const EmailChangeBox = styled.div`
   font-family: Arial, Helvetica, sans-serif;
 `
 const EmailSetting = styled.div``
-const EmailSettingText = styled.div`
+const EmailSettingText = styled.p`
   font-size: 1rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
