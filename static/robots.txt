@@ -1,0 +1,9 @@
+# Naver
+User-agent: Yeti
+Disallow: /
+Allow: /$
+
+# Google
+User-agent: Googlebot
+Disallow: /
+Allow: /$
