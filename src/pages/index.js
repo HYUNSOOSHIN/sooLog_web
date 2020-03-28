@@ -91,7 +91,7 @@ const Index = () => {
             position: "absolute",
             width: "3rem",
             height: "3rem",
-            right: "3rem",
+            right: "2.25rem",
             top: "5rem",
           }}
         />
@@ -192,6 +192,9 @@ const Content = styled.div`
   height: 100%;
   padding: 2rem 0;
   padding-left: 15rem;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 const AvatarView = styled.div`
