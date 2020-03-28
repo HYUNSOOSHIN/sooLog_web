@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styled from "styled-components"
 
 import postApi from "../../apis/post/post"
-import tagApi from "../../apis/tag/tag"
+// import tagApi from "../../apis/tag/tag"
 
 import PublishIcon from "@material-ui/icons/Publish"
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd"
@@ -83,6 +83,7 @@ const HeaderModal = ({
                 const data = {}
                 data.title = postData.title
                 data.content = postData.content
+                data.userId = postData.userId
                 data.isPrivate = postData.isPrivate
                 const result = await postApi.createPost(data)
 
@@ -90,9 +91,9 @@ const HeaderModal = ({
                   tagList: tagList,
                   postId: result,
                 }
-                const result2 = await tagApi.createTag(tagData)
+                // const result2 = await tagApi.createTag(tagData)
 
-                if (result && result2) {
+                if (result) {
                   window.location.replace("/userInfo")
                 } else alert("게시글 업로드에 실패하였습니다.")
               }
@@ -102,20 +103,22 @@ const HeaderModal = ({
           </SaveBtn>
         </SaveBtnContainer>
         <PrivateSetContainer>
-          <PrivateBtn
-            active={!postData.isPrivate ? true : false}
-            onClick={() => setPostData({ ...postData, isPrivate: false })}
-          >
-            <PublicIcon style={{ width: "0.8rem", height: "0.8rem" }} />
-            <PrivateBtnText>전체 공개</PrivateBtnText>
-          </PrivateBtn>
-          <PrivateBtn
-            active={postData.isPrivate ? true : false}
-            onClick={() => setPostData({ ...postData, isPrivate: true })}
-          >
-            <LockIcon style={{ width: "0.8rem", height: "0.8rem" }} />
-            <PrivateBtnText>나만 보기</PrivateBtnText>
-          </PrivateBtn>
+          <div style={{display: 'flex'}}>
+            <PrivateBtn
+              active={!postData.isPrivate ? true : false}
+              onClick={() => setPostData({ ...postData, isPrivate: false })}
+            >
+              <PublicIcon style={{ width: "0.8rem", height: "0.8rem" }} />
+              <PrivateBtnText>전체 공개</PrivateBtnText>
+            </PrivateBtn>
+            <PrivateBtn
+              active={postData.isPrivate ? true : false}
+              onClick={() => setPostData({ ...postData, isPrivate: true })}
+            >
+              <LockIcon style={{ width: "0.8rem", height: "0.8rem" }} />
+              <PrivateBtnText>나만 보기</PrivateBtnText>
+            </PrivateBtn>
+          </div>
           <PrivateSetContainerP>추가 설정</PrivateSetContainerP>
         </PrivateSetContainer>
       </Bottom>
@@ -134,7 +137,6 @@ const Container = styled.div`
   right: 1rem;
   z-index: 1000;
 `
-
 const Top = styled.div`
   padding: 1.5rem;
 `
@@ -167,7 +169,7 @@ const TagButton = styled.div`
   cursor: pointer;
   user-select: none;
   background-color: rgb(104, 113, 123);
-  padding: 0 0.7rem;
+  padding: 0 0.5rem;
   color: #fff;
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
@@ -295,6 +297,7 @@ const SaveBtn = styled.p`
 
 const PrivateSetContainer = styled.div`
   display: flex;
+  justify-content: space-between;
   margin-top: 0.7rem;
 `
 
@@ -302,11 +305,10 @@ const PrivateSetContainerP = styled.p`
   cursor: pointer;
   user-select: none;
   color: rgb(207, 106, 49);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
-  margin-left: 2rem;
 `
 
 const PrivateBtn = styled.div`

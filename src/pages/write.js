@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import marked from "marked"
 import "../components/layout.css"
+import cookie from '../utils/cookie'
+import postApi from "../apis/post/post"
 import Header from "../components/write/Header"
 import HeaderModal from "../components/write/HeaderModal"
 import RightModal from "../components/write/RightModal"
@@ -15,9 +17,25 @@ const Write = () => {
     title: "",
     content: "",
     isPrivate: false,
+    userId: null
   })
 
   useEffect(() => {
+    const getUserId = async() => {
+
+      if(window.location.search===''){
+        setPostData({...postData, userId: await cookie.getData('_id')})
+      } else {
+        const result = await postApi.readPost(
+          window.location.search.replace("?", "")
+        )
+        if (result) {
+          setPostData({...postData, title: result.title, content: result.content, userId: result.writerId})
+          document.getElementById("result").innerHTML = marked(result.content)
+        }
+      }
+    }
+    getUserId()
     document.title = "Write | SOOLOG"
   }, [])
 

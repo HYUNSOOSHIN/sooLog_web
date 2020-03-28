@@ -50,24 +50,20 @@ const useStyles = makeStyles(theme => ({
 const Signup = () => {
   const classes = useStyles()
 
-  const [id, setId] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [nickname, setNickname] = useState("")
-  const [introduce, setIntroduce] = useState("")
 
   useEffect(() => {
     document.title = "SignUp | SOOLOG"
   }, [])
 
-  function accountRule(id, email, password, nickname, introduce) {
+  function accountRule(email, password, nickname) {
     const rule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
     if (
-      id !== "" &&
       email !== "" &&
       password !== "" &&
-      nickname !== "" &&
-      introduce !== ""
+      nickname !== "" 
     ) {
       if (!rule.test(email)) {
         alert("이메일 형식이 아닙니다.")
@@ -89,16 +85,6 @@ const Signup = () => {
         </Typography>
         <div className={classes.form}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                label="ID"
-                value={id}
-                onChange={e => setId(e.target.value)}
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -130,16 +116,6 @@ const Signup = () => {
                 onChange={e => setNickname(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12} sm={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                label="Introduce"
-                value={introduce}
-                onChange={e => setIntroduce(e.target.value)}
-              />
-            </Grid>
           </Grid>
           <Button
             type="submit"
@@ -148,13 +124,11 @@ const Signup = () => {
             color="primary"
             className={classes.submit}
             onClick={async () => {
-              if (accountRule(id, email, password, nickname, introduce)) {
+              if (accountRule(email, password, nickname)) {
                 const signData = {}
-                signData.id = id
                 signData.email = email
                 signData.password = password
                 signData.nickname = nickname
-                signData.introduce = introduce
                 const result = await signupApi.signup(signData)
                 console.log(result)
                 if (result) {

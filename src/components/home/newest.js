@@ -19,7 +19,7 @@ const Newest = () => {
 
   const renderPostItem = () => {
     const postItem = post => (
-      <PostContainer key={post.id}>
+      <PostContainer key={post._id}>
         <UserImgContainer>
           <UserImgView>
             <UserImg src={temp} />
@@ -31,7 +31,7 @@ const Newest = () => {
             <Top>
               <UserId to="/">{`닉네임`}</UserId>
               <br />
-              <TitleText to={`/post?${post.id}`}>{post.title}</TitleText>
+              <TitleText to={`/post?${post._id}`}>{post.title}</TitleText>
               <CreatedAtText>{post.createdAt}</CreatedAtText>
             </Top>
             <Bottom>

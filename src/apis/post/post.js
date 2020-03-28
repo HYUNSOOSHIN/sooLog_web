@@ -1,39 +1,64 @@
 import api from "../../utils/api"
-import app from "../../configs/app"
+import config from '../../configs/app'
 import cookie from "../../utils/cookie"
 
-const url = app.url.api
+const apiUrl = config.url.api;
 
 const getPostList = async () => {
   const token = await cookie.getData("token")
 
-  const result = await api.get(`${url}/post/getPostsList`, {
+  const result = await api.get(`${apiUrl}/postList`, {
     token: token,
   })
 
   if (result.statusCode === 200) {
-    return result.result.reverse()
+    return result.data.reverse()
+  } else return false
+}
+
+const readPost = async postId => {
+  const result = await api.get(`${apiUrl}/post?postId=${postId}`)
+
+  if ((result.statusCode = 200)) {
+    return result.data
   } else return false
 }
 
 const createPost = async postData => {
   const token = await cookie.getData("token")
 
-  const result = await api.post(`${url}/post`, {
+  const result = await api.post(`${apiUrl}/post`, {
     body: postData,
     token: token,
   })
 
   if (result.statusCode === 200) {
-    return result.result
+    return result
   } else return false
 }
 
-const readPost = async postId => {
-  const result = await api.get(`${url}/post?postId=${postId}`)
+const updatePost = async postData => {
+  const token = await cookie.getData("token")
 
-  if ((result.statusCode = 200)) {
-    return result.result
+  const result = await api.put(`${apiUrl}/post`, {
+    body: postData,
+    token: token,
+  })
+
+  if (result.statusCode === 200) {
+    return result.data
+  } else return false
+}
+
+const deletePost = async postId => {
+  const token = await cookie.getData("token")
+
+  const result = await api.delete(`${apiUrl}/post?postId=${postId}`, {
+    token: token
+  })
+
+  if (result.statusCode === 200) {
+    return result.data
   } else return false
 }
 
@@ -41,4 +66,6 @@ export default {
   getPostList,
   createPost,
   readPost,
+  updatePost,
+  deletePost
 }

@@ -1,7 +1,10 @@
 import api from '../../utils/api'
+import config from '../../configs/app'
+
+const apiUrl = config.url.api;
 
 const signup = async (signData) => {
-  let jsonData = await api.post('http://127.0.0.1:3000/signup', {
+  let jsonData = await api.post(`${apiUrl}/signup`, {
     body: signData
   })
   if(jsonData.statusCode===200) {

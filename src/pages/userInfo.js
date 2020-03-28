@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import cookie from '../utils/cookie'
 import postApi from "../apis/post/post"
-import tagApi from "../apis/tag/tag"
+// import tagApi from "../apis/tag/tag"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -36,14 +37,12 @@ const UserInfo = () => {
   const [tagList, setTagList] = useState([])
 
   useEffect(() => {
-    getPosts()
+    getData()
   }, [])
 
-  const getPosts = async () => {
+  const getData = async () => {
     const posts = await postApi.getPostList()
     if (posts) setPostList(posts)
-    const tags = await tagApi.getTags()
-    if (tags) setTagList(tags)
   }
 
   function renderTabContent() {

@@ -1,18 +1,20 @@
 import api from '../../utils/api'
+import config from '../../configs/app'
 import cookie from '../../utils/cookie'
 
+const apiUrl = config.url.api;
+
 const signin = async (signData) => {
-  let jsonData = await api.post('http://127.0.0.1:3000/signin', {
+  let jsonData = await api.post(`${apiUrl}/signin`, {
     body: signData
   })
   if(jsonData.statusCode===200) {
-    const result = jsonData.result
+    const result = jsonData.data
     cookie.putData('token', result.token)
-    cookie.putData('id', result.id)
+    cookie.putData('_id', result._id)
     cookie.putData('email', result.email)
-    cookie.putData('nickname', result.nickName)
-    cookie.putData('introduce', result.introduce)
-    cookie.putData('image', result.image===null? '':result.image)
+    cookie.putData('nickname', result.nickname)
+    // cookie.putData('image', result.image===null? '':result.image)
     return true
   } else return false
 }

@@ -32,7 +32,7 @@ const Post = ({ posts, tags }) => {
       <PostList>
         {posts.map((item, index) => (
           <PostItem key={index}>
-            <PostTitle href={`/post/?${item.id}`}>{item.title}</PostTitle>
+            <PostTitle href={`/post/?${item._id}`}>{item.title}</PostTitle>
             <PostContent>{item.content}</PostContent>
             <PostDate>{`${item.createdAt} - 0개의 댓글`}</PostDate>
             {/* <div style={{display: 'flex', marginTop: '0.5rem'}}>

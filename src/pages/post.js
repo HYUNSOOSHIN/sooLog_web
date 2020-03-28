@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
+import {Link} from 'gatsby'
 import styled from "styled-components"
 import marked from "marked"
+import cookie from '../utils/cookie'
 import postApi from "../apis/post/post"
-import tagApi from "../apis/tag/tag"
+// import tagApi from "../apis/tag/tag"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Tag from "../components/tag"
@@ -10,6 +12,7 @@ import Tag from "../components/tag"
 import tempImg from "../images/temp.png"
 
 const Post = () => {
+  const [userId, setUserId] = useState(null)
   const [post, setPost] = useState({})
   const [tags, setTags] = useState([])
 
@@ -18,14 +21,17 @@ const Post = () => {
   }, [])
 
   const getPost = async () => {
+    setUserId(await cookie.getData('_id'))
+
     const result = await postApi.readPost(
       window.location.search.replace("?", "")
     )
     if (result) setPost(result)
     // content에 마크다운으로 넣음
     document.getElementById("content").innerHTML = marked(result.content)
-    const result2 = await tagApi.getPostTags(result.id)
-    if (result2) setTags(result2)
+    
+    // const result2 = await tagApi.getPostTags(result.id)
+    // if (result2) setTags(result2)
   }
 
   return (
@@ -45,8 +51,14 @@ const Post = () => {
           <CreatedAt>{post.createdAt}</CreatedAt>
           <Line />
           <BtnContainer>
-            <Btn>수정</Btn>
-            <Btn>삭제</Btn>
+            {userId===post.writerId?  
+            <>
+            <Btn to={`/write?${post._id}`}>수정</Btn>
+            <Btn to="/userInfo" onClick={()=>{
+              postApi.deletePost(post._id);
+              }}>삭제</Btn>
+            </>:null
+            }
           </BtnContainer>
 
           <Pre id={"content"}></Pre>
@@ -109,14 +121,15 @@ const BtnContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `
-const Btn = styled.p`
+const Btn = styled(Link)`
   cursor: pointer;
   user-select: none;
   color: #a2a2a2;
   font-size: 0.8rem;
   font-family: Arial, Helvetica, sans-serif;
+  text-decoration: none;
   margin: 0;
-  margin-left: 0.5rem;
+  margin-left: 0.3rem;
 `
 const Pre = styled.pre`
   white-space: pre-wrap;

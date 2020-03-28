@@ -14,15 +14,15 @@ const Trending = () => {
         - 소셜 DB 구조
         - api 사용자 구분 (all : 모든 사용자, user: 회원)
         - api 구현
-          -> 회원가입
           -> 게시물 + 태그 get
-          -> 게시물 update, delete
+          -> 게시물 update
           -> 게시물 get 태그 조건 추가
           -> 사용자 정보 get, update
           등등
 
 
         2. 프론트엔드
+        - @reach/router 적용
         - 글쓰기 화면 마크다운 메뉴 구현
         - 글쓰기하면 md파일로 저장 => s3에 올려서 db에 주소 넣음
         - 글쓰기 화면 이미지 업로드 구현 
