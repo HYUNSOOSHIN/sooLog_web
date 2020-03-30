@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import cookie from '../utils/cookie'
-import postApi from "../apis/post/post"
-// import tagApi from "../apis/tag/tag"
+import cookie from "../utils/cookie"
+import userApi from "../apis/user/user"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -17,38 +16,46 @@ import TwitterIcon from "@material-ui/icons/Twitter"
 import FacebookIcon from "@material-ui/icons/Facebook"
 import LinkIcon from "@material-ui/icons/Link"
 
-import temp from "../images/temp.png"
+import user from "../images/user.png"
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useState({
-    id: "shs0655",
-    nickName: "어금니금니",
-    introduce: "안녕하세요 어금니금니입니다!!!",
-    github: "https://github.com/HYUNSOOSHIN",
+    id: "",
+    email: "",
+    nickName: "",
+    introduce: "",
+    github: "",
     twitter: null,
-    facebook:
-      "https://www.facebook.com/profile.php?id=100005402461078&ref=bookmarks",
-    email: "shs0655@gmail.com",
-    homepage: "https://soolog.netlify.com",
+    facebook: "",
+    homepage: "",
     image: null,
   })
   const [activeTab, setActiveTab] = useState(1)
-  const [postList, setPostList] = useState([])
-  const [tagList, setTagList] = useState([])
 
   useEffect(() => {
-    getData()
-  }, [])
+    const param = window.location.search.replace("?", "")
+    const getUser = async () => {
+      const result = await userApi.getUserInfo(
+        param === "" ? cookie.getData("_id") : param
+      )
 
-  const getData = async () => {
-    const posts = await postApi.getPostList()
-    if (posts) setPostList(posts)
-  }
+      if (result) {
+        setUserInfo({
+          ...userInfo,
+          id: result.id,
+          email: result.email,
+          nickName: result.nickname,
+          introduce: result.introduce,
+        })
+      }
+    }
+    getUser()
+  }, [])
 
   function renderTabContent() {
     switch (activeTab) {
       case 1:
-        return <Post posts={postList} tags={tagList} />
+        return <Post />
 
       case 2:
         return <Series />
@@ -69,12 +76,14 @@ const UserInfo = () => {
       <SEO title={`${userInfo.nickName}'s Info`} />
       <div>
         <InfoContainer>
-          <ProfileImg src={temp} alt="profileImg" />
+          <ProfileImg src={user} alt="profileImg" />
           <InfoView>
             <IdText>{`@${userInfo.id}`}</IdText>
             <Line />
             <NickText>{`${userInfo.nickName}`}</NickText>
-            <IntroText>{`${userInfo.introduce}`}</IntroText>
+            <IntroText>{`${
+              userInfo.introduce ? userInfo.introduce : ""
+            }`}</IntroText>
             <div style={{ marginTop: "16px" }}>
               <div style={{ display: "flex", height: "max-content" }}>
                 {userInfo.github ? (

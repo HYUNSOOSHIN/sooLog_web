@@ -5,7 +5,7 @@ import Switch from "../components/switch"
 
 import SettingsIcon from "@material-ui/icons/Settings"
 
-import temp from "../images/temp.png"
+import user from "../images/user.png"
 
 const Setting = () => {
   const limitWC = 100
@@ -49,7 +49,7 @@ const Setting = () => {
           <ProfileText>프로필</ProfileText>
           <UserInfoBox>
             <div className={"thumbnail"}>
-              <ProfileImg src={temp} alt={"temp"} />
+              <ProfileImg src={user} alt={"user"} />
               <ProfileChangeBtn className={"imageBtn"}>
                 썸네일 변경
               </ProfileChangeBtn>

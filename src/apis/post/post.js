@@ -1,13 +1,25 @@
 import api from "../../utils/api"
-import config from '../../configs/app'
+import config from "../../configs/app"
 import cookie from "../../utils/cookie"
 
-const apiUrl = config.url.api;
+const apiUrl = config.url.api
 
 const getPostList = async () => {
   const token = await cookie.getData("token")
 
   const result = await api.get(`${apiUrl}/postList`, {
+    token: token,
+  })
+
+  if (result.statusCode === 200) {
+    return result.data.reverse()
+  } else return false
+}
+
+const getPostListByUserIndex = async userId => {
+  const token = await cookie.getData("token")
+
+  const result = await api.get(`${apiUrl}/postList/${userId}`, {
     token: token,
   })
 
@@ -54,7 +66,7 @@ const deletePost = async postId => {
   const token = await cookie.getData("token")
 
   const result = await api.delete(`${apiUrl}/post?postId=${postId}`, {
-    token: token
+    token: token,
   })
 
   if (result.statusCode === 200) {
@@ -64,8 +76,9 @@ const deletePost = async postId => {
 
 export default {
   getPostList,
+  getPostListByUserIndex,
   createPost,
   readPost,
   updatePost,
-  deletePost
+  deletePost,
 }

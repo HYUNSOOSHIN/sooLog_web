@@ -6,7 +6,7 @@ import cookie from "../utils/cookie"
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 
-import temp from "../images/temp.png"
+import user from "../images/user.png"
 
 const Header = ({ menu, setMenu }) => {
   const [isLogin, setIsLogin] = useState(false)
@@ -35,7 +35,7 @@ const Header = ({ menu, setMenu }) => {
               setMenu(!menu)
             }}
           >
-            <AvatarBtnImg src={temp} alt={"avatarImg"} />
+            <AvatarBtnImg src={user} alt={"avatarImg"} />
           </AvatarBtn>
         ) : (
           <LoginBtn to="/signin">

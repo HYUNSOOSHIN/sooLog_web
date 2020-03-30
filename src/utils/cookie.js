@@ -1,24 +1,24 @@
 import cookie from "react-cookies"
 
-const getData = async key => {
-  const value = await cookie.load(key)
+const getData = key => {
+  const value = cookie.load(key)
   if (value !== null && value !== undefined) {
     return value
   } else return null
 }
 
-const putData = async (key, value) => {
-  await cookie.save(key, value)
+const putData = (key, value) => {
+  cookie.save(key, value)
 }
 
-const removeData = async key => {
-  await cookie.remove(key)
+const removeData = key => {
+  cookie.remove(key)
 }
 
-const removeAllData = async () => {
+const removeAllData = () => {
   const data = cookie.loadAll()
   for (const key in data) {
-    await cookie.remove(key)
+    cookie.remove(key)
   }
 }
 

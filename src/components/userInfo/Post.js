@@ -1,10 +1,27 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import cookie from "../../utils/cookie"
+import postApi from "../../apis/post/post"
 // import marked from "marked"
 // import Tag from "../tag"
 
-const Post = ({ posts, tags }) => {
+const Post = () => {
+  const [postList, setPostList] = useState([])
   const [tag, setTag] = useState(0)
+
+  useEffect(() => {
+    getData()
+  }, [])
+
+  const getData = async () => {
+    const param = window.location.search.replace("?", "")
+
+    const posts = await postApi.getPostListByUserIndex(
+      param === "" ? cookie.getData("_id") : param
+    )
+    if (posts) setPostList(posts)
+  }
+
   return (
     <Container>
       <TagList>
@@ -17,7 +34,7 @@ const Post = ({ posts, tags }) => {
           >
             전체보기
           </TagListLi>
-          {tags.map((item, index) => (
+          {/* {tags.map((item, index) => (
             <TagListLi
               key={index}
               active={tag === index + 1 ? true : false}
@@ -26,11 +43,11 @@ const Post = ({ posts, tags }) => {
               {item.tagName}
               <TagListLiText> ({item.count})</TagListLiText>
             </TagListLi>
-          ))}
+          ))} */}
         </TagListUl>
       </TagList>
       <PostList>
-        {posts.map((item, index) => (
+        {postList.map((item, index) => (
           <PostItem key={index}>
             <PostTitle href={`/post/?${item._id}`}>{item.title}</PostTitle>
             <PostContent>{item.content}</PostContent>

@@ -16,7 +16,7 @@ import HomeIcon from "@material-ui/icons/Home"
 import QueryBuilderIcon from "@material-ui/icons/QueryBuilder"
 import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined"
 
-import temp from "../images/temp.png"
+import user from "../images/user.png"
 
 const Index = () => {
   const [isLogin, setIsLogin] = useState(false)
@@ -77,7 +77,7 @@ const Index = () => {
                 setMenu(!menu)
               }}
             >
-              <AvatarBtnImg src={temp} alt={"avatarImg"} />
+              <AvatarBtnImg src={user} alt={"avatarImg"} />
             </AvatarBtn>
           ) : (
             <LoginBtn to="/signin">
@@ -106,6 +106,7 @@ const Index = () => {
             to={"/"}
             onClick={async () => {
               await cookie.removeAllData()
+              document.location.reload()
             }}
           >
             로그아웃

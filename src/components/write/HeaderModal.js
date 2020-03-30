@@ -103,7 +103,7 @@ const HeaderModal = ({
           </SaveBtn>
         </SaveBtnContainer>
         <PrivateSetContainer>
-          <div style={{display: 'flex'}}>
+          <div style={{ display: "flex" }}>
             <PrivateBtn
               active={!postData.isPrivate ? true : false}
               onClick={() => setPostData({ ...postData, isPrivate: false })}

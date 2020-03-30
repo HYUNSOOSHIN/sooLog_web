@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import postApi from "../../apis/post/post"
 
-import temp from "../../images/temp.png"
+import user from "../../images/user.png"
 
 const Newest = () => {
   const [postList, setPostList] = useState([])
@@ -22,14 +22,16 @@ const Newest = () => {
       <PostContainer key={post._id}>
         <UserImgContainer>
           <UserImgView>
-            <UserImg src={temp} />
+            <UserImg src={user} />
           </UserImgView>
         </UserImgContainer>
 
         <PostItem>
           <PostItemContent>
             <Top>
-              <UserId to="/">{`닉네임`}</UserId>
+              <UserId
+                to={`/userInfo/?${post.user[0]._id}`}
+              >{`${post.user[0].id}`}</UserId>
               <br />
               <TitleText to={`/post?${post._id}`}>{post.title}</TitleText>
               <CreatedAtText>{post.createdAt}</CreatedAtText>

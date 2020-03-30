@@ -1,15 +1,16 @@
-import api from '../../utils/api'
-import config from '../../configs/app'
+import api from "../../utils/api"
+import config from "../../configs/app"
 
-const apiUrl = config.url.api;
+const apiUrl = config.url.api
 
-const signup = async (signData) => {
+const signup = async signData => {
   let jsonData = await api.post(`${apiUrl}/signup`, {
-    body: signData
+    body: signData,
   })
-  if(jsonData.statusCode===200) {
+
+  if (jsonData.statusCode === 200) {
     return true
-  } else return false
+  } else return jsonData.message
 }
 
 export default {
