@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
-import {Link} from 'gatsby'
+import { Link } from "gatsby"
 import styled from "styled-components"
 import marked from "marked"
-import cookie from '../utils/cookie'
+import cookie from "../utils/cookie"
 import postApi from "../apis/post/post"
 // import tagApi from "../apis/tag/tag"
 import Layout from "../components/layout"
@@ -10,9 +10,9 @@ import SEO from "../components/seo"
 import Tag from "../components/tag"
 
 import tempImg from "../images/temp.png"
+import { Router } from "@reach/router"
 
-const Post = () => {
-  const [userId, setUserId] = useState(null)
+const Post = props => {
   const [post, setPost] = useState({})
   const [tags, setTags] = useState([])
 
@@ -21,15 +21,12 @@ const Post = () => {
   }, [])
 
   const getPost = async () => {
-    setUserId(await cookie.getData('_id'))
-
-    const result = await postApi.readPost(
-      window.location.search.replace("?", "")
-    )
-    if (result) setPost(result)
-    // content에 마크다운으로 넣음
-    document.getElementById("content").innerHTML = marked(result.content)
-    
+    const result = await postApi.readPost(props.location.state.postId)
+    if (result) {
+      setPost(result)
+      // content에 마크다운으로 넣음
+      document.getElementById("content").innerHTML = marked(result.content)
+    }
     // const result2 = await tagApi.getPostTags(result.id)
     // if (result2) setTags(result2)
   }
@@ -41,7 +38,7 @@ const Post = () => {
         <Top>
           <TopImg src={tempImg} alt={"temp"} />
           <div>
-            <TopText>@shs0655</TopText>
+            <TopText>{props.userId}</TopText>
             <TopText>어금니금니입니다.</TopText>
           </div>
         </Top>
@@ -51,14 +48,19 @@ const Post = () => {
           <CreatedAt>{post.createdAt}</CreatedAt>
           <Line />
           <BtnContainer>
-            {userId===post.writerId?  
-            <>
-            <Btn to={`/write?${post._id}`}>수정</Btn>
-            <Btn to="/userInfo" onClick={()=>{
-              postApi.deletePost(post._id);
-              }}>삭제</Btn>
-            </>:null
-            }
+            {cookie.getData("_id") === post.writerId ? (
+              <>
+                <Btn to={`/write?${post._id}`}>수정</Btn>
+                <Btn
+                  to="/userInfo"
+                  onClick={() => {
+                    postApi.deletePost(post._id)
+                  }}
+                >
+                  삭제
+                </Btn>
+              </>
+            ) : null}
           </BtnContainer>
 
           <Pre id={"content"}></Pre>
@@ -82,7 +84,15 @@ const Post = () => {
   )
 }
 
-export default Post
+const postRouter = () => {
+  return (
+    <Router>
+      <Post path="post/:userId/:postTitle" />
+    </Router>
+  )
+}
+
+export default postRouter
 
 const Top = styled.div`
   display: flex;

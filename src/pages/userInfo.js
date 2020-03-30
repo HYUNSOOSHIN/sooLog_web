@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import { Router } from "@reach/router"
 import cookie from "../utils/cookie"
 import userApi from "../apis/user/user"
+
+import Page404 from "../pages/404"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -18,7 +21,7 @@ import LinkIcon from "@material-ui/icons/Link"
 
 import user from "../images/user.png"
 
-const UserInfo = () => {
+const UserInfo = props => {
   const [userInfo, setUserInfo] = useState({
     id: "",
     email: "",
@@ -33,12 +36,9 @@ const UserInfo = () => {
   const [activeTab, setActiveTab] = useState(1)
 
   useEffect(() => {
-    const param = window.location.search.replace("?", "")
+    const param = props.id.replace("@", "")
     const getUser = async () => {
-      const result = await userApi.getUserInfo(
-        param === "" ? cookie.getData("_id") : param
-      )
-
+      const result = await userApi.getUserInfo(param)
       if (result) {
         setUserInfo({
           ...userInfo,
@@ -55,7 +55,7 @@ const UserInfo = () => {
   function renderTabContent() {
     switch (activeTab) {
       case 1:
-        return <Post />
+        return <Post userId={props.id} />
 
       case 2:
         return <Series />
@@ -203,7 +203,16 @@ const UserInfo = () => {
   )
 }
 
-export default UserInfo
+const userInfoRouter = () => {
+  return (
+    <Router>
+      <Page404 path="userInfo" />
+      <UserInfo path="userInfo/:id" />
+    </Router>
+  )
+}
+
+export default userInfoRouter
 
 const InfoContainer = styled.div`
   display: flex;

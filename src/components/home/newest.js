@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Link } from "gatsby"
+import { Link as ReachLink } from "@reach/router"
 import styled from "styled-components"
 import postApi from "../../apis/post/post"
 
@@ -30,10 +30,15 @@ const Newest = () => {
           <PostItemContent>
             <Top>
               <UserId
-                to={`/userInfo/?${post.user[0]._id}`}
+                to={`userInfo/@${post.user[0].id}`}
               >{`${post.user[0].id}`}</UserId>
               <br />
-              <TitleText to={`/post?${post._id}`}>{post.title}</TitleText>
+              <TitleText
+                to={`/post/@${post.user[0].id}/${post.title}`}
+                state={{ postId: post._id }}
+              >
+                {post.title}
+              </TitleText>
               <CreatedAtText>{post.createdAt}</CreatedAtText>
             </Top>
             <Bottom>
@@ -105,14 +110,14 @@ const Top = styled.div`
 const Bottom = styled.div`
   padding: 24px 16px;
 `
-const UserId = styled(Link)`
+const UserId = styled(ReachLink)`
   cursor: pointer;
   color: #845ef7;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
 `
-const TitleText = styled(Link)`
+const TitleText = styled(ReachLink)`
   cursor: pointer;
   padding-top: 8px;
   color: #343a40;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "gatsby"
+import { Link as ReachLink } from "@reach/router"
 
 import "../components/layout.css"
 import SEO from "../components/seo"
@@ -96,7 +97,9 @@ const Index = () => {
           }}
         />
         <Menu style={{ display: menu ? "flex" : "none" }}>
-          <MenuItem to={`/userInfo`}>내 정보</MenuItem>
+          <MenuItemReach to={`userInfo/@${cookie.getData("id")}`}>
+            내 정보
+          </MenuItemReach>
           <Line />
           <MenuItem to={`/write`}>새 글 작성</MenuItem>
           <MenuItem to={`/tempPost`}>임시 글</MenuItem>
@@ -248,6 +251,18 @@ const Menu = styled.div`
   z-index: 100;
 `
 const MenuItem = styled(Link)`
+  cursor: pointer;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+  color: #000000;
+  font-size: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+  &:hover {
+    color: rgb(137, 85, 246);
+  }
+`
+const MenuItemReach = styled(ReachLink)`
   cursor: pointer;
   margin: 0;
   padding: 0.2rem 0.5rem;

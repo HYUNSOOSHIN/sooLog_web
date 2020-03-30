@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import { Link as ReachLink } from "@reach/router"
 import cookie from "../../utils/cookie"
 import postApi from "../../apis/post/post"
 // import marked from "marked"
 // import Tag from "../tag"
 
-const Post = () => {
+const Post = ({ userId }) => {
   const [postList, setPostList] = useState([])
   const [tag, setTag] = useState(0)
 
@@ -14,11 +15,9 @@ const Post = () => {
   }, [])
 
   const getData = async () => {
-    const param = window.location.search.replace("?", "")
+    const param = userId.replace("@", "")
 
-    const posts = await postApi.getPostListByUserIndex(
-      param === "" ? cookie.getData("_id") : param
-    )
+    const posts = await postApi.getPostListByUserIndex(param)
     if (posts) setPostList(posts)
   }
 
@@ -49,7 +48,12 @@ const Post = () => {
       <PostList>
         {postList.map((item, index) => (
           <PostItem key={index}>
-            <PostTitle href={`/post/?${item._id}`}>{item.title}</PostTitle>
+            <PostTitle
+              to={`/post/@${item.user[0].id}/${item.title}`}
+              state={{ postId: item._id }}
+            >
+              {item.title}
+            </PostTitle>
             <PostContent>{item.content}</PostContent>
             <PostDate>{`${item.createdAt} - 0개의 댓글`}</PostDate>
             {/* <div style={{display: 'flex', marginTop: '0.5rem'}}>
@@ -112,7 +116,7 @@ const PostItem = styled.div`
   padding-bottom: 2rem;
   border-bottom: 1px solid #dbdbdb;
 `
-const PostTitle = styled.a`
+const PostTitle = styled(ReachLink)`
   color: #222222;
   font-size: 22px;
   font-family: Arial, Helvetica, sans-serif;
