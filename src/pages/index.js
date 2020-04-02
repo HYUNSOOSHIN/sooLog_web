@@ -97,7 +97,7 @@ const Index = () => {
           }}
         />
         <Menu style={{ display: menu ? "flex" : "none" }}>
-          <MenuItemReach to={`userInfo/@${cookie.getData("id")}`}>
+          <MenuItemReach to={`/userInfo/@${cookie.getData("id")}`}>
             내 정보
           </MenuItemReach>
           <Line />

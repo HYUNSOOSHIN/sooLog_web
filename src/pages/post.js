@@ -52,7 +52,7 @@ const Post = props => {
               <>
                 <Btn to={`/write?${post._id}`}>수정</Btn>
                 <Btn
-                  to="/userInfo"
+                  to={`userInfo/@${cookie.getData("id")}`}
                   onClick={() => {
                     postApi.deletePost(post._id)
                   }}

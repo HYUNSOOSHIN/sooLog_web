@@ -58,17 +58,14 @@ const Newest = () => {
 export default Newest
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 1rem;
-  width: 100%;
-  height: 100%;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
 `
 const PostContainer = styled.div`
+  float: left;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0 0.5rem;
 `
 const PostItem = styled.div`
   background-color: #fff;
@@ -104,11 +101,19 @@ const PostItemContent = styled.div`
   width: 18rem;
 `
 const Top = styled.div`
-  padding: 32px 16px;
+  height: 7rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   border-bottom: 1px solid #e9ecef;
 `
 const Bottom = styled.div`
-  padding: 24px 16px;
+  overflow: hidden;
+  width: 18rem;
+  height: 18rem;
+  padding-top: 1rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
 `
 const UserId = styled(ReachLink)`
   cursor: pointer;
@@ -133,9 +138,12 @@ const CreatedAtText = styled.p`
 `
 const ContentText = styled.p`
   overflow-y: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 11;
+  -webkit-box-orient: vertical;
+
   margin: 0;
   color: #4c657d;
   font-size: 16px;
-  word-break: break-all;
-  text-overflow: ellipsis;
 `

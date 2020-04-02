@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 
+import cookie from "../../utils/cookie"
 import postApi from "../../apis/post/post"
 // import tagApi from "../../apis/tag/tag"
 
@@ -94,7 +95,8 @@ const HeaderModal = ({
                 // const result2 = await tagApi.createTag(tagData)
 
                 if (result) {
-                  window.location.replace("/userInfo")
+                  alert("포스트가 완료되었습니다.")
+                  window.location.replace(`userInfo/@${cookie.getData("id")}`)
                 } else alert("게시글 업로드에 실패하였습니다.")
               }
             }}
