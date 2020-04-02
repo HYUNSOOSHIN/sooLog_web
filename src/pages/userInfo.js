@@ -8,7 +8,7 @@ import Page404 from "../pages/404"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Post from "../components/userInfo/post"
+import Post from "../components/userInfo/post" 
 import Series from "../components/userInfo/series"
 import Scrap from "../components/userInfo/scrap"
 import Portfolio from "../components/userInfo/portfolio"
