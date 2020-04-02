@@ -52,12 +52,10 @@ const PostInfoContainer = styled.div`
 `
 const Title = styled.p`
   font-size: 24px;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const Time = styled.p`
   font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const TrashBtn = styled.div`

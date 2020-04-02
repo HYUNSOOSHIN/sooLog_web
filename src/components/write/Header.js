@@ -92,7 +92,6 @@ const TitleInput = styled.input`
   outline: none;
   color: #fff;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   &::placeholder {
     color: #fff;
   }
@@ -114,7 +113,6 @@ const UploadBtn = styled.label`
   border-radius: 0.2rem;
   color: #fff;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     background-color: #fff;
     color: rgb(53, 58, 64);
@@ -129,7 +127,6 @@ const WriteBtn = styled.button`
   border-radius: 0.2rem;
   color: #fff;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     background-color: rgb(146, 121, 242);
   }

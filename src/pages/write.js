@@ -123,7 +123,6 @@ const TextArea = styled.textarea`
   outline: none;
   color: #fff;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   resize: none;
   &::-webkit-scrollbar {
     display: none;
@@ -140,7 +139,6 @@ const MdResult = styled.div`
   }
 `
 const ResultTitle = styled.h1`
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
@@ -150,7 +148,6 @@ const ResultContent = styled.pre`
   white-space: pre-wrap;
   background-color: #fff;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 `

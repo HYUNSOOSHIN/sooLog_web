@@ -79,7 +79,6 @@ const TagList = styled.div`
 `
 const TagListTitle = styled.p`
   ont-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const Line = styled.div`
@@ -99,7 +98,6 @@ const TagListLi = styled.li`
   color: ${props => (props.active ? "rgb(137,85,246)" : "#343a40")};
   text-decoration: none;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
 `
 const TagListLiText = styled.label`
   color: #adb5bd;
@@ -119,7 +117,6 @@ const PostItem = styled.div`
 const PostTitle = styled(ReachLink)`
   color: #222222;
   font-size: 22px;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   text-decoration: none;
   margin: 0;
@@ -129,12 +126,10 @@ const PostTitle = styled(ReachLink)`
 `
 const PostContent = styled.p`
   font-size: 18px;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin: 0.5rem 0;
 `
 const PostDate = styled.p`
   font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `

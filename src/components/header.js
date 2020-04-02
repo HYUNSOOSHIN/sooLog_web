@@ -95,7 +95,6 @@ const Div = styled.div`
 `
 const Logo = styled.p`
   font-size: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   line-height: 1.5;
 `
@@ -151,7 +150,6 @@ const MenuItem = styled(Link)`
   text-decoration: none;
   color: #000000;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     color: rgb(137, 85, 246);
   }
@@ -163,7 +161,6 @@ const MenuItemReach = styled(ReachLink)`
   text-decoration: none;
   color: #000000;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     color: rgb(137, 85, 246);
   }

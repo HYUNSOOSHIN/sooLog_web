@@ -107,7 +107,6 @@ const TopImg = styled.img`
 `
 const TopText = styled.p`
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-left: 1rem;
 `
@@ -117,7 +116,6 @@ const Title = styled.h1`
 `
 const CreatedAt = styled.p`
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-bottom: 1rem;
 `
@@ -136,7 +134,6 @@ const Btn = styled(Link)`
   user-select: none;
   color: #a2a2a2;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   text-decoration: none;
   margin: 0;
   margin-left: 0.3rem;
@@ -144,7 +141,6 @@ const Btn = styled(Link)`
 const Pre = styled.pre`
   white-space: pre-wrap;
   background-color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 3rem 0;
   padding: 0;
 `
@@ -156,7 +152,6 @@ const Bottom = styled.div`
 `
 const BottomText = styled.p`
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin-bottom: 1rem;
 `
@@ -171,7 +166,6 @@ const TextArea = styled.textarea`
   resize: none;
   outline: none;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:focus {
     height: 8rem;
   }
@@ -190,7 +184,6 @@ const ReplyBtn = styled.p`
   border-radius: 0.2rem;
   color: #ffffff;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     background-color: rgb(146, 121, 242);
   }

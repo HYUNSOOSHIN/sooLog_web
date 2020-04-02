@@ -59,7 +59,6 @@ const Modal = styled.div`
 const ModalTitle = styled.div`
   color: #fff;
   font-size: 0.9rem; 
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin-top: 4rem;
   margin-bottom: 16px;
@@ -90,7 +89,6 @@ const LayoutText = styled.p`
   user-select: none;
   color: #fff;
   font-size: 0.7rem; 
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `;
 const TempSaveList = styled.div`
@@ -103,7 +101,6 @@ const TempSaveListText = styled.p`
   background-color: #343a40;
   color: #fff;
   font-size: 0.75rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 12px;
 `;

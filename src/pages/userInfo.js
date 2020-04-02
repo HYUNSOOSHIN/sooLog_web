@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Router } from "@reach/router"
-import cookie from "../utils/cookie"
 import userApi from "../apis/user/user"
+import socialApi from '../apis/social/social'
 
 import Page404 from "../pages/404"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Post from "../components/userInfo/Post"
-import Series from "../components/userInfo/Series"
-import Scrap from "../components/userInfo/Scrap"
-import Introduce from "../components/userInfo/Introduce"
+import Post from "../components/userInfo/post"
+import Series from "../components/userInfo/series"
+import Scrap from "../components/userInfo/scrap"
+import Portfolio from "../components/userInfo/portfolio"
 
 import EmailIcon from "@material-ui/icons/Email"
 import GitHubIcon from "@material-ui/icons/GitHub"
@@ -27,30 +27,41 @@ const UserInfo = props => {
     email: "",
     nickName: "",
     introduce: "",
-    github: "",
+    github: null,
     twitter: null,
-    facebook: "",
-    homepage: "",
+    facebook: null,
+    homepage: null,
     image: null,
   })
   const [activeTab, setActiveTab] = useState(1)
 
+  const param = props.id.replace("@", "")
+
   useEffect(() => {
-    const param = props.id.replace("@", "")
     const getUser = async () => {
-      const result = await userApi.getUserInfo(param)
-      if (result) {
+      const result1 = await userApi.getUserInfo(param)
+      const result2 = await socialApi.getSocial(param);
+      if(result1) {
         setUserInfo({
           ...userInfo,
-          id: result.id,
-          email: result.email,
-          nickName: result.nickname,
-          introduce: result.introduce,
+          id: result1.id,
+          email: result1.email,
+          nickName: result1.nickname,
+          introduce: result1.introduce,
+        })
+      } 
+      if(result2) {
+        setUserInfo({
+          ...userInfo,
+          github: result2.github,
+          twitter: result2.twitter,
+          facebook: result2.facebook,
+          homepage: result2.homepage,
         })
       }
     }
     getUser()
-  }, [])
+  }, [param])
 
   function renderTabContent() {
     switch (activeTab) {
@@ -64,7 +75,7 @@ const UserInfo = props => {
         return <Scrap />
 
       case 4:
-        return <Introduce />
+        return <Portfolio />
 
       default:
         return <Post />
@@ -88,7 +99,7 @@ const UserInfo = props => {
               <div style={{ display: "flex", height: "max-content" }}>
                 {userInfo.github ? (
                   <a
-                    href={`${userInfo.github}`}
+                    href={`https://github.com/${userInfo.github}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ marginRight: "1rem", color: "#555555" }}
@@ -98,7 +109,7 @@ const UserInfo = props => {
                 ) : null}
                 {userInfo.twitter ? (
                   <a
-                    href={`${userInfo.twitter}`}
+                    href={`https://twitter.com/${userInfo.twitter}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ marginRight: "1rem", color: "#555555" }}
@@ -108,7 +119,7 @@ const UserInfo = props => {
                 ) : null}
                 {userInfo.facebook ? (
                   <a
-                    href={`${userInfo.facebook}`}
+                    href={`https://facebook.com/${userInfo.facebook}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ marginRight: "1rem", color: "#555555" }}
@@ -193,7 +204,7 @@ const UserInfo = props => {
               active={activeTab === 4 ? true : false}
               onClick={() => setActiveTab(4)}
             >
-              소개
+              포트폴리오
             </Tab>
           </TabContainer>
           <TabContent>{renderTabContent()}</TabContent>
@@ -232,7 +243,6 @@ const InfoView = styled.div`
 const IdText = styled.div`
   color: rgb(137, 85, 246);
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const Line = styled.div`
@@ -243,14 +253,12 @@ const Line = styled.div`
 `
 const NickText = styled.p`
   font-size: 40px;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
   margin-top: 1rem;
 `
 const IntroText = styled.p`
   font-size: 14px;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-top: 1.5rem;
 `
@@ -262,11 +270,10 @@ const TabContainer = styled.div`
 const Tab = styled.p`
   cursor: pointer;
   display: flex;
-  width: 5rem;
+  width: 6rem;
   justify-content: center;
   color: ${props => (props.active ? "rgb(137,85,246)" : "black")};
   font-size: 1.2rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0 1rem;
   padding: 0.5rem 0;
   border-bottom: ${props =>

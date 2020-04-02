@@ -145,7 +145,6 @@ const Sidebar = styled.div`
 `
 const Logo = styled.p`
   font-size: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 2rem;
   line-height: 1.5;
@@ -163,7 +162,6 @@ const Input = styled.input`
   margin: 0.5rem 2rem;
   padding-left: 0.5rem;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:focus {
     background-color: #fff;
     border: 1px solid rgb(115, 86, 234);
@@ -184,7 +182,6 @@ const SidebarItem = styled.div`
 
 const SidebarItemText = styled.p`
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-left: 1rem;
 `
@@ -257,7 +254,6 @@ const MenuItem = styled(Link)`
   text-decoration: none;
   color: #000000;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     color: rgb(137, 85, 246);
   }
@@ -269,7 +265,6 @@ const MenuItemReach = styled(ReachLink)`
   text-decoration: none;
   color: #000000;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     color: rgb(137, 85, 246);
   }

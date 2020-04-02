@@ -12,4 +12,16 @@ const getUserInfo = async id => {
   } else return false
 }
 
-export default { getUserInfo }
+const nicknameNintro = async (newNick, newIntro) => {
+  const token = await cookie.getData('token')
+  const result = await api.put(`${apiUrl}/user/nicknameNintro`,{
+    token,
+    body: {newNick, newIntro}
+  })
+
+  if(result.statusCode === 200){
+    return true
+  } else return false
+}
+
+export default { getUserInfo, nicknameNintro }

@@ -145,13 +145,11 @@ const Top = styled.div`
 const TopP = styled.p`
   color: #fff;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const TopTitle = styled.p`
   color: rgb(207, 212, 218);
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-top: 1rem;
 `
@@ -165,7 +163,6 @@ const TagInput = styled.input`
   flex: 1;
   padding-left: 0.5rem;
   font-size: 0.9rem;
-  font-family: Arial, Helvetica, sans-serif;
 `
 const TagButton = styled.div`
   cursor: pointer;
@@ -174,7 +171,6 @@ const TagButton = styled.div`
   padding: 0 0.5rem;
   color: #fff;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   line-height: 2.2;
   &:hover {
@@ -196,7 +192,6 @@ const TagListDiv = styled.div`
   border-radius: 0.2rem;
   color: #000;
   font-size: 0.9rem;
-  font-family: Arial, Helvetica, sans-serif;
 `
 const TagListDivDiv = styled.div`
   background-color: rgb(200, 200, 200);
@@ -231,7 +226,6 @@ const UploadBtn = styled.div`
 const UploadBtnP = styled.p`
   user-select: none;
   font-size: 0.9rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0 0.5rem;
 `
@@ -252,7 +246,6 @@ const AddSeriesBtn = styled.div`
 const AddSeriesBtnP = styled.div`
   user-select: none;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0 0.5rem;
 `
@@ -272,7 +265,6 @@ const TempSaveBtn = styled.p`
   background-color: rgb(104, 113, 123);
   color: #fff;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin: 0;
   padding: 0.2rem 2rem;
@@ -287,7 +279,6 @@ const SaveBtn = styled.p`
   background-color: rgb(127, 100, 239);
   color: #fff;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin: 0;
   padding: 0.2rem 2rem;
@@ -308,7 +299,6 @@ const PrivateSetContainerP = styled.p`
   user-select: none;
   color: rgb(207, 106, 49);
   font-size: 0.7rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
 `
@@ -326,6 +316,5 @@ const PrivateBtn = styled.div`
 
 const PrivateBtnText = styled.div`
   font-size: 0.7rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `

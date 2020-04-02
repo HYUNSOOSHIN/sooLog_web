@@ -1,7 +1,7 @@
 import React from "react"
 
-const Introduce = () => {
+const Portfolio = () => {
   return <div></div>
 }
 
-export default Introduce
+export default Portfolio

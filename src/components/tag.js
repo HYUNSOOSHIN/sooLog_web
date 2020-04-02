@@ -19,7 +19,6 @@ const TagItem = styled.div`
   border-radius: 0.2rem;
   color: #000;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     background-color: rgb(242,243,245)
   }

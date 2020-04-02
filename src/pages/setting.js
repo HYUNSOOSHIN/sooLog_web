@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
+import cookie from '../utils/cookie'
+import userApi from "../apis/user/user"
+import socialApi from '../apis/social/social'
+
 import Layout from "../components/layout"
 import Switch from "../components/switch"
+import {SocialItem} from '../components/setting/input'
 
 import SettingsIcon from "@material-ui/icons/Settings"
 
@@ -13,14 +18,15 @@ const Setting = () => {
   //userinfo 수정
   const [edit, setEdit] = useState(false)
   const [error, setError] = useState(false)
-  const [description, setDescription] = useState("어금니금니입니다.")
-  const [real, setReal] = useState("어금니금니입니다.")
+  const [nickname, setNickname] = useState("")
+  const [nicknameReplica, setNicknameReplica] = useState("어금니금니입니다.")
+  const [introduce, setIntroduce] = useState("")
+  const [introduceReplica, setIntroduceReplica] = useState("어금니금니입니다.")
 
   //social 수정
-  const [email, setEmail] = useState("")
-  const [github, setGithub] = useState("https://github.com/")
-  const [twitter, setTwitter] = useState("https://twitter.com/")
-  const [facebook, setFacebook] = useState("https://facebook.com/")
+  const [github, setGithub] = useState("")
+  const [twitter, setTwitter] = useState("")
+  const [facebook, setFacebook] = useState("")
   const [homepage, setHomepage] = useState("")
 
   //email 수정
@@ -33,6 +39,24 @@ const Setting = () => {
 
   useEffect(() => {
     document.title = "Setting | SOOLOG"
+
+    const getUser = async () => {
+      const result1 = await userApi.getUserInfo(cookie.getData('id'))
+      if(result1){
+        setNickname(result1.nickname)
+        setNicknameReplica(result1.nickname)
+        setIntroduce(result1.introduce||"")
+        setIntroduceReplica(result1.introduce||"")
+      }
+      const result2 = await socialApi.getSocial();
+      if(result2){
+        setGithub(result2.github)
+        setTwitter(result2.twitter)
+        setFacebook(result2.facebook)
+        setHomepage(result2.homepage)
+      }
+    }
+    getUser()
   }, [])
 
   return (
@@ -55,15 +79,28 @@ const Setting = () => {
               </ProfileChangeBtn>
             </div>
             <UserInfoTextBox>
-              <Nick>어금니금니</Nick>
-              {edit ? (
-                <IntroTextArea
-                  defaultValue={description}
-                  onChange={e => setDescription(e.target.value)}
+              {edit ? 
+              <>
+                <input 
+                  style={{
+                    paddingLeft: '0.5rem',
+                    borderRadius: '0.2rem',
+                    border: '1px solid #cbcbcb',
+                    outline: 'none'
+                  }}
+                  type={'text'}
+                  value={nickname}
+                  onChange={e=>setNickname(e.target.value)}
                 />
-              ) : (
-                <Intro>{description}</Intro>
-              )}
+                <IntroTextArea
+                  defaultValue={introduce}
+                  onChange={e => setIntroduce(e.target.value)}
+                />
+              </> : <>
+                <Nick>{nickname}</Nick>
+                <Intro>{introduce}</Intro>
+                </>
+              }
               <IntroChangeBtnBox>
                 <IntroChangeErrText
                   style={{ color: error ? "#ff0000" : "#000000" }}
@@ -71,7 +108,7 @@ const Setting = () => {
                   {error
                     ? "글자 수를 초과하였습니다."
                     : edit
-                    ? `남은 글자 수: ${limitWC - description.length}`
+                    ? `남은 글자 수: ${limitWC - introduce.length}`
                     : ""}
                 </IntroChangeErrText>
                 {edit ? (
@@ -80,16 +117,26 @@ const Setting = () => {
                       onClick={() => {
                         setEdit(false)
                         setError(false)
-                        setDescription(real)
+                        setNickname(nicknameReplica)
+                        setIntroduce(introduceReplica)
                       }}
                     >
                       취소
                     </IntroChangeBtn>
                     <IntroChangeBtn
-                      onClick={() => {
-                        if (limitWC - description.length > -1) {
-                          setEdit(false)
-                          setReal(description)
+                      onClick={ async () => {
+                        if (limitWC - introduce.length > -1) {
+                          const result = await userApi.nicknameNintro(nickname, introduce)
+
+                          if(result) {
+                            alert('닉네임 & 소개가 수정되었습니다.')
+                            setEdit(false)
+                            setNicknameReplica(nickname)
+                            setIntroduceReplica(introduce)
+                          } else {
+                            alert('중복된 닉네임이 존재합니다.')
+                          }
+
                         } else setError(true)
                       }}
                     >
@@ -114,49 +161,21 @@ const Setting = () => {
             <SocailText style={{ fontSize: "0.9rem" }}>
               여기에 입력하는 정보는 자신의 벨로그 프로필에서 나타나게 됩니다.
             </SocailText>
-            <SocailItem>
-              <SocailItemText>이메일</SocailItemText>
-              <SocailItemInput
-                type="text"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              />
-            </SocailItem>
-            <SocailItem>
-              <SocailItemText>GitHub</SocailItemText>
-              <SocailItemInput
-                type="text"
-                value={github}
-                onChange={e => setGithub(e.target.value)}
-              />
-            </SocailItem>
-            <SocailItem>
-              <SocailItemText>Twitter</SocailItemText>
-              <SocailItemInput
-                type="text"
-                value={twitter}
-                onChange={e => setTwitter(e.target.value)}
-              />
-            </SocailItem>
-            <SocailItem>
-              <SocailItemText>Facebook</SocailItemText>
-              <SocailItemInput
-                type="text"
-                value={facebook}
-                onChange={e => setFacebook(e.target.value)}
-              />
-            </SocailItem>
-            <SocailItem>
-              <SocailItemText>홈페이지</SocailItemText>
-              <SocailItemInput
-                type="text"
-                value={homepage}
-                onChange={e => setHomepage(e.target.value)}
-              />
-            </SocailItem>
-            <SocailSaveBtn>
-              <SocailSaveBtnText>저장</SocailSaveBtnText>
-            </SocailSaveBtn>
+            <SocialItem title={'GitHub'} placeholder={'https://github.com/'} value={github} handler={setGithub} />
+            <SocialItem title={'Twitter'} placeholder={'https://twitter.com/'} value={twitter} handler={setTwitter} />
+            <SocialItem title={'Facebook'} placeholder={'https://facebook.com/'} value={facebook} handler={setFacebook} />
+            <SocialItem title={'홈페이지'} value={homepage} handler={setHomepage} />
+            <SocailSaveBtnBox>
+              <SocailSaveBtn onClick={ async () =>{
+                const socialData = {github, twitter, facebook, homepage}
+                const result = await socialApi.updateSocial(socialData) 
+                if(result) {
+                  alert("소셜 정보가 저장되었습니다.")
+                } else {
+                  alert("서버 에러(errrrrrrr)")
+                }
+              }}>저장</SocailSaveBtn>
+            </SocailSaveBtnBox>
           </SocialContainer>
         </ProfileContainer>
 
@@ -247,7 +266,6 @@ const Setting = () => {
                 marginTop: "1rem",
                 color: "red",
                 fontSize: "0.8rem",
-                fontFamily: "Arial, Helvetica, sans-serif",
                 fontWeight: "normal",
               }}
             >
@@ -295,13 +313,11 @@ const TitleContainer = styled.div`
 `
 const TitleText = styled.p`
   font-size: 2rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const ProfileContainer = styled.div``
 const ProfileText = styled.p`
   font-size: 1.3rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
 `
@@ -325,7 +341,6 @@ const ProfileChangeBtn = styled.p`
   border-radius: 0.3rem;
   color: #fff;
   font-size: 1.2rem;
-  font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin: 0;
   &:hover {
@@ -338,12 +353,10 @@ const UserInfoTextBox = styled.div`
 `
 const Nick = styled.p`
   font-size: 1.5rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const Intro = styled.p`
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-top: 1rem;
 `
@@ -357,7 +370,6 @@ const IntroTextArea = styled.textarea`
   border: 1px solid #cbcbcb;
   border-radius: 0.5rem;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
 `
 const IntroChangeBtnBox = styled.div`
   display: flex;
@@ -367,14 +379,12 @@ const IntroChangeBtnBox = styled.div`
 const IntroChangeErrText = styled.p`
   user-select: none;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
 const IntroChangeBtn = styled.p`
   cursor: pointer;
   user-select: none;
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
   margin-left: 0.5rem;
 `
@@ -383,42 +393,22 @@ const SocialContainer = styled.div`
 `
 const SocailText = styled.p`
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   margin: 0;
 `
-const SocailItem = styled.div`
-  width: 100%;
-`
-const SocailItemText = styled.p`
-  font-size: 0.9rem;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  margin: 0;
-  margin-top: 1rem;
-`
-const SocailItemInput = styled.input`
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  outline: none;
-  border: 1px solid #bababa;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
-`
-const SocailSaveBtn = styled.div`
+const SocailSaveBtnBox = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 1rem;
 `
-const SocailSaveBtnText = styled.p`
+const SocailSaveBtn = styled.button`
   cursor: pointer;
   user-select: none;
   background-color: rgb(137, 85, 246);
   padding: 0.2rem 0.5rem;
+  border: none;
   border-radius: 0.2rem;
+  outline: none;
   color: #fff;
-  font-family: Arial, Helvetica, sans-serif;
   &:hover {
     background-color: rgb(146, 121, 242);
   }
@@ -428,7 +418,6 @@ const EmailContainer = styled.div`
 `
 const EmailText = styled.p`
   font-size: 1.3rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
 `
@@ -437,12 +426,10 @@ const EmailChangeBox = styled.div`
   align-items: center;
   margin-top: 0.5rem;
   font-size: 0.9rem;
-  font-family: Arial, Helvetica, sans-serif;
 `
 const EmailSetting = styled.div``
 const EmailSettingText = styled.p`
   font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
   margin-bottom: 0.5rem;
@@ -458,7 +445,6 @@ const EmailSettingSwitchBox = styled.div`
 `
 const EmailSettingSwitchBoxText = styled.p`
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
 `
@@ -470,7 +456,6 @@ const EmailSaveBtn = styled.p`
   border: 1px solid rgb(75, 80, 87);
   border-radius: 0.2rem;
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
   margin-top: 0.5rem;
@@ -484,7 +469,6 @@ const EtcContainer = styled.div`
 `
 const EtcTitle = styled.p`
   font-size: 1.3rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
 `
@@ -497,7 +481,6 @@ const OutBtn = styled.p`
   border-radius: 0.2rem;
   color: rgb(207, 66, 59);
   font-size: 0.8rem;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
   margin: 0;
   margin-top: 1rem;
