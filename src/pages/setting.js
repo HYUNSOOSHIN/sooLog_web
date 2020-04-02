@@ -48,7 +48,7 @@ const Setting = () => {
         setIntroduce(result1.introduce||"")
         setIntroduceReplica(result1.introduce||"")
       }
-      const result2 = await socialApi.getSocial();
+      const result2 = await socialApi.getSocial(cookie.getData('id'));
       if(result2){
         setGithub(result2.github)
         setTwitter(result2.twitter)
