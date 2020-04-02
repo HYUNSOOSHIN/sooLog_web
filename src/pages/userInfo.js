@@ -27,11 +27,13 @@ const UserInfo = props => {
     email: "",
     nickName: "",
     introduce: "",
+    image: null,
+  })
+  const [socialInfo, setSocialInfo] = useState({
     github: null,
     twitter: null,
     facebook: null,
     homepage: null,
-    image: null,
   })
   const [activeTab, setActiveTab] = useState(1)
 
@@ -40,19 +42,18 @@ const UserInfo = props => {
   useEffect(() => {
     const getUser = async () => {
       const result1 = await userApi.getUserInfo(param)
-      const result2 = await socialApi.getSocial(param);
+      const result2 = await socialApi.getSocial(param)
       if(result1) {
         setUserInfo({
-          ...userInfo,
           id: result1.id,
           email: result1.email,
           nickName: result1.nickname,
           introduce: result1.introduce,
+          image: null
         })
       } 
       if(result2) {
-        setUserInfo({
-          ...userInfo,
+        setSocialInfo({
           github: result2.github,
           twitter: result2.twitter,
           facebook: result2.facebook,
@@ -97,9 +98,9 @@ const UserInfo = props => {
             }`}</IntroText>
             <div style={{ marginTop: "16px" }}>
               <div style={{ display: "flex", height: "max-content" }}>
-                {userInfo.github ? (
+                {socialInfo.github ? (
                   <a
-                    href={`https://github.com/${userInfo.github}`}
+                    href={`https://github.com/${socialInfo.github}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ marginRight: "1rem", color: "#555555" }}
@@ -107,9 +108,9 @@ const UserInfo = props => {
                     <GitHubIcon style={{ width: "34px", height: "34px" }} />
                   </a>
                 ) : null}
-                {userInfo.twitter ? (
+                {socialInfo.twitter ? (
                   <a
-                    href={`https://twitter.com/${userInfo.twitter}`}
+                    href={`https://twitter.com/${socialInfo.twitter}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ marginRight: "1rem", color: "#555555" }}
@@ -117,9 +118,9 @@ const UserInfo = props => {
                     <TwitterIcon style={{ width: "34px", height: "34px" }} />
                   </a>
                 ) : null}
-                {userInfo.facebook ? (
+                {socialInfo.facebook ? (
                   <a
-                    href={`https://facebook.com/${userInfo.facebook}`}
+                    href={`https://facebook.com/${socialInfo.facebook}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ marginRight: "1rem", color: "#555555" }}
@@ -151,7 +152,7 @@ const UserInfo = props => {
                     </a>
                   </div>
                 ) : null}
-                {userInfo.homepage ? (
+                {socialInfo.homepage ? (
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <LinkIcon
                       style={{
@@ -161,7 +162,7 @@ const UserInfo = props => {
                       }}
                     />
                     <a
-                      href={`${userInfo.homepage}`}
+                      href={`${socialInfo.homepage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
@@ -171,7 +172,7 @@ const UserInfo = props => {
                         textDecoration: "none",
                       }}
                     >
-                      {`${userInfo.homepage}`}
+                      {`${socialInfo.homepage}`}
                     </a>
                   </div>
                 ) : null}
