@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Router } from "@reach/router"
 import userApi from "../apis/user/user"
-import socialApi from '../apis/social/social'
+import socialApi from "../apis/social/social"
 
 import Page404 from "../pages/404"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Post from "../components/userInfo/post" 
+import Post from "../components/userInfo/post"
 import Series from "../components/userInfo/series"
 import Scrap from "../components/userInfo/scrap"
 import Portfolio from "../components/userInfo/portfolio"
@@ -43,16 +43,16 @@ const UserInfo = props => {
     const getUser = async () => {
       const result1 = await userApi.getUserInfo(param)
       const result2 = await socialApi.getSocial(param)
-      if(result1) {
+      if (result1) {
         setUserInfo({
           id: result1.id,
           email: result1.email,
           nickName: result1.nickname,
           introduce: result1.introduce,
-          image: null
+          image: null,
         })
-      } 
-      if(result2) {
+      }
+      if (result2) {
         setSocialInfo({
           github: result2.github,
           twitter: result2.twitter,
@@ -140,11 +140,11 @@ const UserInfo = props => {
                       }}
                     />
                     <a
-                      href={`${userInfo.email}`}
+                      href={`/`}
                       style={{
                         margin: 0,
                         color: "#845ef7",
-                        fontSize: "16px",
+                        fontSize: "1rem",
                         textDecoration: "none",
                       }}
                     >

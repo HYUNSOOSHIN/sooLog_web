@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import cookie from '../utils/cookie'
+import cookie from "../utils/cookie"
 import userApi from "../apis/user/user"
-import socialApi from '../apis/social/social'
+import socialApi from "../apis/social/social"
+import emailApi from "../apis/email/email"
 
 import Layout from "../components/layout"
 import Switch from "../components/switch"
-import {SocialItem} from '../components/setting/input'
+import { SocialItem } from "../components/setting/input"
 
 import SettingsIcon from "@material-ui/icons/Settings"
 
@@ -31,9 +32,10 @@ const Setting = () => {
 
   //email 수정
   const [emailEdit, setEmailEdit] = useState(false)
-  const [emailId, setEmailId] = useState("shs0655@gmail.com")
-  const [real2, setReal2] = useState("shs0655@gmail.com")
+  const [email, setEmail] = useState("")
+  const [emailReplica, setEmailReplica] = useState("")
 
+  //
   const [replyAlarm, setReplyAlarm] = useState(false)
   const [eventAlarm, setEventAlarm] = useState(false)
 
@@ -41,19 +43,26 @@ const Setting = () => {
     document.title = "Setting | SOOLOG"
 
     const getUser = async () => {
-      const result1 = await userApi.getUserInfo(cookie.getData('id'))
-      if(result1){
+      const result1 = await userApi.getUserInfo(cookie.getData("id"))
+      if (result1) {
         setNickname(result1.nickname)
         setNicknameReplica(result1.nickname)
-        setIntroduce(result1.introduce||"")
-        setIntroduceReplica(result1.introduce||"")
+        setIntroduce(result1.introduce || "")
+        setIntroduceReplica(result1.introduce || "")
+        setEmail(result1.email)
+        setEmailReplica(result1.email)
       }
-      const result2 = await socialApi.getSocial(cookie.getData('id'));
-      if(result2){
+      const result2 = await socialApi.getSocial(cookie.getData("id"))
+      if (result2) {
         setGithub(result2.github)
         setTwitter(result2.twitter)
         setFacebook(result2.facebook)
         setHomepage(result2.homepage)
+      }
+      const result3 = await emailApi.getEamilRecieveOption()
+      if (result3) {
+        setReplyAlarm(result3.reply)
+        setEventAlarm(result3.event)
       }
     }
     getUser()
@@ -79,28 +88,30 @@ const Setting = () => {
               </ProfileChangeBtn>
             </div>
             <UserInfoTextBox>
-              {edit ? 
-              <>
-                <input 
-                  style={{
-                    paddingLeft: '0.5rem',
-                    borderRadius: '0.2rem',
-                    border: '1px solid #cbcbcb',
-                    outline: 'none'
-                  }}
-                  type={'text'}
-                  value={nickname}
-                  onChange={e=>setNickname(e.target.value)}
-                />
-                <IntroTextArea
-                  defaultValue={introduce}
-                  onChange={e => setIntroduce(e.target.value)}
-                />
-              </> : <>
-                <Nick>{nickname}</Nick>
-                <Intro>{introduce}</Intro>
+              {edit ? (
+                <>
+                  <input
+                    style={{
+                      paddingLeft: "0.5rem",
+                      borderRadius: "0.2rem",
+                      border: "1px solid #cbcbcb",
+                      outline: "none",
+                    }}
+                    type={"text"}
+                    value={nickname}
+                    onChange={e => setNickname(e.target.value)}
+                  />
+                  <IntroTextArea
+                    defaultValue={introduce}
+                    onChange={e => setIntroduce(e.target.value)}
+                  />
                 </>
-              }
+              ) : (
+                <>
+                  <Nick>{nickname}</Nick>
+                  <Intro>{introduce}</Intro>
+                </>
+              )}
               <IntroChangeBtnBox>
                 <IntroChangeErrText
                   style={{ color: error ? "#ff0000" : "#000000" }}
@@ -124,19 +135,21 @@ const Setting = () => {
                       취소
                     </IntroChangeBtn>
                     <IntroChangeBtn
-                      onClick={ async () => {
+                      onClick={async () => {
                         if (limitWC - introduce.length > -1) {
-                          const result = await userApi.nicknameNintro(nickname, introduce)
+                          const result = await userApi.updateNicknameNIntro(
+                            nickname,
+                            introduce
+                          )
 
-                          if(result) {
-                            alert('닉네임 & 소개가 수정되었습니다.')
+                          if (result) {
+                            alert("닉네임 & 소개가 수정되었습니다.")
                             setEdit(false)
                             setNicknameReplica(nickname)
                             setIntroduceReplica(introduce)
                           } else {
-                            alert('중복된 닉네임이 존재합니다.')
+                            alert("중복된 닉네임이 존재합니다.")
                           }
-
                         } else setError(true)
                       }}
                     >
@@ -161,20 +174,43 @@ const Setting = () => {
             <SocailText style={{ fontSize: "0.9rem" }}>
               여기에 입력하는 정보는 자신의 벨로그 프로필에서 나타나게 됩니다.
             </SocailText>
-            <SocialItem title={'GitHub'} placeholder={'https://github.com/'} value={github} handler={setGithub} />
-            <SocialItem title={'Twitter'} placeholder={'https://twitter.com/'} value={twitter} handler={setTwitter} />
-            <SocialItem title={'Facebook'} placeholder={'https://facebook.com/'} value={facebook} handler={setFacebook} />
-            <SocialItem title={'홈페이지'} value={homepage} handler={setHomepage} />
+            <SocialItem
+              title={"GitHub"}
+              placeholder={"https://github.com/"}
+              value={github}
+              handler={setGithub}
+            />
+            <SocialItem
+              title={"Twitter"}
+              placeholder={"https://twitter.com/"}
+              value={twitter}
+              handler={setTwitter}
+            />
+            <SocialItem
+              title={"Facebook"}
+              placeholder={"https://facebook.com/"}
+              value={facebook}
+              handler={setFacebook}
+            />
+            <SocialItem
+              title={"홈페이지"}
+              value={homepage}
+              handler={setHomepage}
+            />
             <SocailSaveBtnBox>
-              <SocailSaveBtn onClick={ async () =>{
-                const socialData = {github, twitter, facebook, homepage}
-                const result = await socialApi.updateSocial(socialData) 
-                if(result) {
-                  alert("소셜 정보가 저장되었습니다.")
-                } else {
-                  alert("서버 에러(errrrrrrr)")
-                }
-              }}>저장</SocailSaveBtn>
+              <SocailSaveBtn
+                onClick={async () => {
+                  const socialData = { github, twitter, facebook, homepage }
+                  const result = await socialApi.updateSocial(socialData)
+                  if (result) {
+                    alert("소셜 정보가 저장되었습니다.")
+                  } else {
+                    alert("서버 에러(errrrrrrr)")
+                  }
+                }}
+              >
+                저장
+              </SocailSaveBtn>
             </SocailSaveBtnBox>
           </SocialContainer>
         </ProfileContainer>
@@ -193,8 +229,8 @@ const Setting = () => {
                     border: "1px solid #dbdbdb",
                     borderRadius: "0.3rem",
                   }}
-                  value={emailId}
-                  onChange={e => setEmailId(e.target.value)}
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
                 <button
                   style={{
@@ -207,9 +243,24 @@ const Setting = () => {
                     borderRadius: "0.3rem",
                     color: "rgb(126,99,239)",
                   }}
-                  onClick={() => {
-                    setEmailEdit(false)
-                    setReal2(emailId)
+                  onClick={async () => {
+                    const rule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+
+                    if (!rule.test(email)) {
+                      alert("이메일 형식이 아닙니다.")
+                    } else {
+                      const confirm = window.confirm(
+                        "정말로 이메일을 변경하시겠습니까?"
+                      )
+
+                      if (confirm) {
+                        const result = await userApi.updateEmail({ email })
+                        if (result) {
+                          setEmailEdit(false)
+                          setEmailReplica(email)
+                        }
+                      }
+                    }
                   }}
                 >
                   변경
@@ -226,7 +277,7 @@ const Setting = () => {
                   }}
                   onClick={() => {
                     setEmailEdit(false)
-                    setEmailId(real2)
+                    setEmail(emailReplica)
                   }}
                 >
                   취소
@@ -240,7 +291,11 @@ const Setting = () => {
                   marginBottom: "30px",
                 }}
               >
-                <p style={{ margin: 0, marginRight: "4px" }}>{emailId}</p>
+                <p
+                  style={{ margin: 0, marginRight: "0.5rem", fontSize: "1rem" }}
+                >
+                  {email}
+                </p>
                 <button
                   style={{
                     cursor: "pointer",
@@ -249,8 +304,7 @@ const Setting = () => {
                     outline: "none",
                     border: "none",
                     color: "#868e96",
-                    fontSize: "14px",
-                    textDecoration: "underline",
+                    fontSize: "1rem",
                   }}
                   onClick={() => setEmailEdit(true)}
                 >
@@ -277,27 +331,64 @@ const Setting = () => {
               <EmailSettingSwitchBox>
                 <Switch
                   checked={replyAlarm}
-                  onChange={() => setReplyAlarm(!replyAlarm)}
+                  onChange={async () => {
+                    const result = await emailApi.setEamilRecieveOption({
+                      reply: !replyAlarm,
+                      event: eventAlarm,
+                    })
+                    if (result) setReplyAlarm(!replyAlarm)
+                  }}
                 />
                 <EmailSettingSwitchBoxText>댓글 알림</EmailSettingSwitchBoxText>
               </EmailSettingSwitchBox>
               <EmailSettingSwitchBox>
                 <Switch
                   checked={eventAlarm}
-                  onChange={() => setEventAlarm(!eventAlarm)}
+                  onChange={async () => {
+                    const result = await emailApi.setEamilRecieveOption({
+                      reply: replyAlarm,
+                      event: !eventAlarm,
+                    })
+                    if (result) setEventAlarm(!eventAlarm)
+                  }}
                 />
                 <EmailSettingSwitchBoxText>
                   이벤트 및 프로모션
                 </EmailSettingSwitchBoxText>
               </EmailSettingSwitchBox>
-              <EmailSaveBtn>이벤트 수신 설정 저장</EmailSaveBtn>
             </EmailSetting>
           )}
         </EmailContainer>
 
         <EtcContainer>
           <EtcTitle>기타</EtcTitle>
-          <OutBtn>회원 탈퇴</OutBtn>
+          <OutBtn
+            onClick={async () => {
+              const confirm = window.confirm(
+                "회원탈퇴 시 복구가 불가능합니다. 정말로 회원탈퇴 하시겠습니까?"
+              )
+
+              if (confirm) {
+                const result = await userApi.deleteUser()
+                if (result) {
+                  await cookie.removeAllData()
+                  window.location.replace("/")
+                }
+              }
+            }}
+          >
+            회원 탈퇴
+          </OutBtn>
+          <p
+            style={{
+              margin: 0,
+              marginBottom: "5rem",
+              color: "#868e96",
+              fontSize: "0.8rem",
+            }}
+          >
+            탈퇴 시 작성하신 포스트 및 댓글이 모두 삭제되며 복구되지 않습니다.
+          </p>
         </EtcContainer>
       </>
     </Layout>
@@ -404,11 +495,12 @@ const SocailSaveBtn = styled.button`
   cursor: pointer;
   user-select: none;
   background-color: rgb(137, 85, 246);
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.2rem;
   outline: none;
   color: #fff;
+  font-weight: bold;
   &:hover {
     background-color: rgb(146, 121, 242);
   }
@@ -484,7 +576,7 @@ const OutBtn = styled.p`
   font-weight: bold;
   margin: 0;
   margin-top: 1rem;
-  margin-bottom: 5rem;
+  margin-bottom: 1rem;
   padding: 0.1rem 1rem;
   &:hover {
     background-color: rgb(207, 66, 59);
