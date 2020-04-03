@@ -4,7 +4,6 @@ import styled from "styled-components"
 import marked from "marked"
 import cookie from "../utils/cookie"
 import postApi from "../apis/post/post"
-// import tagApi from "../apis/tag/tag"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Tag from "../components/tag"
@@ -13,8 +12,9 @@ import tempImg from "../images/temp.png"
 import { Router } from "@reach/router"
 
 const Post = props => {
+  const [user, setUser] = useState([])
   const [post, setPost] = useState({})
-  const [tags, setTags] = useState([])
+  const [tag, setTag] = useState([])
 
   useEffect(() => {
     getPost()
@@ -24,11 +24,11 @@ const Post = props => {
     const result = await postApi.readPost(props.location.state.postId)
     if (result) {
       setPost(result)
+      setTag(result.tag)
+      setUser(result.user[0])
       // content에 마크다운으로 넣음
       document.getElementById("content").innerHTML = marked(result.content)
     }
-    // const result2 = await tagApi.getPostTags(result.id)
-    // if (result2) setTags(result2)
   }
 
   return (
@@ -39,7 +39,7 @@ const Post = props => {
           <TopImg src={tempImg} alt={"temp"} />
           <div>
             <TopText>{props.userId}</TopText>
-            <TopText>어금니금니입니다.</TopText>
+            <TopText>{user.nickname}</TopText>
           </div>
         </Top>
 
@@ -66,8 +66,8 @@ const Post = props => {
           <Pre id={"content"}></Pre>
 
           <TagList>
-            {tags.map((tag, idx) => (
-              <Tag name={tag.tagName} key={idx} />
+            {tag.map((tag, idx) => (
+              <Tag name={tag.name} key={idx} />
             ))}
           </TagList>
         </>

@@ -57,6 +57,11 @@ const Newest = () => {
 
 export default Newest
 
+// display: flex;
+// flex-wrap: wrap;
+
+// display: inline-flex;
+
 const Container = styled.div`
   padding: 0 1rem;
 `

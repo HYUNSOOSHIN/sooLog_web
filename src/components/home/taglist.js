@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-// import tagApi from "../../apis/tag/tag"
+import tagApi from "../../apis/tag"
 
 import WhatshotIcon from "@material-ui/icons/Whatshot"
 import SortByAlphaIcon from "@material-ui/icons/SortByAlpha"
@@ -14,13 +14,14 @@ const TagList = () => {
   }, [])
 
   const getTags = async () => {
-    // const result = await tagApi.getAllTags()
+    const result = await tagApi.readAllTagList()
     // if (result) {
     //   result.sort((a, b) =>
     //     a.count < b.count ? 1 : a.count > b.count ? -1 : 0
     //   )
     //   await setTagList(result)
     // }
+    setTagList(result)
   }
 
   const sortTags = how => {
@@ -62,8 +63,8 @@ const TagList = () => {
       <TagContainer>
         {tagList.map((item, index) => (
           <TagItem key={`tag ${index}`}>
-            <TagItemName>{item.tagName}</TagItemName>
-            <TagItemCount>{item.count}</TagItemCount>
+            <TagItemName>{item.name}</TagItemName>
+            <TagItemCount>{item.totalCount}</TagItemCount>
           </TagItem>
         ))}
       </TagContainer>

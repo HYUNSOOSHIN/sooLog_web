@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import cookie from "../../utils/cookie"
 import postApi from "../../apis/post/post"
-// import tagApi from "../../apis/tag/tag"
+import tagApi from "../../apis/tag"
 
 import PublishIcon from "@material-ui/icons/Publish"
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd"
@@ -48,13 +48,16 @@ const HeaderModal = ({
           {tagList.map((item, index) => (
             <TagListDiv key={index}>
               {item}
-              <TagListDivDiv
-                onClick={async () => {
-                  await tagList.splice(index, 1)
-                  setTagList(tagList)
-                }}
-              >
-                <TagDeleteImg />
+              <TagListDivDiv>
+                <RemoveOutlinedIcon
+                  style={{ width: "1rem", height: "1rem" }}
+                  onClick={async () => {
+                    const temp = tagList
+                    await temp.splice(index, 1)
+                    setTagList([]) // 재렌더링이 안돼서 임시로 넣음
+                    setTagList(temp)
+                  }}
+                />
               </TagListDivDiv>
             </TagListDiv>
           ))}
@@ -92,9 +95,9 @@ const HeaderModal = ({
                   tagList: tagList,
                   postId: result,
                 }
-                // const result2 = await tagApi.createTag(tagData)
+                const result2 = await tagApi.createTag({ tagData })
 
-                if (result) {
+                if (result && result2) {
                   alert("포스트가 완료되었습니다.")
                   window.location.replace(`userInfo/@${cookie.getData("id")}`)
                 } else alert("게시글 업로드에 실패하였습니다.")
@@ -203,11 +206,6 @@ const TagListDivDiv = styled.div`
     background-color: rgb(185, 59, 52);
     color: #fff;
   }
-`
-
-const TagDeleteImg = styled(RemoveOutlinedIcon)`
-  width: 1rem;
-  height: 1rem;
 `
 
 const UploadBtn = styled.div`

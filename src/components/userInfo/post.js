@@ -4,7 +4,7 @@ import { Link as ReachLink } from "@reach/router"
 import cookie from "../../utils/cookie"
 import postApi from "../../apis/post/post"
 // import marked from "marked"
-// import Tag from "../tag"
+import Tag from "../tag"
 
 const Post = ({ userId }) => {
   const [postList, setPostList] = useState([])
@@ -56,11 +56,11 @@ const Post = ({ userId }) => {
             </PostTitle>
             <PostContent>{item.content}</PostContent>
             <PostDate>{`${item.createdAt} - 0개의 댓글`}</PostDate>
-            {/* <div style={{display: 'flex', marginTop: '0.5rem'}}>
-              {item.tag.map((tag, idx)=>
-                <Tag key={idx} name={tag}/>
-              )}
-            </div> */}
+            <div style={{ display: "flex", marginTop: "0.5rem" }}>
+              {item.tag.map((tag, idx) => (
+                <Tag key={idx} name={tag.name} />
+              ))}
+            </div>
           </PostItem>
         ))}
       </PostList>
