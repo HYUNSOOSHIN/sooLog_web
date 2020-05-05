@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import styled from "styled-components"
-import { Link } from "gatsby"
-import { Link as ReachLink } from "@reach/router"
+import { navigate } from "gatsby"
+import { Link } from "@reach/router"
 
 import cookie from "react-cookies"
 
@@ -11,18 +11,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import user from "../images/user.png"
 
 const Header = ({ menu, setMenu }) => {
-  const [isLogin, setIsLogin] = useState(false)
-
-  useEffect(() => {
-    loginCheck()
-  })
-
-  const loginCheck = async () => {
-    const token = await cookie.load("token")
-    if (token === undefined || token === null) setIsLogin(false)
-    else setIsLogin(true)
-  }
-
   return (
     <Container onClick={() => setMenu(false)}>
       <Div>
@@ -30,7 +18,7 @@ const Header = ({ menu, setMenu }) => {
           <LogoLink to="/">sooLog</LogoLink>
         </Logo>
 
-        {isLogin === true ? (
+        {cookie.load("token") !== undefined ? (
           <AvatarBtn
             onClick={e => {
               e.stopPropagation()
@@ -55,24 +43,22 @@ const Header = ({ menu, setMenu }) => {
           }}
         />
         <Menu style={{ display: menu ? "flex" : "none" }}>
-          <MenuItemReach to={`/userInfo/@${cookie.load("id")}`}>
-            내 정보
-          </MenuItemReach>
+          <ReachLink to={`/userInfo/@${cookie.load("id")}`}>내 정보</ReachLink>
           <Line />
-          <MenuItem to={`/write`}>새 글 작성</MenuItem>
-          <MenuItem to={`/tempPost`}>임시 글</MenuItem>
+          <ReachLink to={`/write`}>새 글 작성</ReachLink>
+          <ReachLink to={`/tempPost`}>임시 글</ReachLink>
           <Line />
-          <MenuItem to={`/setting`}>설정</MenuItem>
-          <MenuItem
-            to={"/"}
-            onClick={() => {
-              cookie.remove('token')
-              cookie.remove('id')
-              cookie.remove('_id')
+          <ReachLink to={`/setting`}>설정</ReachLink>
+          <MenuBtn
+            onClick={async () => {
+              await cookie.remove("token")
+              await cookie.remove("id")
+              await cookie.remove("_id")
+              navigate("/")
             }}
           >
             로그아웃
-          </MenuItem>
+          </MenuBtn>
         </Menu>
       </Div>
     </Container>
@@ -145,7 +131,7 @@ const Menu = styled.div`
   top: 6.7rem;
   border: 1px solid #000000;
 `
-const MenuItem = styled(Link)`
+const MenuBtn = styled.div`
   cursor: pointer;
   margin: 0;
   padding: 0.2rem 0.5rem;
@@ -156,7 +142,7 @@ const MenuItem = styled(Link)`
     color: rgb(137, 85, 246);
   }
 `
-const MenuItemReach = styled(ReachLink)`
+const ReachLink = styled(Link)`
   cursor: pointer;
   margin: 0;
   padding: 0.2rem 0.5rem;

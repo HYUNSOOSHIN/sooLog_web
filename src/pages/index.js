@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
-import { Link } from "gatsby"
-import { Link as ReachLink } from "@reach/router"
+import { navigate } from "gatsby"
+import { Link } from "@reach/router"
 
 import "../components/layout.css"
 import SEO from "../components/seo"
@@ -20,19 +20,8 @@ import LabelOutlinedIcon from "@material-ui/icons/LabelOutlined"
 import user from "../images/user.png"
 
 const Index = () => {
-  const [isLogin, setIsLogin] = useState(false)
   const [menu, setMenu] = useState(false)
   const [selected, setSelected] = useState(1)
-
-  useEffect(() => {
-    loginCheck()
-  }, [])
-
-  const loginCheck = async () => {
-    const token = await cookie.load("token")
-    if (token === undefined || token === null) await setIsLogin(false)
-    else await setIsLogin(true)
-  }
 
   return (
     <Container onClick={() => setMenu(false)}>
@@ -71,7 +60,7 @@ const Index = () => {
 
       <Content>
         <AvatarView>
-          {isLogin === true ? (
+          {cookie.load("token") !== undefined ? (
             <AvatarBtn
               onClick={e => {
                 e.stopPropagation()
@@ -97,25 +86,22 @@ const Index = () => {
           }}
         />
         <Menu style={{ display: menu ? "flex" : "none" }}>
-          <MenuItemReach to={`/userInfo/@${cookie.load("id")}`}>
-            내 정보
-          </MenuItemReach>
+          <ReachLink to={`/userInfo/@${cookie.load("id")}`}>내 정보</ReachLink>
           <Line />
-          <MenuItem to={`/write`}>새 글 작성</MenuItem>
-          <MenuItem to={`/tempPost`}>임시 글</MenuItem>
+          <ReachLink to={`/write`}>새 글 작성</ReachLink>
+          <ReachLink to={`/tempPost`}>임시 글</ReachLink>
           <Line />
-          <MenuItem to={`/setting`}>설정</MenuItem>
-          <MenuItem
-            to={"/"}
+          <ReachLink to={`/setting`}>설정</ReachLink>
+          <MenuBtn
             onClick={async () => {
-              cookie.remove('token')
-              cookie.remove('id')
-              cookie.remove('_id')
+              await cookie.remove("token")
+              await cookie.remove("id")
+              await cookie.remove("_id")
               document.location.reload()
             }}
           >
             로그아웃
-          </MenuItem>
+          </MenuBtn>
         </Menu>
         <div>
           {selected === 1 ? (
@@ -247,9 +233,19 @@ const Menu = styled.div`
   right: 2rem;
   top: 6.7rem;
   border: 1px solid #000000;
-  z-index: 100;
 `
-const MenuItem = styled(Link)`
+const MenuBtn = styled.div`
+  cursor: pointer;
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+  color: #000000;
+  font-size: 0.8rem;
+  &:hover {
+    color: rgb(137, 85, 246);
+  }
+`
+const ReachLink = styled(Link)`
   cursor: pointer;
   margin: 0;
   padding: 0.2rem 0.5rem;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Router } from "@reach/router"
+import cookie from "react-cookies"
 import userApi from "../apis/user/user"
 import socialApi from "../apis/social/social"
 
@@ -41,25 +42,25 @@ const UserInfo = props => {
 
   useEffect(() => {
     const getUser = async () => {
-      const result1 = await userApi.getUserInfo(param)
-      const result2 = await socialApi.getSocial(param)
-      if (result1) {
-        setUserInfo({
-          id: result1.id,
-          email: result1.email,
-          nickName: result1.nickname,
-          introduce: result1.introduce,
-          image: null,
-        })
-      }
-      if (result2) {
-        setSocialInfo({
-          github: result2.github,
-          twitter: result2.twitter,
-          facebook: result2.facebook,
-          homepage: result2.homepage,
-        })
-      }
+      const result1 = userApi.getUserInfo(param)
+      const result2 = socialApi.getSocial(param)
+      Promise.all([result1, result2]).then(result => {
+        if (result) {
+          setUserInfo({
+            id: result[0].id,
+            email: result[0].email,
+            nickName: result[0].nickname,
+            introduce: result[0].introduce,
+            image: null,
+          })
+          setSocialInfo({
+            github: result[1].github,
+            twitter: result[1].twitter,
+            facebook: result[1].facebook,
+            homepage: result[1].homepage,
+          })
+        }
+      })
     }
     getUser()
   }, [param])
