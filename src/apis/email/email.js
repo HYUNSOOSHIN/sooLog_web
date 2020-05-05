@@ -1,11 +1,11 @@
 import api from "../../utils/api"
 import config from "../../configs/app"
-import cookie from "../../utils/cookie"
+import cookie from "react-cookies"
 
 const apiUrl = config.url.api
 
 const getEamilRecieveOption = async () => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.get(`${apiUrl}/email`, {
     token,
@@ -17,7 +17,7 @@ const getEamilRecieveOption = async () => {
 }
 
 const setEamilRecieveOption = async option => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.put(`${apiUrl}/email`, {
     token,

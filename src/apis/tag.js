@@ -1,6 +1,6 @@
 import api from "../utils/api"
 import config from "../configs/app"
-import cookie from "../utils/cookie"
+import cookie from "react-cookies"
 
 const apiUrl = config.url.api
 
@@ -13,7 +13,7 @@ const readAllTagList = async () => {
 }
 
 const createTag = async tagData => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.post(`${apiUrl}/tag`, {
     token,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import cookie from "../utils/cookie"
+import cookie from "react-cookies"
 import userApi from "../apis/user/user"
 import socialApi from "../apis/social/social"
 import emailApi from "../apis/email/email"
@@ -43,7 +43,7 @@ const Setting = () => {
     document.title = "Setting | SOOLOG"
 
     const getUser = async () => {
-      const result1 = await userApi.getUserInfo(cookie.getData("id"))
+      const result1 = await userApi.getUserInfo(cookie.load("id"))
       if (result1) {
         setNickname(result1.nickname)
         setNicknameReplica(result1.nickname)
@@ -52,7 +52,8 @@ const Setting = () => {
         setEmail(result1.email)
         setEmailReplica(result1.email)
       }
-      const result2 = await socialApi.getSocial(cookie.getData("id"))
+
+      const result2 = await socialApi.getSocial(cookie.load("id"))
       if (result2) {
         setGithub(result2.github)
         setTwitter(result2.twitter)

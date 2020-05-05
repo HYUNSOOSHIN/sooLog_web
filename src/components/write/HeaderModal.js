@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 
-import cookie from "../../utils/cookie"
+import cookie from "react-cookies"
 import postApi from "../../apis/post/post"
 import tagApi from "../../apis/tag"
 
@@ -99,7 +99,7 @@ const HeaderModal = ({
 
                 if (result && result2) {
                   alert("포스트가 완료되었습니다.")
-                  window.location.replace(`userInfo/@${cookie.getData("id")}`)
+                  window.location.replace(`userInfo/@${cookie.load("id")}`)
                 } else alert("게시글 업로드에 실패하였습니다.")
               }
             }}

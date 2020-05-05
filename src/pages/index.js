@@ -5,7 +5,7 @@ import { Link as ReachLink } from "@reach/router"
 
 import "../components/layout.css"
 import SEO from "../components/seo"
-import cookie from "../utils/cookie"
+import cookie from "react-cookies"
 
 import HomeComponent from "../components/home/home"
 import NewestComponent from "../components/home/newest"
@@ -29,7 +29,7 @@ const Index = () => {
   }, [])
 
   const loginCheck = async () => {
-    const token = await cookie.getData("token")
+    const token = await cookie.load("token")
     if (token === undefined || token === null) await setIsLogin(false)
     else await setIsLogin(true)
   }
@@ -97,7 +97,7 @@ const Index = () => {
           }}
         />
         <Menu style={{ display: menu ? "flex" : "none" }}>
-          <MenuItemReach to={`/userInfo/@${cookie.getData("id")}`}>
+          <MenuItemReach to={`/userInfo/@${cookie.load("id")}`}>
             내 정보
           </MenuItemReach>
           <Line />
@@ -108,7 +108,9 @@ const Index = () => {
           <MenuItem
             to={"/"}
             onClick={async () => {
-              await cookie.removeAllData()
+              cookie.remove('token')
+              cookie.remove('id')
+              cookie.remove('_id')
               document.location.reload()
             }}
           >

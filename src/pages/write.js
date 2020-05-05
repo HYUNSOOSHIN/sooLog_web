@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import marked from "marked"
 import "../components/layout.css"
-import cookie from '../utils/cookie'
+import cookie from 'react-cookies'
 import postApi from "../apis/post/post"
 import Header from "../components/write/Header"
 import HeaderModal from "../components/write/HeaderModal"
@@ -24,7 +24,7 @@ const Write = () => {
     const getUserId = async() => {
 
       if(window.location.search===''){
-        setPostData({...postData, userId: await cookie.getData('_id')})
+        setPostData({...postData, userId: await cookie.load('_id')})
       } else {
         const result = await postApi.readPost(
           window.location.search.replace("?", "")

@@ -1,6 +1,6 @@
 import api from "../../utils/api"
 import config from "../../configs/app"
-import cookie from "../../utils/cookie"
+import cookie from "react-cookies"
 
 const apiUrl = config.url.api
 
@@ -14,7 +14,7 @@ const getSocial = async (userId) => {
 }
 
 const updateSocial = async (socialData) => {
-    const token = await cookie.getData('token')
+    const token = await cookie.load('token')
 
     const result = await api.put(`${apiUrl}/social`, {
         token,

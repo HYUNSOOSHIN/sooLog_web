@@ -1,11 +1,11 @@
 import api from "../../utils/api"
 import config from "../../configs/app"
-import cookie from "../../utils/cookie"
+import cookie from "react-cookies"
 
 const apiUrl = config.url.api
 
 const getPostList = async () => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.get(`${apiUrl}/postList`, {
     token: token,
@@ -17,7 +17,7 @@ const getPostList = async () => {
 }
 
 const getPostListByUserIndex = async userId => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.get(`${apiUrl}/postList/${userId}`, {
     token: token,
@@ -37,7 +37,7 @@ const readPost = async postId => {
 }
 
 const createPost = async postData => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.post(`${apiUrl}/post`, {
     body: postData,
@@ -50,7 +50,7 @@ const createPost = async postData => {
 }
 
 const updatePost = async postData => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.put(`${apiUrl}/post`, {
     body: postData,
@@ -63,7 +63,7 @@ const updatePost = async postData => {
 }
 
 const deletePost = async postId => {
-  const token = await cookie.getData("token")
+  const token = await cookie.load("token")
 
   const result = await api.delete(`${apiUrl}/post?postId=${postId}`, {
     token: token,

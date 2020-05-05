@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Link } from "gatsby"
 import { Link as ReachLink } from "@reach/router"
 
-import cookie from "../utils/cookie"
+import cookie from "react-cookies"
 
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp"
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
@@ -18,7 +18,7 @@ const Header = ({ menu, setMenu }) => {
   })
 
   const loginCheck = async () => {
-    const token = await cookie.getData("token")
+    const token = await cookie.load("token")
     if (token === undefined || token === null) setIsLogin(false)
     else setIsLogin(true)
   }
@@ -55,7 +55,7 @@ const Header = ({ menu, setMenu }) => {
           }}
         />
         <Menu style={{ display: menu ? "flex" : "none" }}>
-          <MenuItemReach to={`/userInfo/@${cookie.getData("id")}`}>
+          <MenuItemReach to={`/userInfo/@${cookie.load("id")}`}>
             내 정보
           </MenuItemReach>
           <Line />
@@ -65,8 +65,10 @@ const Header = ({ menu, setMenu }) => {
           <MenuItem to={`/setting`}>설정</MenuItem>
           <MenuItem
             to={"/"}
-            onClick={async () => {
-              await cookie.removeAllData()
+            onClick={() => {
+              cookie.remove('token')
+              cookie.remove('id')
+              cookie.remove('_id')
             }}
           >
             로그아웃

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Link as ReachLink } from "@reach/router"
-import cookie from "../../utils/cookie"
 import postApi from "../../apis/post/post"
 // import marked from "marked"
 import Tag from "../tag"

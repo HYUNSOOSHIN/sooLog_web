@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import marked from "marked"
-import cookie from "../utils/cookie"
+import cookie from "react-cookies"
 import postApi from "../apis/post/post"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -48,11 +48,11 @@ const Post = props => {
           <CreatedAt>{post.createdAt}</CreatedAt>
           <Line />
           <BtnContainer>
-            {cookie.getData("_id") === post.writerId ? (
+            {cookie.load("_id") === post.writerId ? (
               <>
                 <Btn to={`/write?${post._id}`}>수정</Btn>
                 <Btn
-                  to={`userInfo/@${cookie.getData("id")}`}
+                  to={`userInfo/@${cookie.load("id")}`}
                   onClick={() => {
                     postApi.deletePost(post._id)
                   }}
