@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { navigate } from "gatsby"
 import styled from "styled-components"
 import cookie from "react-cookies"
 import userApi from "../apis/user/user"
@@ -7,6 +8,7 @@ import emailApi from "../apis/email/email"
 
 import Layout from "../components/layout"
 import Switch from "../components/switch"
+import Loading from "./loading"
 import { SocialItem } from "../components/setting/input"
 
 import SettingsIcon from "@material-ui/icons/Settings"
@@ -15,6 +17,8 @@ import user from "../images/user.png"
 
 const Setting = () => {
   const limitWC = 100
+
+  const [loading, setLoading] = useState(true)
 
   //userinfo 수정
   const [edit, setEdit] = useState(false)
@@ -43,33 +47,34 @@ const Setting = () => {
     document.title = "Setting | SOOLOG"
 
     const getUser = async () => {
-      const result1 = await userApi.getUserInfo(cookie.load("id"))
-      if (result1) {
-        setNickname(result1.nickname)
-        setNicknameReplica(result1.nickname)
-        setIntroduce(result1.introduce || "")
-        setIntroduceReplica(result1.introduce || "")
-        setEmail(result1.email)
-        setEmailReplica(result1.email)
-      }
-
-      const result2 = await socialApi.getSocial(cookie.load("id"))
-      if (result2) {
-        setGithub(result2.github)
-        setTwitter(result2.twitter)
-        setFacebook(result2.facebook)
-        setHomepage(result2.homepage)
-      }
-      const result3 = await emailApi.getEamilRecieveOption()
-      if (result3) {
-        setReplyAlarm(result3.reply)
-        setEventAlarm(result3.event)
-      }
+      const result1 = userApi.getUserInfo(cookie.load("id"))
+      const result2 = socialApi.getSocial(cookie.load("id"))
+      const result3 = emailApi.getEamilRecieveOption()
+      Promise.all([result1, result2, result3])
+        .then(result => {
+          if (result) {
+            setNickname(result[0].nickname)
+            setNicknameReplica(result[0].nickname)
+            setIntroduce(result[0].introduce || "")
+            setIntroduceReplica(result[0].introduce || "")
+            setEmail(result[0].email)
+            setEmailReplica(result[0].email)
+            setGithub(result[1].github)
+            setTwitter(result[1].twitter)
+            setFacebook(result[1].facebook)
+            setHomepage(result[1].homepage)
+            setReplyAlarm(result[2].reply)
+            setEventAlarm(result[2].event)
+          }
+        })
+        .then(() => setLoading(false))
     }
     getUser()
   }, [])
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <Layout>
       <>
         <TitleContainer>
@@ -98,6 +103,7 @@ const Setting = () => {
                       border: "1px solid #cbcbcb",
                       outline: "none",
                     }}
+                    aria-label="nick"
                     type={"text"}
                     value={nickname}
                     onChange={e => setNickname(e.target.value)}
@@ -230,6 +236,7 @@ const Setting = () => {
                     border: "1px solid #dbdbdb",
                     borderRadius: "0.3rem",
                   }}
+                  aria-label="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                 />
@@ -373,7 +380,7 @@ const Setting = () => {
                 const result = await userApi.deleteUser()
                 if (result) {
                   await cookie.removeAllData()
-                  window.location.replace("/")
+                  navigate("/")
                 }
               }
             }}
@@ -540,22 +547,6 @@ const EmailSettingSwitchBoxText = styled.p`
   font-size: 0.8rem;
   font-weight: bold;
   margin: 0;
-`
-const EmailSaveBtn = styled.p`
-  cursor: pointer;
-  user-select: none;
-  width: max-content;
-  padding: 0.3rem;
-  border: 1px solid rgb(75, 80, 87);
-  border-radius: 0.2rem;
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin: 0;
-  margin-top: 0.5rem;
-  &:hover {
-    background-color: rgb(75, 80, 87);
-    color: #fff;
-  }
 `
 const EtcContainer = styled.div`
   margin-top: 4rem;

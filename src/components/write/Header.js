@@ -35,6 +35,7 @@ const Header = ({
         <input
           type="file"
           id="filebtn"
+          aria-label="file"
           style={{ display: "none" }}
           onChange={e => console.log(e.target.files[0])}
         />

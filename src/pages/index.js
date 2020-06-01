@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import styled from "styled-components"
-import { navigate } from "gatsby"
 import { Link } from "@reach/router"
 
 import "../components/layout.css"
@@ -22,6 +21,11 @@ import user from "../images/user.png"
 const Index = () => {
   const [menu, setMenu] = useState(false)
   const [selected, setSelected] = useState(1)
+  const [isToken, setIsToken] = useState(false)
+
+  useEffect(() => {
+    if (cookie.load("token", { path: "/" }) !== undefined) setIsToken(true)
+  }, [])
 
   return (
     <Container onClick={() => setMenu(false)}>
@@ -60,7 +64,7 @@ const Index = () => {
 
       <Content>
         <AvatarView>
-          {cookie.load("token") !== undefined ? (
+          {isToken ? (
             <AvatarBtn
               onClick={e => {
                 e.stopPropagation()
@@ -233,6 +237,7 @@ const Menu = styled.div`
   right: 2rem;
   top: 6.7rem;
   border: 1px solid #000000;
+  z-index: 2;
 `
 const MenuBtn = styled.div`
   cursor: pointer;
@@ -246,17 +251,6 @@ const MenuBtn = styled.div`
   }
 `
 const ReachLink = styled(Link)`
-  cursor: pointer;
-  margin: 0;
-  padding: 0.2rem 0.5rem;
-  text-decoration: none;
-  color: #000000;
-  font-size: 0.8rem;
-  &:hover {
-    color: rgb(137, 85, 246);
-  }
-`
-const MenuItemReach = styled(ReachLink)`
   cursor: pointer;
   margin: 0;
   padding: 0.2rem 0.5rem;

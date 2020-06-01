@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import marked from "marked"
 import "../components/layout.css"
-import cookie from 'react-cookies'
+import cookie from "react-cookies"
 import postApi from "../apis/post/post"
 import Header from "../components/write/Header"
 import HeaderModal from "../components/write/HeaderModal"
@@ -17,20 +17,25 @@ const Write = () => {
     title: "",
     content: "",
     isPrivate: false,
-    userId: null
+    userId: null,
   })
 
   useEffect(() => {
-    const getUserId = async() => {
-
-      if(window.location.search===''){
-        setPostData({...postData, userId: await cookie.load('_id')})
+    const getUserId = async () => {
+      const _id = await cookie.load("_id")
+      if (window.location.search === "") {
+        setPostData(p => ({ ...p, userId: _id }))
       } else {
         const result = await postApi.readPost(
           window.location.search.replace("?", "")
         )
         if (result) {
-          setPostData({...postData, title: result.title, content: result.content, userId: result.writerId})
+          setPostData(p => ({
+            ...p,
+            title: result.title,
+            content: result.content,
+            userId: result.writerId,
+          }))
           document.getElementById("result").innerHTML = marked(result.content)
         }
       }

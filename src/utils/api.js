@@ -1,4 +1,5 @@
 import axios from "axios"
+import { navigate } from "gatsby"
 
 const axiosFunction = method => {
   try {
@@ -17,7 +18,7 @@ const axiosFunction = method => {
           if (err.response.status === 400) {
             return false
           } else if (err.response.status === 403) {
-            window.location.replace("/login")
+            navigate("/login")
             return false
           }
         }
@@ -26,15 +27,9 @@ const axiosFunction = method => {
       const response = result.data
 
       return response
-
-      // if (response.statusCode === 200) {
-      //   return response
-      // } else {
-      //   return false
-      // }
     }
-  } catch (err) {
-    return
+  } finally {
+    console.log("^^")
   }
 }
 

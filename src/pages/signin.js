@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-
+import { navigate } from "gatsby"
 import signinApi from "../apis/sign/signin"
 
 import Avatar from "@material-ui/core/Avatar"
@@ -112,7 +112,7 @@ function SignIn() {
               signData.password = password
               let result = await signinApi.signin(signData)
               if (result) {
-                window.location.replace("/")
+                navigate("/")
               } else alert("아이디 및 비밀번호가 틀렸습니다.")
             }}
           >

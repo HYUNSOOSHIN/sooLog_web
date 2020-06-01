@@ -17,19 +17,19 @@ const Post = props => {
   const [tag, setTag] = useState([])
 
   useEffect(() => {
-    getPost()
-  }, [])
-
-  const getPost = async () => {
-    const result = await postApi.readPost(props.location.state.postId)
-    if (result) {
-      setPost(result)
-      setTag(result.tag)
-      setUser(result.user[0])
-      // content에 마크다운으로 넣음
-      document.getElementById("content").innerHTML = marked(result.content)
+    const getPost = async () => {
+      const result = await postApi.readPost(props.location.state.postId)
+      if (result) {
+        setPost(result)
+        setTag(result.tag)
+        setUser(result.user[0])
+        // content에 마크다운으로 넣음
+        document.getElementById("content").innerHTML = marked(result.content)
+      }
     }
-  }
+
+    getPost()
+  }, [props.location.state.postId])
 
   return (
     <Layout>

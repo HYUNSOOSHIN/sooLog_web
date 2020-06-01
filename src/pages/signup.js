@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-
+import { navigate } from "gatsby"
 import signupApi from "../apis/sign/signup"
 
 import Avatar from "@material-ui/core/Avatar"
@@ -143,7 +143,7 @@ const Signup = () => {
 
                 if (result === true) {
                   alert("회원가입이 완료되었습니다.")
-                  window.location.replace("/")
+                  navigate("/")
                 } else alert(result)
               }
             }}

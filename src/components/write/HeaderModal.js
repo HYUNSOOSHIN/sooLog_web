@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { navigate } from "gatsby"
 import styled from "styled-components"
 
 import cookie from "react-cookies"
@@ -99,7 +100,7 @@ const HeaderModal = ({
 
                 if (result && result2) {
                   alert("포스트가 완료되었습니다.")
-                  window.location.replace(`userInfo/@${cookie.load("id")}`)
+                  navigate(`userInfo/@${cookie.load("id")}`)
                 } else alert("게시글 업로드에 실패하였습니다.")
               }
             }}

@@ -10,15 +10,15 @@ const Post = ({ userId }) => {
   const [tag, setTag] = useState(0)
 
   useEffect(() => {
+    const getData = async () => {
+      const param = userId.replace("@", "")
+  
+      const posts = await postApi.getPostListByUserIndex(param)
+      if (posts) setPostList(posts)
+    }
+
     getData()
-  }, [])
-
-  const getData = async () => {
-    const param = userId.replace("@", "")
-
-    const posts = await postApi.getPostListByUserIndex(param)
-    if (posts) setPostList(posts)
-  }
+  }, [userId])
 
   return (
     <Container>

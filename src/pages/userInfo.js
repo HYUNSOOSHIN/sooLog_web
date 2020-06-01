@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import styled from "styled-components"
 import { Router } from "@reach/router"
-import cookie from "react-cookies"
 import userApi from "../apis/user/user"
 import socialApi from "../apis/social/social"
 
 import Page404 from "../pages/404"
+import Loading from "../pages/loading"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -23,6 +23,7 @@ import LinkIcon from "@material-ui/icons/Link"
 import user from "../images/user.png"
 
 const UserInfo = props => {
+  const [loading, setLoading] = useState(true)
   const [userInfo, setUserInfo] = useState({
     id: "",
     email: "",
@@ -44,23 +45,25 @@ const UserInfo = props => {
     const getUser = async () => {
       const result1 = userApi.getUserInfo(param)
       const result2 = socialApi.getSocial(param)
-      Promise.all([result1, result2]).then(result => {
-        if (result) {
-          setUserInfo({
-            id: result[0].id,
-            email: result[0].email,
-            nickName: result[0].nickname,
-            introduce: result[0].introduce,
-            image: null,
-          })
-          setSocialInfo({
-            github: result[1].github,
-            twitter: result[1].twitter,
-            facebook: result[1].facebook,
-            homepage: result[1].homepage,
-          })
-        }
-      })
+      Promise.all([result1, result2])
+        .then(result => {
+          if (result) {
+            setUserInfo({
+              id: result[0].id,
+              email: result[0].email,
+              nickName: result[0].nickname,
+              introduce: result[0].introduce,
+              image: null,
+            })
+            setSocialInfo({
+              github: result[1].github,
+              twitter: result[1].twitter,
+              facebook: result[1].facebook,
+              homepage: result[1].homepage,
+            })
+          }
+        })
+        .then(() => setLoading(false))
     }
     getUser()
   }, [param])
@@ -84,7 +87,9 @@ const UserInfo = props => {
     }
   }
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <Layout>
       <SEO title={`${userInfo.nickName}'s Info`} />
       <div>
